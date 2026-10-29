@@ -1,4 +1,4 @@
-// NexusBiz Client-Side Engine (Vanilla JavaScript)
+// Global Bizz Hub Client-Side Engine (Vanilla JavaScript)
 (function () {
   'use strict';
 
@@ -36,7 +36,7 @@
     DB.save(window.NEXUS_DATA);
   }
 
-  window.NexusDB = DB;
+  window.GlobalBizzHubDB = DB;
 
   // 2. Helper Utilities
   function checkOpenStatus(hours) {
@@ -310,7 +310,7 @@
     const openStatus = checkOpenStatus(biz.hours);
 
     // Update Page Meta
-    document.title = `${biz.name} - ${cityName}, ${countryName} | NexusBiz Directory`;
+    document.title = `${biz.name} - ${cityName}, ${countryName} | Global Bizz Hub Directory`;
 
     // Populate Fields
     const nameEl = document.getElementById('bizName');
