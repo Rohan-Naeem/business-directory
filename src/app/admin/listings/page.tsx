@@ -1,4 +1,5 @@
 import React from 'react';
+import AdminShell from '@/components/admin/AdminShell';
 import type { Metadata } from 'next';
 import { DirectoryRepository } from '@/lib/data/repository';
 import { AdminListingsClient } from './AdminListingsClient';
@@ -16,6 +17,7 @@ export default async function AdminListingsPage() {
   const businesses = await DirectoryRepository.getAllBusinessesForAdmin('all');
 
   return (
+    <AdminShell returnTo="/admin/listings">
     <div className="space-y-6 max-w-7xl mx-auto">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -38,5 +40,6 @@ export default async function AdminListingsPage() {
 
       <AdminListingsClient initialBusinesses={businesses} />
     </div>
+    </AdminShell>
   );
 }

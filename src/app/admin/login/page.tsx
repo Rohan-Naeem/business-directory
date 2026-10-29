@@ -8,6 +8,8 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [nextPath, setNextPath] = useState('/admin');
+  React.useEffect(() => { try { const n = new URLSearchParams(window.location.search).get('next'); if (n && n.startsWith('/admin') && !n.startsWith('//')) setNextPath(n); } catch {} }, []);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -26,7 +28,7 @@ export default function AdminLoginPage() {
       // Full reload (not client navigation) so the new admin cookie is
       // definitely sent to /admin and the middleware sees it. Client
       // navigation could re-show the login page from cache.
-      window.location.href = '/admin';
+      window.location.href = nextPath;
     } catch (err: any) {
       setError(err.message || 'Login failed');
     } finally {

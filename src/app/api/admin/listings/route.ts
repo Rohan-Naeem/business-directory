@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DirectoryRepository } from '@/lib/data/repository';
+import { isAdminRequest } from '@/lib/admin-api-auth';
 
 export async function PATCH(req: NextRequest) {
+  if (!(await isAdminRequest(req))) return NextResponse.json({ error: 'Admin login required' }, { status: 401 });
   try {
     const body = await req.json();
     const { id, action, status } = body;
@@ -27,6 +29,7 @@ export async function PATCH(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
+  if (!(await isAdminRequest(req))) return NextResponse.json({ error: 'Admin login required' }, { status: 401 });
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');

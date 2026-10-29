@@ -1,31 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { ADMIN_COOKIE, isAdminSession } from '@/lib/admin-auth';
+import { NextResponse } from 'next/server';
 
-// Admin is hidden from the public site: /admin/* requires the admin session
-// cookie set by /api/admin/login. Everyone else is sent to /admin/login.
-export async function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
-  if (!pathname.startsWith('/admin') && !pathname.startsWith('/api/admin')) return NextResponse.next();
-  if (pathname === '/api/admin/login') return NextResponse.next();
-  if (pathname === '/admin/login') {
-    const cookie = req.cookies.get(ADMIN_COOKIE)?.value;
-    if (await isAdminSession(cookie)) {
-      const url = req.nextUrl.clone();
-      url.pathname = '/admin';
-      return NextResponse.redirect(url);
-    }
-    return NextResponse.next();
-  }
-  const cookie = req.cookies.get(ADMIN_COOKIE)?.value;
-  if (await isAdminSession(cookie)) return NextResponse.next();
-  if (pathname.startsWith('/api/')) {
-    return NextResponse.json({ error: 'Admin login required' }, { status: 401 });
-  }
-  const url = req.nextUrl.clone();
-  url.pathname = '/admin/login';
-  return NextResponse.redirect(url);
+// Intentionally a no-op. Admin auth is checked in Node server code only
+// (AdminShell + /api/admin routes), because Vercel Secret environment
+// variables are NOT available to Edge middleware. When the guard lived
+// here, login (Node) succeeded but every sidebar click was rejected by
+// Edge and sent back to /admin/login in a loop. Do NOT re-add an admin
+// check to this file.
+export function middleware() {
+  return NextResponse.next();
 }
-
-export const config = {
-  matcher: ['/admin/:path*', '/api/admin/:path*'],
-};

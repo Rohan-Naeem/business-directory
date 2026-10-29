@@ -1,4 +1,5 @@
 import React from 'react';
+import AdminShell from '@/components/admin/AdminShell';
 import type { Metadata } from 'next';
 import { DirectoryRepository } from '@/lib/data/repository';
 import { AdminReviewsClient } from './AdminReviewsClient';
@@ -17,6 +18,7 @@ export default async function AdminReviewsPage() {
   ]);
 
   return (
+    <AdminShell returnTo="/admin/reviews">
     <div className="space-y-6 max-w-7xl mx-auto">
       <div>
         <h1 className="text-2xl font-extrabold text-[#172B45] tracking-tight">
@@ -32,5 +34,6 @@ export default async function AdminReviewsPage() {
         businesses={businesses}
       />
     </div>
+    </AdminShell>
   );
 }

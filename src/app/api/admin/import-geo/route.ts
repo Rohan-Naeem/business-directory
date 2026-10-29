@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DirectoryRepository } from '@/lib/data/repository';
+import { isAdminRequest } from '@/lib/admin-api-auth';
 import { GEOGRAPHIC_DATA_PACKAGES } from '@/lib/data/geo-data';
 
 export async function POST(req: NextRequest) {
+  if (!(await isAdminRequest(req))) return NextResponse.json({ error: 'Admin login required' }, { status: 401 });
   try {
     const body = await req.json().catch(() => ({}));
     const targetRegionSlug = body.region_slug; // optional: import specific region or all

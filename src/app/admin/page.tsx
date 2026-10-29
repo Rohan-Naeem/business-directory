@@ -1,4 +1,5 @@
 import React from 'react';
+import AdminShell from '@/components/admin/AdminShell';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { DirectoryRepository } from '@/lib/data/repository';
@@ -31,6 +32,7 @@ export default async function AdminDashboardPage() {
   ]);
 
   return (
+    <AdminShell returnTo="/admin">
     <div className="space-y-8 max-w-7xl mx-auto">
       {/* Title */}
       <div>
@@ -197,5 +199,6 @@ export default async function AdminDashboardPage() {
       </div>
 
     </div>
+    </AdminShell>
   );
 }
