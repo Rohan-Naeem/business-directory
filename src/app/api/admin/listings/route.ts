@@ -3,10 +3,14 @@ import { DirectoryRepository } from '@/lib/data/repository';
 import { isAdminRequest } from '@/lib/admin-api-auth';
 
 export async function PATCH(req: NextRequest) {
-  if (!(await isAdminRequest(req))) return NextResponse.json({ error: 'Admin login required' }, { status: 401 });
+  try {
+    if (!(await isAdminRequest(req))) return NextResponse.json({ error: 'Admin login required - please login to admin again' }, { status: 401 });
+  } catch (e: any) {
+    return NextResponse.json({ error: 'Admin check failed: ' + (e?.message || 'unknown') }, { status: 500 });
+  }
   try {
     const body = await req.json();
-    const { id, action, status } = body;
+    const { id, action, status, slug } = body;
 
     if (!id) {
       return NextResponse.json({ error: 'Business ID is required' }, { status: 400 });
@@ -18,8 +22,9 @@ export async function PATCH(req: NextRequest) {
     }
 
     if (action === 'update_status' && status) {
-      const ok = await DirectoryRepository.updateBusinessStatus(id, status);
-      return NextResponse.json({ success: ok, message: `Status updated to ${status}` });
+      const ok = await DirectoryRepository.updateBusinessStatus(id, status, slug);
+      if (!ok) return NextResponse.json({ error: 'Status update failed in database. Check SUPABASE_SERVICE_ROLE_KEY in Vercel - an anon key cannot approve pending rows.' }, { status: 500 });
+      return NextResponse.json({ success: true, message: `Status updated to ${status}` });
     }
 
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
@@ -29,7 +34,11 @@ export async function PATCH(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  if (!(await isAdminRequest(req))) return NextResponse.json({ error: 'Admin login required' }, { status: 401 });
+  try {
+    if (!(await isAdminRequest(req))) return NextResponse.json({ error: 'Admin login required - please login to admin again' }, { status: 401 });
+  } catch (e: any) {
+    return NextResponse.json({ error: 'Admin check failed: ' + (e?.message || 'unknown') }, { status: 500 });
+  }
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');

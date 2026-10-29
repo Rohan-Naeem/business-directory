@@ -36,14 +36,14 @@ export const AdminListingsClient: React.FC<AdminListingsClientProps> = ({
     return matchesSearch && matchesStatus;
   });
 
-  const handleUpdateStatus = async (id: string, status: 'approved' | 'rejected' | 'pending') => {
+  const handleUpdateStatus = async (id: string, status: 'approved' | 'rejected' | 'pending', slug?: string) => {
     try {
       const res = await fetch('/api/admin/listings', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, action: 'update_status', status }),
+        body: JSON.stringify({ id, action: 'update_status', status, slug }),
       });
-      if (!res.ok) throw new Error('Status update failed');
+      if (!res.ok) { const body = await res.json().catch(() => ({})); throw new Error(body.error || 'Status update failed'); }
 
       setBusinesses(prev => prev.map(b => b.id === id ? { ...b, status } : b));
       setFeedback(`Listing status updated to ${status}.`);
@@ -223,7 +223,7 @@ export const AdminListingsClient: React.FC<AdminListingsClientProps> = ({
                       {biz.status !== 'approved' && (
                         <button
                           type="button"
-                          onClick={() => handleUpdateStatus(biz.id, 'approved')}
+                          onClick={() => handleUpdateStatus(biz.id, 'approved', biz.slug)}
                           className="p-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-colors cursor-pointer"
                           title="Approve"
                         >
@@ -234,7 +234,7 @@ export const AdminListingsClient: React.FC<AdminListingsClientProps> = ({
                       {biz.status !== 'rejected' && (
                         <button
                           type="button"
-                          onClick={() => handleUpdateStatus(biz.id, 'rejected')}
+                          onClick={() => handleUpdateStatus(biz.id, 'rejected', biz.slug)}
                           className="p-1.5 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 transition-colors cursor-pointer"
                           title="Reject"
                         >

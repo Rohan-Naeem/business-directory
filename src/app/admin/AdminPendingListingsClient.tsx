@@ -16,16 +16,16 @@ export const AdminPendingListingsClient: React.FC<AdminPendingListingsClientProp
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
 
-  const handleAction = async (id: string, status: 'approved' | 'rejected') => {
+  const handleAction = async (id: string, status: 'approved' | 'rejected', slug?: string) => {
     setActionLoading(id);
     try {
       const res = await fetch('/api/admin/listings', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, action: 'update_status', status }),
+        body: JSON.stringify({ id, action: 'update_status', status, slug }),
       });
 
-      if (!res.ok) throw new Error('Action failed');
+      if (!res.ok) { const body = await res.json().catch(() => ({})); throw new Error(body.error || 'Action failed'); }
 
       setPending(prev => prev.filter(b => b.id !== id));
       setFeedback(`Listing successfully marked as ${status}.`);
@@ -83,7 +83,7 @@ export const AdminPendingListingsClient: React.FC<AdminPendingListingsClientProp
                       <button
                         type="button"
                         disabled={actionLoading === biz.id}
-                        onClick={() => handleAction(biz.id, 'approved')}
+                        onClick={() => handleAction(biz.id, 'approved', biz.slug)}
                         className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#10B981] hover:bg-[#059669] text-white font-bold text-xs transition-colors cursor-pointer"
                         title="Approve and Publish"
                       >
@@ -94,7 +94,7 @@ export const AdminPendingListingsClient: React.FC<AdminPendingListingsClientProp
                       <button
                         type="button"
                         disabled={actionLoading === biz.id}
-                        onClick={() => handleAction(biz.id, 'rejected')}
+                        onClick={() => handleAction(biz.id, 'rejected', biz.slug)}
                         className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold text-xs transition-colors cursor-pointer"
                         title="Reject Listing"
                       >

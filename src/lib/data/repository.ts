@@ -516,13 +516,26 @@ export class DirectoryRepository {
     return inMemory;
   }
 
-  static async updateBusinessStatus(id: string, status: 'approved' | 'rejected' | 'pending'): Promise<boolean> {
+  static async updateBusinessStatus(id: string, status: 'approved' | 'rejected' | 'pending', slug?: string): Promise<boolean> {
     const store = getStore();
     const biz = store.businesses.find(b => b.id === id);
     if (biz) { biz.status = status; biz.updated_at = new Date().toISOString(); }
+    // In-memory-only business on another instance: find its Supabase row by slug.
+    if (!biz && slug && isSupabaseConfigured()) {
+      const client = getSupabaseServerClient();
+      if (client) {
+        const { data } = await client.from('businesses').select('id').eq('slug', slug).maybeSingle();
+        if (data?.id) return DirectoryRepository.updateBusinessStatus(data.id, status);
+      }
+    }
     if (isSupabaseConfigured() && isUuid(id)) {
       const client = getSupabaseServerClient();
-      if (client) { const { error } = await client.from('businesses').update({ status }).eq('id', id); if (error) { console.error('Supabase status update failed:', error.message); return !!biz; } return true; }
+      if (client) {
+        const { data, error } = await client.from('businesses').update({ status }).eq('id', id).select('id').maybeSingle();
+        if (error) { console.error('Supabase status update failed:', error.message); return false; }
+        if (!data?.id) { console.error('Supabase status update failed: no row updated - check SUPABASE_SERVICE_ROLE_KEY, anon key cannot update pending rows due to RLS'); return false; }
+        return true;
+      }
     }
     return !!biz;
   }
