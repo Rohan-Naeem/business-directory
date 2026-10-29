@@ -13,6 +13,7 @@ import {
   SlidersHorizontal 
 } from 'lucide-react';
 import { Business } from '@/lib/types';
+import { updateListingStatusAction } from '../actions';
 
 interface AdminListingsClientProps {
   initialBusinesses: Business[];
@@ -38,13 +39,7 @@ export const AdminListingsClient: React.FC<AdminListingsClientProps> = ({
 
   const handleUpdateStatus = async (id: string, status: 'approved' | 'rejected' | 'pending', slug?: string) => {
     try {
-      const res = await fetch('/api/admin/listings', {
-        method: 'PATCH',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, action: 'update_status', status, slug }),
-      });
-      if (!res.ok) { const body = await res.json().catch(() => ({})); throw new Error(body.error || 'Status update failed'); }
+      await updateListingStatusAction(id, status, slug);
 
       setBusinesses(prev => prev.map(b => b.id === id ? { ...b, status } : b));
       setFeedback(`Listing status updated to ${status}.`);

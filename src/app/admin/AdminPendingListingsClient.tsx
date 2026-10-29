@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Check, X, ExternalLink, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Business } from '@/lib/types';
+import { updateListingStatusAction } from './actions';
 
 interface AdminPendingListingsClientProps {
   initialPending: Business[];
@@ -19,14 +20,7 @@ export const AdminPendingListingsClient: React.FC<AdminPendingListingsClientProp
   const handleAction = async (id: string, status: 'approved' | 'rejected', slug?: string) => {
     setActionLoading(id);
     try {
-      const res = await fetch('/api/admin/listings', {
-        method: 'PATCH',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, action: 'update_status', status, slug }),
-      });
-
-      if (!res.ok) { const body = await res.json().catch(() => ({})); throw new Error(body.error || 'Action failed'); }
+      await updateListingStatusAction(id, status, slug);
 
       setPending(prev => prev.filter(b => b.id !== id));
       setFeedback(`Listing successfully marked as ${status}.`);
