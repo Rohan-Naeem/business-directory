@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | NexusBiz Directory',
-  description: 'NexusBiz privacy policy outlining information collection, usage, and consumer rights.',
+  title: 'Privacy Policy | Global Bizz Hub Directory',
+  description: 'Global Bizz Hub privacy policy outlining information collection, usage, and consumer rights.',
 };
 
 export default function PrivacyPage() {
@@ -23,7 +23,7 @@ export default function PrivacyPage() {
 
           <div className="text-sm text-slate-600 leading-relaxed space-y-4">
             <p>
-              NexusBiz values user privacy. This policy outlines how commercial business information, customer reviews, and visitor interactions are collected and managed.
+              Global Bizz Hub values user privacy. This policy outlines how commercial business information, customer reviews, and visitor interactions are collected and managed.
             </p>
 
             <h2 className="text-lg font-bold text-[#172B45] pt-2">
@@ -37,7 +37,7 @@ export default function PrivacyPage() {
               2. Cookies & Analytics
             </h2>
             <p className="text-xs">
-              NexusBiz uses essential session cookies to maintain user authentication and anonymous aggregated analytics to evaluate search performance and website responsiveness.
+              Global Bizz Hub uses essential session cookies to maintain user authentication and anonymous aggregated analytics to evaluate search performance and website responsiveness.
             </p>
 
             <h2 className="text-lg font-bold text-[#172B45] pt-2">

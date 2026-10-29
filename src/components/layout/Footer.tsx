@@ -12,14 +12,14 @@ export const Footer: React.FC = () => {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-3">
-              <Image src="/logo.svg" alt="NexusBiz logo" width={40} height={40} className="w-10 h-10" />
+              <Image src="/logo.svg" alt="Global Bizz Hub logo" width={40} height={40} className="w-10 h-10" />
               <span className="text-2xl font-bold tracking-tight text-white flex items-center gap-1.5">
-                Nexus<span className="text-[#10B981]">Biz</span>
+                Global<span className="text-[#10B981]">Bizz Hub</span>
               </span>
             </Link>
             
             <p className="text-sm leading-relaxed text-slate-400 max-w-sm">
-              NexusBiz is an authoritative, multi-country business directory platform connecting customers with verified services, healthcare providers, legal advisors, IT firms, and local enterprises across Pakistan, the United States, and the United Kingdom.
+              Global Bizz Hub is an authoritative, multi-country business directory platform connecting customers with verified services, healthcare providers, legal advisors, IT firms, and local enterprises across Pakistan, the United States, and the United Kingdom.
             </p>
 
             <div className="pt-2 flex flex-col gap-2 text-xs text-slate-400">
@@ -140,7 +140,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <Link href="/about" className="hover:text-white transition-colors">
-                  About NexusBiz
+                  About Global Bizz Hub
                 </Link>
               </li>
               <li>
@@ -176,7 +176,7 @@ export const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="mt-14 pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>
-            &copy; {new Date().getFullYear()} NexusBiz International Directory. All rights reserved.
+            &copy; {new Date().getFullYear()} Global Bizz Hub International Directory. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="hover:text-slate-300">Privacy</Link>

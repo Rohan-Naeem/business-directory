@@ -14,8 +14,8 @@ const FAQS: FaqItem[] = [
     answer: 'You can use the interactive search bar at the top of the homepage or the dedicated Search page. Select your country (Pakistan, USA, or UK), pick your target city from the dynamically updated dropdown, and type the service or company name you are looking for.',
   },
   {
-    question: 'Is listing my business on NexusBiz free?',
-    answer: 'Yes! Standard business listing submissions on NexusBiz are 100% free. Once you submit your details through our multi-step form, our editorial moderation team reviews the information before publishing it live on the directory.',
+    question: 'Is listing my business on Global Bizz Hub free?',
+    answer: 'Yes! Standard business listing submissions on Global Bizz Hub are 100% free. Once you submit your details through our multi-step form, our editorial moderation team reviews the information before publishing it live on the directory.',
   },
   {
     question: 'How does business verification work?',
@@ -31,7 +31,7 @@ const FAQS: FaqItem[] = [
   },
   {
     question: 'Can more countries and cities be added to the directory?',
-    answer: 'NexusBiz is architected as an expandable multi-country platform. We currently support Pakistan, the United States, and the United Kingdom, and our geographic management system enables seamless expansion to new territories and cities.',
+    answer: 'Global Bizz Hub is architected as an expandable multi-country platform. We currently support Pakistan, the United States, and the United Kingdom, and our geographic management system enables seamless expansion to new territories and cities.',
   },
 ];
 

@@ -423,7 +423,7 @@ export const BusinessProfileClient: React.FC<BusinessProfileClientProps> = ({
               <span>Listing Integrity Guarantee</span>
             </div>
             <p className="leading-relaxed">
-              NexusBiz requires verified phone numbers and addresses for commercial publication. Notice an outdated field or relocated office?
+              Global Bizz Hub requires verified phone numbers and addresses for commercial publication. Notice an outdated field or relocated office?
             </p>
             <button
               type="button"

@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 
 export const metadata: Metadata = {
-  title: 'Terms & Conditions | NexusBiz Directory',
-  description: 'Terms and conditions governing the use of the NexusBiz multi-country business directory.',
+  title: 'Terms & Conditions | Global Bizz Hub Directory',
+  description: 'Terms and conditions governing the use of the Global Bizz Hub multi-country business directory.',
 };
 
 export default function TermsPage() {
@@ -23,7 +23,7 @@ export default function TermsPage() {
 
           <div className="text-sm text-slate-600 leading-relaxed space-y-4">
             <p>
-              By accessing or submitting commercial profiles to NexusBiz, you agree to comply with and be bound by the following Terms of Service.
+              By accessing or submitting commercial profiles to Global Bizz Hub, you agree to comply with and be bound by the following Terms of Service.
             </p>
 
             <h2 className="text-lg font-bold text-[#172B45] pt-2">
@@ -37,14 +37,14 @@ export default function TermsPage() {
               2. Editorial Moderation & Discretion
             </h2>
             <p className="text-xs">
-              NexusBiz reserves the full right to reject, modify, suspend, or permanently remove any listing, review, or image that violates our editorial policies, infringes third-party intellectual property, or promotes deceptive practices.
+              Global Bizz Hub reserves the full right to reject, modify, suspend, or permanently remove any listing, review, or image that violates our editorial policies, infringes third-party intellectual property, or promotes deceptive practices.
             </p>
 
             <h2 className="text-lg font-bold text-[#172B45] pt-2">
               3. Limitation of Liability
             </h2>
             <p className="text-xs">
-              NexusBiz acts solely as an informational directory and search platform. NexusBiz does not endorse, guarantee, or assume liability for the direct commercial products, services, advice, or transactions provided by listed third-party businesses.
+              Global Bizz Hub acts solely as an informational directory and search platform. Global Bizz Hub does not endorse, guarantee, or assume liability for the direct commercial products, services, advice, or transactions provided by listed third-party businesses.
             </p>
           </div>
         </div>

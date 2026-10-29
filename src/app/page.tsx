@@ -39,7 +39,7 @@ export default async function HomePage() {
         '@type': 'WebSite',
         '@id': 'https://nexusbiz.directory/#website',
         url: 'https://nexusbiz.directory',
-        name: 'NexusBiz Business Directory',
+        name: 'Global Bizz Hub Business Directory',
         description: 'Comprehensive Multi-Country Business Directory for Pakistan, USA, and UK.',
         potentialAction: {
           '@type': 'SearchAction',
@@ -53,7 +53,7 @@ export default async function HomePage() {
       {
         '@type': 'Organization',
         '@id': 'https://nexusbiz.directory/#organization',
-        name: 'NexusBiz International',
+        name: 'Global Bizz Hub',
         url: 'https://nexusbiz.directory',
         logo: 'https://nexusbiz.directory/logo.svg',
         sameAs: [],
@@ -230,7 +230,7 @@ export default async function HomePage() {
               Simple & Transparent
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#172B45] tracking-tight mt-1 mb-2">
-              How NexusBiz Works
+              How Global Bizz Hub Works
             </h2>
             <p className="text-xs sm:text-sm text-slate-500">
               A streamlined experience for customers looking for quality services and business owners seeking visibility.
@@ -259,7 +259,7 @@ export default async function HomePage() {
               Frequently Asked Questions
             </h2>
             <p className="text-xs sm:text-sm text-slate-500">
-              Everything you need to know about searching, verification, and listing your business on NexusBiz.
+              Everything you need to know about searching, verification, and listing your business on Global Bizz Hub.
             </p>
           </div>
 

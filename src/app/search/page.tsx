@@ -25,7 +25,7 @@ export async function generateMetadata({ searchParams }: SearchPageProps): Promi
 
   return {
     title,
-    description: `Search and find verified businesses, clinics, legal experts, and services ${city} ${country} on NexusBiz Directory.`,
+    description: `Search and find verified businesses, clinics, legal experts, and services ${city} ${country} on Global Bizz Hub Directory.`,
     robots: {
       // Prevent indexing of duplicate filtered query combinations
       index: !params.q && !params.sort,

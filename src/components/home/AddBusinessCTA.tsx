@@ -15,7 +15,7 @@ export const AddBusinessCTA: React.FC = () => {
         </span>
 
         <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-4 leading-tight">
-          List Your Business on the International Nexus Directory
+          List Your Business on the Global Bizz Hub
         </h2>
 
         <p className="text-sm sm:text-base text-emerald-100/90 leading-relaxed mb-6">
