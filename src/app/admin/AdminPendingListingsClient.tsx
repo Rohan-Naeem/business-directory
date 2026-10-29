@@ -21,6 +21,7 @@ export const AdminPendingListingsClient: React.FC<AdminPendingListingsClientProp
     try {
       const res = await fetch('/api/admin/listings', {
         method: 'PATCH',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, action: 'update_status', status, slug }),
       });

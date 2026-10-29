@@ -43,6 +43,7 @@ export const AdminGeoImporterClient: React.FC<AdminGeoImporterClientProps> = ({
     try {
       const res = await fetch('/api/admin/import-geo', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ region_slug: regionSlug }),
       });

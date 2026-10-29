@@ -25,6 +25,7 @@ export const AdminReviewsClient: React.FC<AdminReviewsClientProps> = ({
     try {
       const res = await fetch('/api/admin/reviews', {
         method: 'PATCH',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, status }),
       });

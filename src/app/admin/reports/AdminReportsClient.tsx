@@ -22,6 +22,7 @@ export const AdminReportsClient: React.FC<AdminReportsClientProps> = ({
     try {
       const res = await fetch('/api/admin/reports', {
         method: 'PATCH',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, status }),
       });
