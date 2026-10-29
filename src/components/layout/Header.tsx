@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { 
   Search, 
   Menu, 
@@ -13,17 +13,46 @@ import {
   Globe2, 
   Layers, 
   User,
-  ArrowRight
+  ArrowRight,
+  LogOut
 } from 'lucide-react';
 import { CategoryIcon } from '../ui/CategoryIcon';
 import { getSupabaseClient } from '@/lib/supabase/client';
+import { DeleteAccountButton } from '@/components/account/DeleteAccountButton';
 
 export const Header: React.FC = () => {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [directoriesOpen, setDirectoriesOpen] = useState(false);
+  const router = useRouter();
   const [authUser, setAuthUser] = useState<{ name: string; email: string; avatarUrl?: string } | null>(null);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [myBusinesses, setMyBusinesses] = useState<any[]>([]);
+  const [myBizLoading, setMyBizLoading] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
+
+  async function handleLogout() {
+    const supabase = getSupabaseClient();
+    await supabase?.auth.signOut();
+    setAuthUser(null); setProfileOpen(false); setMyBusinesses([]);
+    router.push('/'); router.refresh();
+  }
+
+  // Load this user's businesses when the profile menu opens.
+  useEffect(() => {
+    if (!profileOpen || !authUser) return;
+    const supabase = getSupabaseClient();
+    if (!supabase) return;
+    setMyBizLoading(true);
+    supabase.auth.getSession().then(async ({ data }) => {
+      const token = data.session?.access_token;
+      if (!token) { setMyBizLoading(false); return; }
+      const res = await fetch('/api/my-businesses', { headers: { Authorization: `Bearer ${token}` } });
+      const body = await res.json().catch(() => ({}));
+      setMyBusinesses(body.businesses || []); setMyBizLoading(false);
+    });
+  }, [profileOpen, authUser]);
 
   // Logged-in users see their profile avatar, not Login / Sign Up.
   useEffect(() => {
@@ -60,10 +89,14 @@ export const Header: React.FC = () => {
     setMobileMenuOpen(false);
     setCategoriesOpen(false);
     setDirectoriesOpen(false);
+    setProfileOpen(false);
   }, [pathname]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setProfileOpen(false);
+      }
       if (catDropdownRef.current && !catDropdownRef.current.contains(event.target as Node)) {
         setCategoriesOpen(false);
       }
@@ -254,21 +287,55 @@ export const Header: React.FC = () => {
           {/* Desktop Right Action Area */}
           <div className="hidden lg:flex items-center gap-3">
             {authUser ? (
-              <Link
-                href="/dashboard"
-                title={authUser.name}
-                className="flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-[#065F46] px-2 py-1 rounded-lg hover:bg-slate-50 transition-colors"
-              >
-                {authUser.avatarUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={authUser.avatarUrl} alt={authUser.name} className="w-10 h-10 rounded-full object-cover border border-slate-200" />
-                ) : (
-                  <span className="w-10 h-10 rounded-full bg-[#065F46] text-white flex items-center justify-center text-base font-bold">
-                    {authUser.name.charAt(0).toUpperCase()}
-                  </span>
+              <div className="relative" ref={profileRef}>
+                <button
+                  type="button"
+                  onClick={() => setProfileOpen(!profileOpen)}
+                  title={authUser.name}
+                  className="flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-[#065F46] px-2 py-1 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"
+                  aria-expanded={profileOpen}
+                >
+                  {authUser.avatarUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={authUser.avatarUrl} alt={authUser.name} className="w-10 h-10 rounded-full object-cover border border-slate-200" />
+                  ) : (
+                    <span className="w-10 h-10 rounded-full bg-[#065F46] text-white flex items-center justify-center text-base font-bold">
+                      {authUser.name.charAt(0).toUpperCase()}
+                    </span>
+                  )}
+                  <span className="max-w-[140px] truncate">{authUser.name}</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${profileOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {profileOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden z-50">
+                    <div className="px-4 py-3 border-b border-slate-100">
+                      <div className="text-sm font-bold text-[#172B45] truncate">{authUser.name}</div>
+                      <div className="text-xs text-slate-500 truncate">{authUser.email}</div>
+                    </div>
+                    <Link href="/dashboard" className="block px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">My Dashboard</Link>
+                    <div className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">My Businesses</div>
+                    <div className="max-h-56 overflow-y-auto">
+                      {myBizLoading ? (
+                        <div className="px-4 py-2 text-xs text-slate-500">Loading...</div>
+                      ) : myBusinesses.length === 0 ? (
+                        <div className="px-4 py-2 text-xs text-slate-500">No business listed yet.</div>
+                      ) : myBusinesses.slice(0, 5).map((biz: any) => (
+                        <Link key={biz.id} href={`/business/${biz.slug}`} className="flex items-center justify-between px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">
+                          <span className="truncate">{biz.name}</span>
+                          <span className="ml-2 shrink-0 text-[10px] font-bold uppercase text-slate-500">{biz.status}</span>
+                        </Link>
+                      ))}
+                    </div>
+                    <Link href="/dashboard" className="block px-4 py-2 text-xs font-bold text-[#065F46] hover:bg-slate-50 border-t border-slate-100">View all my businesses</Link>
+                    <div className="border-t border-slate-100">
+                      <button type="button" onClick={handleLogout} className="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer">
+                        <LogOut className="w-4 h-4" /> Logout
+                      </button>
+                      <DeleteAccountButton />
+                    </div>
+                  </div>
                 )}
-                <span className="max-w-[140px] truncate">{authUser.name}</span>
-              </Link>
+              </div>
             ) : (
               <>
                 <Link
@@ -385,6 +452,10 @@ export const Header: React.FC = () => {
 
           <div className="mt-6 pt-5 border-t border-slate-200 flex flex-col gap-3">
             {authUser ? (
+              <>
+              <Link href="/dashboard" className="w-full text-center py-2.5 px-4 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition-colors">My Businesses & Dashboard</Link>
+              <button type="button" onClick={handleLogout} className="w-full text-center py-2.5 px-4 rounded-xl bg-[#065F46] text-white font-semibold text-sm">Logout</button>
+              <div className="w-full text-center py-2.5 px-4 rounded-xl border border-rose-200 text-rose-600 font-semibold text-sm"><DeleteAccountButton className="w-full text-center text-sm font-semibold text-rose-600" /></div>
               <Link
                 href="/dashboard"
                 className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition-colors"
@@ -399,6 +470,7 @@ export const Header: React.FC = () => {
                 )}
                 {authUser.name}
               </Link>
+              </>
             ) : (
               <>
                 <Link

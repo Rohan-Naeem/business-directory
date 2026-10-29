@@ -168,6 +168,8 @@ export const AddBusinessForm: React.FC<AddBusinessFormProps> = ({
     setIsSubmitting(true);
 
     try {
+      const supabase = getSupabaseClient();
+      const { data: sessionData } = supabase ? await supabase.auth.getSession() : { data: null };
       const payload = {
         name: name.trim(),
         category_id: categoryId,
@@ -179,6 +181,7 @@ export const AddBusinessForm: React.FC<AddBusinessFormProps> = ({
         postal_code: postalCode.trim() || undefined,
         phone: phone.trim(),
         email: email.trim(),
+        user_id: sessionData?.session?.user?.id,
         website: website.trim() || undefined,
         whatsapp: whatsapp.trim() || undefined,
         short_description: shortDesc.trim(),

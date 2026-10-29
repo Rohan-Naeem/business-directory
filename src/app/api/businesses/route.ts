@@ -19,6 +19,7 @@ const businessSubmissionSchema = z.object({
   description: z.string().min(30, 'Detailed description must be at least 30 characters'),
   cover_image_url: z.string().url().optional().or(z.literal('')),
   logo_url: z.string().url().optional().or(z.literal('')),
+  user_id: z.string().optional(),
   hours: z.array(z.object({
     day_of_week: z.number().int().min(0).max(6),
     opens_at: z.string(),
@@ -80,6 +81,7 @@ export async function POST(req: NextRequest) {
       description: validated.description,
       cover_image_url: validated.cover_image_url || undefined,
       logo_url: validated.logo_url || undefined,
+      user_id: validated.user_id || undefined,
       hours: validated.hours,
     });
 

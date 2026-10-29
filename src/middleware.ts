@@ -6,7 +6,16 @@ import { ADMIN_COOKIE, isAdminSession } from '@/lib/admin-auth';
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   if (!pathname.startsWith('/admin') && !pathname.startsWith('/api/admin')) return NextResponse.next();
-  if (pathname === '/admin/login' || pathname === '/api/admin/login') return NextResponse.next();
+  if (pathname === '/api/admin/login') return NextResponse.next();
+  if (pathname === '/admin/login') {
+    const cookie = req.cookies.get(ADMIN_COOKIE)?.value;
+    if (await isAdminSession(cookie)) {
+      const url = req.nextUrl.clone();
+      url.pathname = '/admin';
+      return NextResponse.redirect(url);
+    }
+    return NextResponse.next();
+  }
   const cookie = req.cookies.get(ADMIN_COOKIE)?.value;
   if (await isAdminSession(cookie)) return NextResponse.next();
   if (pathname.startsWith('/api/')) {

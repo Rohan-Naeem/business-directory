@@ -197,6 +197,7 @@ async function persistBusinessToSupabase(data: any, slug: string): Promise<strin
       category_id: categoryId, subcategory_id: subcategoryId, country_id: countryId, region_id: regionId, city_id: cityId,
       address: data.address, postal_code: data.postal_code || null, phone: data.phone, email: data.email,
       website: data.website || null, whatsapp: data.whatsapp || null, logo_url: data.logo_url || null, cover_image_url: data.cover_image_url || null,
+      user_id: (data as any).user_id || null,
       status: 'pending', is_featured: false, is_verified: false, rating: 0, review_count: 0,
     }).select('id').single();
     if (error || !created?.id) { console.error('Supabase business insert failed:', error?.message); return null; }
