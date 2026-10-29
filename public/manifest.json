@@ -1,0 +1,16 @@
+{
+  "name": "NexusBiz Directory",
+  "short_name": "NexusBiz",
+  "description": "Global verified business directory and B2B/B2C discovery platform across Pakistan, USA, and UK.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#065F46",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

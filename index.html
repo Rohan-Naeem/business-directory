@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusBiz — Discover Trusted Businesses Across Pakistan, USA & UK</title>
+  <meta name="description" content="Discover verified companies, medical practices, legal counsel, technology leaders, and local stores in Pakistan, the United States, and the United Kingdom.">
+  <link rel="canonical" href="https://nexusbiz.directory/">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-badge">NB</span>
+        NexusBiz
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="search.html" class="nav-link">Search</a></li>
+          <li class="dropdown">
+            <a href="directories.html" class="nav-link">Directories ▾</a>
+            <div class="dropdown-menu">
+              <a href="search.html?country=cnt-pk" class="dropdown-item"><span>🇵🇰</span> Pakistan Directory</a>
+              <a href="search.html?country=cnt-us" class="dropdown-item"><span>🇺🇸</span> United States Directory</a>
+              <a href="search.html?country=cnt-gb" class="dropdown-item"><span>🇬🇧</span> United Kingdom Directory</a>
+              <div style="border-top:1px solid var(--border); margin:4px 0;"></div>
+              <a href="directories.html" class="dropdown-item" style="font-weight:600; color:var(--primary);">Explore All Locations →</a>
+            </div>
+          </li>
+          <li><a href="directories.html" class="nav-link">Categories</a></li>
+          <li><a href="admin.html" class="nav-link" style="color:var(--slate);">Admin Panel</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="add-business.html" class="btn btn-action btn-sm">+ Add Business</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECTION A: HERO -->
+  <section class="hero-section">
+    <div class="container hero-content">
+      <div class="hero-pill">✨ Global Verified Business Directory</div>
+      <h1 class="hero-title">Discover Trusted Businesses <span>Near You</span></h1>
+      <p class="hero-subtitle">Connect with verified corporations, healthcare clinics, software houses, and licensed professionals across Pakistan, USA, and the UK.</p>
+
+      <form action="search.html" method="GET" class="hero-search-box" role="search" aria-label="Search businesses">
+        <div class="search-field search-field-keyword">
+          <span class="search-field-icon" aria-hidden="true">🔍</span>
+          <input type="text" name="q" placeholder="Business name, service, or keyword..." autocomplete="off" aria-label="Business name, service, or keyword">
+        </div>
+        <div class="search-field search-field-category">
+          <span class="search-field-icon" aria-hidden="true">📂</span>
+          <select id="heroCategory" name="category" aria-label="Select Category">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+        <div class="search-field search-field-location">
+          <span class="search-field-icon" aria-hidden="true">📍</span>
+          <select id="heroLocation" name="country" aria-label="Select Country">
+            <option value="">All Countries</option>
+          </select>
+        </div>
+        <button type="submit" class="hero-search-btn">
+          <svg class="search-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span>Search</span>
+        </button>
+      </form>
+
+      <div class="hero-quick-tags">
+        <span>Popular searches:</span>
+        <a href="search.html?q=hospital" class="hero-quick-tag">Hospitals</a>
+        <a href="search.html?q=software" class="hero-quick-tag">Software Companies</a>
+        <a href="search.html?q=bank" class="hero-quick-tag">Banks</a>
+        <a href="search.html?country=cnt-pk&city=cty-pk-lhr" class="hero-quick-tag">Lahore</a>
+        <a href="search.html?country=cnt-us&city=cty-us-nyc" class="hero-quick-tag">New York</a>
+        <a href="search.html?country=cnt-gb&city=cty-gb-lon" class="hero-quick-tag">London</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION B: TOP LISTINGS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Featured Business Listings</h2>
+          <p class="section-desc">Hand-curated, verified enterprises known for excellence, reliability, and customer satisfaction.</p>
+        </div>
+        <a href="search.html" class="btn btn-outline">View All Listings →</a>
+      </div>
+
+      <div id="featuredGrid" class="business-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION C: BROWSE BY CATEGORY -->
+  <section class="section section-bg">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Browse by Industry Category</h2>
+          <p class="section-desc">Explore verified service providers organized into 12 core commercial and industrial classifications.</p>
+        </div>
+      </div>
+
+      <div id="categoryGrid" class="category-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION D: DISCOVER BY COUNTRY AND CITY -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Discover Businesses by Country & City</h2>
+          <p class="section-desc">Explore regional markets, economic hubs, and top metropolitan centers across our initial supported territories.</p>
+        </div>
+        <a href="directories.html" class="btn btn-outline">All Directories →</a>
+      </div>
+
+      <div id="countryGrid" class="country-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION E: HOW IT WORKS -->
+  <section class="section section-bg">
+    <div class="container">
+      <div style="text-align:center; max-width:680px; margin:0 auto 50px;">
+        <h2 class="section-title">How NexusBiz Works</h2>
+        <p class="section-desc" style="margin:0 auto;">Simple, transparent, and verified directory navigation for both consumers and enterprise buyers.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h4 class="step-title">Search or Browse</h4>
+          <p class="step-desc">Search by company name, service keyword, category, or specific metropolitan area.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h4 class="step-title">Filter & Verify</h4>
+          <p class="step-desc">Filter by location, genuine customer star ratings, verified badges, and live operating hours.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h4 class="step-title">Compare Profiles</h4>
+          <p class="step-desc">Inspect complete corporate profiles, verified addresses, contact emails, and direct phone lines.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <h4 class="step-title">Connect Directly</h4>
+          <p class="step-desc">Reach out via phone, official website, or WhatsApp with zero middleman markups.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION F: ADD BUSINESS CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-banner">
+        <h2 class="cta-title">Are You a Business Owner?</h2>
+        <p class="cta-desc">Submit your company to NexusBiz to gain organic discovery, attract qualified clients, and elevate your online presence across Pakistan, USA, and the UK.</p>
+        <div class="cta-actions">
+          <a href="add-business.html" class="btn btn-accent btn-lg">Add Your Business Listing — Free</a>
+          <a href="guidelines.html" class="btn btn-outline btn-lg" style="background:rgba(255,255,255,0.1); color:#FFFFFF !important; border-color:rgba(255,255,255,0.3);">Submission Guidelines</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION G: FAQS -->
+  <section class="section section-bg">
+    <div class="container">
+      <div style="text-align:center; max-width:680px; margin:0 auto 40px;">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-desc" style="margin:0 auto;">Clear answers regarding listing submissions, verification standards, and directory indexing.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item active">
+          <div class="faq-question">How do I find a business on NexusBiz?</div>
+          <div class="faq-answer">Use our global search bar on the homepage or search page. You can filter by business keyword, industry category, country, or specific city to narrow down results.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Is it free to submit a business listing?</div>
+          <div class="faq-answer">Yes, standard listings are free. All submissions undergo administrative moderation to ensure contact accuracy and compliance with directory standards.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What does the "Verified" badge mean?</div>
+          <div class="faq-answer">A verified badge indicates our directory team has confirmed the physical address, valid phone number, and operating status of the registered organization.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I update or modify my business information later?</div>
+          <div class="faq-answer">Yes, listing owners can contact directory support or submit an update request with official verification documents.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Which countries are currently supported?</div>
+          <div class="faq-answer">We currently cover Pakistan (PK), the United States (US), and the United Kingdom (UK), with automated geographic expansion tools for additional regions.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION H: FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <span class="logo-badge">NB</span>
+            NexusBiz
+          </a>
+          <p class="footer-desc">NexusBiz is an international verified business directory and B2B/B2C discovery platform connecting clients with credible local services, suppliers, and institutions.</p>
+          <p style="font-size:0.85rem; color:#64748B;">Supported: 🇵🇰 Pakistan &nbsp;•&nbsp; 🇺🇸 United States &nbsp;•&nbsp; 🇬🇧 United Kingdom</p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="search.html">Search Directory</a></li>
+            <li><a href="directories.html">All Directories</a></li>
+            <li><a href="add-business.html">Add Your Business</a></li>
+            <li><a href="admin.html">Admin Dashboard</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Popular Cities</h4>
+          <ul class="footer-links">
+            <li><a href="search.html?country=cnt-pk&city=cty-pk-lhr">Lahore, Pakistan</a></li>
+            <li><a href="search.html?country=cnt-pk&city=cty-pk-khi">Karachi, Pakistan</a></li>
+            <li><a href="search.html?country=cnt-us&city=cty-us-nyc">New York City, USA</a></li>
+            <li><a href="search.html?country=cnt-us&city=cty-us-sf">San Francisco, USA</a></li>
+            <li><a href="search.html?country=cnt-gb&city=cty-gb-lon">London, UK</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Trust & Compliance</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About NexusBiz</a></li>
+            <li><a href="guidelines.html">Listing Guidelines</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="contact.html">Contact Support</a></li>
+            <li><a href="sitemap.xml">XML Sitemap</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 NexusBiz Directory. All rights reserved.</div>
+        <div style="color:#64748B;">Built with HTML, CSS, JavaScript, JSON & Standards-compliant SEO.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

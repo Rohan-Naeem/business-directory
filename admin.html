@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Moderation Dashboard — NexusBiz Directory</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body style="background:var(--bg-section);">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-badge">NB</span>
+        NexusBiz <span style="font-size:0.85rem; font-weight:600; color:var(--slate); margin-left:6px;">[ADMIN PANEL]</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">← Back to Site</a></li>
+          <li><a href="search.html" class="nav-link">Search</a></li>
+          <li><a href="admin.html" class="nav-link active">Dashboard</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button onclick="window.NexusDB.reset()" class="btn btn-outline btn-sm">↺ Reset Seed Data</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" style="padding:40px 20px;">
+    
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:28px;">
+      <div>
+        <h1 style="font-size:1.8rem; margin-bottom:4px;">Directory Moderation & Overview</h1>
+        <p style="color:var(--slate); font-size:0.95rem;">Review user submissions, manage publication status, and monitor directory metrics.</p>
+      </div>
+      <div>
+        <button onclick="exportJson()" class="btn btn-primary btn-sm">📥 Export Database (JSON)</button>
+      </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="admin-stats-grid">
+      <div class="stat-card">
+        <div id="adminTotalListings" class="stat-value">0</div>
+        <div class="stat-label">Total Listings</div>
+      </div>
+      <div class="stat-card" style="border-left:4px solid var(--accent);">
+        <div id="adminPendingListings" class="stat-value" style="color:#B45309;">0</div>
+        <div class="stat-label">Pending Approvals</div>
+      </div>
+      <div class="stat-card">
+        <div id="adminCategoriesCount" class="stat-value">0</div>
+        <div class="stat-label">Active Categories</div>
+      </div>
+      <div class="stat-card">
+        <div id="adminReportsCount" class="stat-value" style="color:#DC2626;">0</div>
+        <div class="stat-label">Open Community Reports</div>
+      </div>
+    </div>
+
+    <!-- Pending Submissions Queue -->
+    <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius-md); padding:26px; margin-bottom:34px; box-shadow:var(--shadow-sm);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+        <h2 style="font-size:1.3rem;">🚨 Submissions Awaiting Approval</h2>
+        <span style="font-size:0.85rem; color:var(--slate);">Require moderation before public indexing</span>
+      </div>
+
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Business Name</th>
+            <th>Category</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Moderation Action</th>
+          </tr>
+        </thead>
+        <tbody id="pendingTableBody">
+          <!-- Populated by app.js -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- All Listings Table -->
+    <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius-md); padding:26px; box-shadow:var(--shadow-sm);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+        <h2 style="font-size:1.3rem;">All Registered Listings</h2>
+        <span style="font-size:0.85rem; color:var(--slate);">Manage active directory database records</span>
+      </div>
+
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Business Name</th>
+            <th>Category</th>
+            <th>City</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="allListingsTableBody">
+          <!-- Populated by app.js -->
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    function exportJson() {
+      const data = window.NexusDB.get();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'nexusbiz-database-export.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>

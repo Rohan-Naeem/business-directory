@@ -1,0 +1,1923 @@
+{
+  "generated_at": "2026-10-23T05:27:10.395Z",
+  "total_businesses": 17,
+  "businesses": [
+    {
+      "id": "biz-pk-02",
+      "name": "Shaukat Khanum Memorial Cancer Hospital",
+      "slug": "shaukat-khanum-hospital-lahore",
+      "short_description": "State-of-the-art charitable cancer research center and comprehensive diagnostic hospital.",
+      "description": "Equipped with JCI accreditation and the latest radiation oncology technology, Shaukat Khanum Hospital delivers world-class medical treatments, inpatient diagnostics, and specialized oncological care.",
+      "category_id": "cat-healthcare",
+      "subcategory_id": "sub-hc-hosp",
+      "country_id": "cnt-pk",
+      "region_id": "reg-pk-pb",
+      "city_id": "cty-pk-lhr",
+      "address": "7A Block R-3, Johar Town",
+      "postal_code": "54700",
+      "phone": "+92 42 35905000",
+      "email": "contact@shaukatkhanum.org.pk",
+      "website": "https://shaukatkhanum.org.pk",
+      "whatsapp": "+923007654321",
+      "logo_url": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=160&h=160&fit=crop",
+      "cover_image_url": "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": true,
+      "is_verified": true,
+      "rating": 4.9,
+      "review_count": 98,
+      "created_at": "2025-01-12T11:00:00Z",
+      "updated_at": "2025-03-01T08:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "00:00",
+          "closes_at": "23:59",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "00:00",
+          "closes_at": "23:59",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "00:00",
+          "closes_at": "23:59",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "00:00",
+          "closes_at": "23:59",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "00:00",
+          "closes_at": "23:59",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "00:00",
+          "closes_at": "23:59",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "00:00",
+          "closes_at": "23:59",
+          "is_closed": false
+        }
+      ],
+      "category": {
+        "id": "cat-healthcare",
+        "name": "Healthcare & Medical",
+        "slug": "healthcare",
+        "icon": "Stethoscope",
+        "description": "Hospitals, dental clinics, specialty diagnostics, certified pharmacies, and healthcare centers.",
+        "display_order": 2
+      },
+      "subcategory": {
+        "id": "sub-hc-hosp",
+        "category_id": "cat-healthcare",
+        "name": "General Hospitals",
+        "slug": "general-hospitals"
+      },
+      "country": {
+        "id": "cnt-pk",
+        "name": "Pakistan",
+        "slug": "pakistan",
+        "code": "PK",
+        "flag_emoji": "🇵🇰",
+        "phone_prefix": "+92",
+        "currency": "PKR",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-pk-pb",
+        "country_id": "cnt-pk",
+        "name": "Punjab",
+        "slug": "punjab",
+        "code": "PB"
+      },
+      "city": {
+        "id": "cty-pk-lhr",
+        "region_id": "reg-pk-pb",
+        "country_id": "cnt-pk",
+        "name": "Lahore",
+        "slug": "lahore",
+        "postal_code": "54000",
+        "is_popular": true,
+        "latitude": 31.5204,
+        "longitude": 74.3587
+      },
+      "reviews": [
+        {
+          "id": "rev-03",
+          "business_id": "biz-pk-02",
+          "user_name": "Dr. Tariq Mahmood",
+          "user_email": "tariq.m@example.com",
+          "rating": 5,
+          "title": "Compassionate and World Class Healthcare",
+          "comment": "The cleanliness, precision of diagnostic lab equipment, and patient dignity at Shaukat Khanum are unmatched anywhere in the region.",
+          "status": "approved",
+          "created_at": "2025-02-24T16:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "biz-us-01",
+      "name": "Apex Global Cloud Solutions",
+      "slug": "apex-global-cloud-solutions-san-francisco",
+      "short_description": "Enterprise Kubernetes, cloud native infrastructure, and zero-trust cybersecurity consulting.",
+      "description": "Apex Cloud Solutions partners with Fortune 500 tech leaders and scale-ups to orchestrate multi-cloud resilience, AWS/GCP architecture, CI/CD automated pipelines, and automated penetration testing.",
+      "category_id": "cat-it",
+      "subcategory_id": "sub-it-cloud",
+      "country_id": "cnt-us",
+      "region_id": "reg-us-ca",
+      "city_id": "cty-us-sf",
+      "address": "500 Howard Street, Suite 400",
+      "postal_code": "94105",
+      "phone": "+1 415 555 0192",
+      "email": "hello@apexcloudsf.com",
+      "website": "https://apexcloudsf.com",
+      "logo_url": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=160&h=160&fit=crop",
+      "cover_image_url": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": true,
+      "is_verified": true,
+      "rating": 4.9,
+      "review_count": 56,
+      "created_at": "2025-01-14T09:00:00Z",
+      "updated_at": "2025-02-12T14:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "08:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "08:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "08:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "08:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "08:00",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        }
+      ],
+      "category": {
+        "id": "cat-it",
+        "name": "IT & Software",
+        "slug": "it-software",
+        "icon": "Laptop",
+        "description": "Custom software development, cloud infrastructure, AI solutions, web and mobile app development.",
+        "display_order": 1
+      },
+      "subcategory": {
+        "id": "sub-it-cloud",
+        "category_id": "cat-it",
+        "name": "Cloud & DevOps Solutions",
+        "slug": "cloud-devops"
+      },
+      "country": {
+        "id": "cnt-us",
+        "name": "United States",
+        "slug": "usa",
+        "code": "US",
+        "flag_emoji": "🇺🇸",
+        "phone_prefix": "+1",
+        "currency": "USD",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-us-ca",
+        "country_id": "cnt-us",
+        "name": "California",
+        "slug": "california",
+        "code": "CA"
+      },
+      "city": {
+        "id": "cty-us-sf",
+        "region_id": "reg-us-ca",
+        "country_id": "cnt-us",
+        "name": "San Francisco",
+        "slug": "san-francisco",
+        "postal_code": "94102",
+        "is_popular": true,
+        "latitude": 37.7749,
+        "longitude": -122.4194
+      },
+      "reviews": [
+        {
+          "id": "rev-04",
+          "business_id": "biz-us-01",
+          "user_name": "Marcus Vance",
+          "user_email": "mvance@scaleventure.com",
+          "rating": 5,
+          "title": "Game-changing Kubernetes Migration",
+          "comment": "Apex automated our entire multi-region deployment. Our latency plummeted by 40% and our infrastructure cost went down significantly.",
+          "status": "approved",
+          "created_at": "2025-02-15T11:20:00Z"
+        }
+      ]
+    },
+    {
+      "id": "biz-us-02",
+      "name": "Manhattan Cardiology & Wellness Center",
+      "slug": "manhattan-cardiology-new-york-city",
+      "short_description": "Premier outpatient cardiovascular screening, diagnostics, and preventative healthcare.",
+      "description": "Located in Midtown Manhattan, this premier center offers advanced echocardiography, nuclear stress testing, cholesterol genomics, and tailored arterial longevity treatments.",
+      "category_id": "cat-healthcare",
+      "subcategory_id": "sub-hc-diag",
+      "country_id": "cnt-us",
+      "region_id": "reg-us-ny",
+      "city_id": "cty-us-nyc",
+      "address": "211 East 51st Street, 3rd Floor",
+      "postal_code": "10022",
+      "phone": "+1 212 555 3829",
+      "email": "appointments@manhattancardiology.com",
+      "website": "https://manhattancardiology.com",
+      "logo_url": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=160&h=160&fit=crop",
+      "cover_image_url": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": true,
+      "is_verified": true,
+      "rating": 4.9,
+      "review_count": 82,
+      "created_at": "2025-01-18T10:00:00Z",
+      "updated_at": "2025-02-28T16:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "07:30",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "07:30",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "07:30",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "07:30",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "08:00",
+          "closes_at": "16:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "09:00",
+          "closes_at": "13:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        }
+      ],
+      "category": {
+        "id": "cat-healthcare",
+        "name": "Healthcare & Medical",
+        "slug": "healthcare",
+        "icon": "Stethoscope",
+        "description": "Hospitals, dental clinics, specialty diagnostics, certified pharmacies, and healthcare centers.",
+        "display_order": 2
+      },
+      "subcategory": {
+        "id": "sub-hc-diag",
+        "category_id": "cat-healthcare",
+        "name": "Diagnostic Centers",
+        "slug": "diagnostic-centers"
+      },
+      "country": {
+        "id": "cnt-us",
+        "name": "United States",
+        "slug": "usa",
+        "code": "US",
+        "flag_emoji": "🇺🇸",
+        "phone_prefix": "+1",
+        "currency": "USD",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-us-ny",
+        "country_id": "cnt-us",
+        "name": "New York",
+        "slug": "new-york",
+        "code": "NY"
+      },
+      "city": {
+        "id": "cty-us-nyc",
+        "region_id": "reg-us-ny",
+        "country_id": "cnt-us",
+        "name": "New York City",
+        "slug": "new-york-city",
+        "postal_code": "10001",
+        "is_popular": true,
+        "latitude": 40.7128,
+        "longitude": -74.006
+      },
+      "reviews": []
+    },
+    {
+      "id": "biz-uk-01",
+      "name": "Kensington Capital & Wealth Advisory",
+      "slug": "kensington-capital-wealth-london",
+      "short_description": "Independent FCA-regulated wealth management and cross-border family office advisory.",
+      "description": "Based in the heart of Mayfair London, Kensington Capital delivers discretionary asset allocation, tax-efficient inheritance planning, ESG sustainable portfolios, and corporate venture finance.",
+      "category_id": "cat-banking",
+      "subcategory_id": "sub-bk-inv",
+      "country_id": "cnt-gb",
+      "region_id": "reg-gb-eng",
+      "city_id": "cty-gb-lon",
+      "address": "45 Berkeley Square, Mayfair",
+      "postal_code": "W1J 5AS",
+      "phone": "+44 20 7946 0812",
+      "email": "clientrelations@kensingtoncapital.co.uk",
+      "website": "https://kensingtoncapital.co.uk",
+      "logo_url": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=160&h=160&fit=crop",
+      "cover_image_url": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": true,
+      "is_verified": true,
+      "rating": 4.9,
+      "review_count": 48,
+      "created_at": "2025-01-11T10:00:00Z",
+      "updated_at": "2025-02-22T15:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "08:30",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "08:30",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "08:30",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "08:30",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "08:30",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        }
+      ],
+      "category": {
+        "id": "cat-banking",
+        "name": "Banking & Finance",
+        "slug": "banking-finance",
+        "icon": "Building2",
+        "description": "Commercial banks, accounting firms, investment advisors, audit services, and insurance agencies.",
+        "display_order": 3
+      },
+      "subcategory": {
+        "id": "sub-bk-inv",
+        "category_id": "cat-banking",
+        "name": "Investment Management",
+        "slug": "investment-management"
+      },
+      "country": {
+        "id": "cnt-gb",
+        "name": "United Kingdom",
+        "slug": "uk",
+        "code": "GB",
+        "flag_emoji": "🇬🇧",
+        "phone_prefix": "+44",
+        "currency": "GBP",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-gb-eng",
+        "country_id": "cnt-gb",
+        "name": "England",
+        "slug": "england",
+        "code": "ENG"
+      },
+      "city": {
+        "id": "cty-gb-lon",
+        "region_id": "reg-gb-eng",
+        "country_id": "cnt-gb",
+        "name": "London",
+        "slug": "london",
+        "postal_code": "EC1A 1BB",
+        "is_popular": true,
+        "latitude": 51.5074,
+        "longitude": -0.1278
+      },
+      "reviews": [
+        {
+          "id": "rev-06",
+          "business_id": "biz-uk-01",
+          "user_name": "Edward Thorne",
+          "user_email": "edward.thorne@wealthgroup.co.uk",
+          "rating": 5,
+          "title": "Exemplary Discretion and Fiduciary Diligence",
+          "comment": "Kensington Capital helped our family restructure cross-border UK/US holdings with absolute clarity and peace of mind.",
+          "status": "approved",
+          "created_at": "2025-02-25T15:10:00Z"
+        }
+      ]
+    },
+    {
+      "id": "biz-uk-03",
+      "name": "The Royal Mile Heritage Hotel",
+      "slug": "the-royal-mile-heritage-hotel-edinburgh",
+      "short_description": "Historic 5-star boutique luxury hotel moments from iconic Edinburgh Castle.",
+      "description": "Combining Georgian architectural elegance with contemporary comforts, offering bespoke luxury suites, traditional Scottish afternoon tea, and a private whisky tasting room.",
+      "category_id": "cat-hotels",
+      "country_id": "cnt-gb",
+      "region_id": "reg-gb-sct",
+      "city_id": "cty-gb-edi",
+      "address": "142 High Street, Royal Mile",
+      "postal_code": "EH1 1QS",
+      "phone": "+44 131 496 0789",
+      "email": "concierge@royalmilehotel.scot",
+      "website": "https://royalmilehotel.scot",
+      "logo_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=160&h=160&fit=crop",
+      "cover_image_url": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": true,
+      "is_verified": true,
+      "rating": 4.9,
+      "review_count": 85,
+      "created_at": "2025-01-13T11:00:00Z",
+      "updated_at": "2025-02-27T10:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "00:00",
+          "closes_at": "23:59",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "00:00",
+          "closes_at": "23:59",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "00:00",
+          "closes_at": "23:59",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "00:00",
+          "closes_at": "23:59",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "00:00",
+          "closes_at": "23:59",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "00:00",
+          "closes_at": "23:59",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "00:00",
+          "closes_at": "23:59",
+          "is_closed": false
+        }
+      ],
+      "category": {
+        "id": "cat-hotels",
+        "name": "Hotels & Hospitality",
+        "slug": "hotels-travel",
+        "icon": "Hotel",
+        "description": "Boutique hotels, executive resorts, corporate travel agencies, and serviced apartments.",
+        "display_order": 8
+      },
+      "country": {
+        "id": "cnt-gb",
+        "name": "United Kingdom",
+        "slug": "uk",
+        "code": "GB",
+        "flag_emoji": "🇬🇧",
+        "phone_prefix": "+44",
+        "currency": "GBP",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-gb-sct",
+        "country_id": "cnt-gb",
+        "name": "Scotland",
+        "slug": "scotland",
+        "code": "SCT"
+      },
+      "city": {
+        "id": "cty-gb-edi",
+        "region_id": "reg-gb-sct",
+        "country_id": "cnt-gb",
+        "name": "Edinburgh",
+        "slug": "edinburgh",
+        "postal_code": "EH1 1YZ",
+        "is_popular": true,
+        "latitude": 55.9533,
+        "longitude": -3.1883
+      },
+      "reviews": []
+    },
+    {
+      "id": "biz-pk-01",
+      "name": "Systems Limited",
+      "slug": "systems-limited-lahore",
+      "short_description": "Premier global technology consulting and enterprise digital solutions provider.",
+      "description": "Systems Limited is a globally recognized IT software powerhouse delivering cutting-edge digital transformation, cloud migrations, AI integrations, and enterprise ERP solutions for top multinationals and regional conglomerates.",
+      "category_id": "cat-it",
+      "subcategory_id": "sub-it-cloud",
+      "country_id": "cnt-pk",
+      "region_id": "reg-pk-pb",
+      "city_id": "cty-pk-lhr",
+      "address": "E-5, Central Commercial Area, Phase 1, DHA",
+      "postal_code": "54792",
+      "phone": "+92 42 111 797 836",
+      "email": "info@systemsltd.com",
+      "website": "https://www.systemsltd.com",
+      "whatsapp": "+923001234567",
+      "logo_url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=160&h=160&fit=crop&crop=faces",
+      "cover_image_url": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": true,
+      "is_verified": true,
+      "rating": 4.8,
+      "review_count": 42,
+      "created_at": "2025-01-10T10:00:00Z",
+      "updated_at": "2025-02-15T12:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "09:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "09:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "09:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "09:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "09:00",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "10:00",
+          "closes_at": "14:00",
+          "is_closed": true
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        }
+      ],
+      "category": {
+        "id": "cat-it",
+        "name": "IT & Software",
+        "slug": "it-software",
+        "icon": "Laptop",
+        "description": "Custom software development, cloud infrastructure, AI solutions, web and mobile app development.",
+        "display_order": 1
+      },
+      "subcategory": {
+        "id": "sub-it-cloud",
+        "category_id": "cat-it",
+        "name": "Cloud & DevOps Solutions",
+        "slug": "cloud-devops"
+      },
+      "country": {
+        "id": "cnt-pk",
+        "name": "Pakistan",
+        "slug": "pakistan",
+        "code": "PK",
+        "flag_emoji": "🇵🇰",
+        "phone_prefix": "+92",
+        "currency": "PKR",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-pk-pb",
+        "country_id": "cnt-pk",
+        "name": "Punjab",
+        "slug": "punjab",
+        "code": "PB"
+      },
+      "city": {
+        "id": "cty-pk-lhr",
+        "region_id": "reg-pk-pb",
+        "country_id": "cnt-pk",
+        "name": "Lahore",
+        "slug": "lahore",
+        "postal_code": "54000",
+        "is_popular": true,
+        "latitude": 31.5204,
+        "longitude": 74.3587
+      },
+      "reviews": [
+        {
+          "id": "rev-01",
+          "business_id": "biz-pk-01",
+          "user_name": "Omar Farooq",
+          "user_email": "omar.f@example.com",
+          "rating": 5,
+          "title": "Outstanding Enterprise Delivery",
+          "comment": "Systems Limited delivered our cloud migration project ahead of schedule with zero downtime. Exceptional technical acumen and project management throughout.",
+          "status": "approved",
+          "created_at": "2025-02-10T14:30:00Z"
+        },
+        {
+          "id": "rev-02",
+          "business_id": "biz-pk-01",
+          "user_name": "Ayesha Siddiqui",
+          "user_email": "ayesha.s@example.com",
+          "rating": 5,
+          "title": "Top-tier Engineering Partner",
+          "comment": "High standards of code quality and great architectural guidance on AWS serverless design.",
+          "status": "approved",
+          "created_at": "2025-02-18T09:15:00Z"
+        }
+      ]
+    },
+    {
+      "id": "biz-us-04",
+      "name": "The Chicago Prime Steakhouse",
+      "slug": "the-chicago-prime-steakhouse-chicago",
+      "short_description": "Celebrated prime dry-aged steaks, award-winning vintage wines, and timeless dining.",
+      "description": "A culinary landmark on North Michigan Avenue featuring 45-day dry-aged USDA prime cuts, fresh seafood towers, wood-fired sides, and an extensive sommelier-curated international cellar.",
+      "category_id": "cat-restaurants",
+      "subcategory_id": "sub-rt-fine",
+      "country_id": "cnt-us",
+      "region_id": "reg-us-il",
+      "city_id": "cty-us-chi",
+      "address": "676 N Michigan Avenue",
+      "postal_code": "60611",
+      "phone": "+1 312 555 9210",
+      "email": "reservations@chicagoprime.com",
+      "website": "https://chicagoprime.com",
+      "logo_url": "https://images.unsplash.com/photo-1544025162-d76694265947?w=160&h=160&fit=crop",
+      "cover_image_url": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": true,
+      "is_verified": true,
+      "rating": 4.8,
+      "review_count": 110,
+      "created_at": "2025-01-20T17:00:00Z",
+      "updated_at": "2025-03-01T12:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "16:00",
+          "closes_at": "22:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "16:00",
+          "closes_at": "22:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "16:00",
+          "closes_at": "22:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "16:00",
+          "closes_at": "23:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "16:00",
+          "closes_at": "23:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "16:00",
+          "closes_at": "23:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "16:00",
+          "closes_at": "22:00",
+          "is_closed": false
+        }
+      ],
+      "category": {
+        "id": "cat-restaurants",
+        "name": "Restaurants & Dining",
+        "slug": "restaurants-food",
+        "icon": "UtensilsCrossed",
+        "description": "Fine dining, artisanal cafes, traditional local cuisine, bakeries, and catering services.",
+        "display_order": 5
+      },
+      "subcategory": {
+        "id": "sub-rt-fine",
+        "category_id": "cat-restaurants",
+        "name": "Fine Dining",
+        "slug": "fine-dining"
+      },
+      "country": {
+        "id": "cnt-us",
+        "name": "United States",
+        "slug": "usa",
+        "code": "US",
+        "flag_emoji": "🇺🇸",
+        "phone_prefix": "+1",
+        "currency": "USD",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-us-il",
+        "country_id": "cnt-us",
+        "name": "Illinois",
+        "slug": "illinois",
+        "code": "IL"
+      },
+      "city": {
+        "id": "cty-us-chi",
+        "region_id": "reg-us-il",
+        "country_id": "cnt-us",
+        "name": "Chicago",
+        "slug": "chicago",
+        "postal_code": "60601",
+        "is_popular": true,
+        "latitude": 41.8781,
+        "longitude": -87.6298
+      },
+      "reviews": [
+        {
+          "id": "rev-05",
+          "business_id": "biz-us-04",
+          "user_name": "Sarah Jenkins",
+          "user_email": "sarah.j@example.com",
+          "rating": 5,
+          "title": "Best Bone-in Ribeye in Chicago",
+          "comment": "Unbelievable steak, masterfully charred exterior and tender juicy center. Sommelier paired a fantastic Cabernet. Five stars all the way!",
+          "status": "approved",
+          "created_at": "2025-02-28T20:45:00Z"
+        }
+      ]
+    },
+    {
+      "id": "biz-uk-02",
+      "name": "Manchester FinTech Dynamics",
+      "slug": "manchester-fintech-dynamics-manchester",
+      "short_description": "Fast-growing software engineering studio crafting open-banking APIs and mobile paytech.",
+      "description": "Headquartered in Manchester’s Northern Quarter, our engineering teams build compliant Open Banking aggregators, automated KYC verification platforms, and high-throughput real-time payment rails.",
+      "category_id": "cat-it",
+      "subcategory_id": "sub-it-web",
+      "country_id": "cnt-gb",
+      "region_id": "reg-gb-eng",
+      "city_id": "cty-gb-man",
+      "address": "18 Lever Street, Northern Quarter",
+      "postal_code": "M1 1FL",
+      "phone": "+44 161 496 0321",
+      "email": "team@manchesterfintech.io",
+      "website": "https://manchesterfintech.io",
+      "whatsapp": "+447700900123",
+      "logo_url": "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=160&h=160&fit=crop",
+      "cover_image_url": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": true,
+      "is_verified": true,
+      "rating": 4.8,
+      "review_count": 37,
+      "created_at": "2025-01-19T09:00:00Z",
+      "updated_at": "2025-02-14T11:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "09:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "09:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "09:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "09:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "09:00",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        }
+      ],
+      "category": {
+        "id": "cat-it",
+        "name": "IT & Software",
+        "slug": "it-software",
+        "icon": "Laptop",
+        "description": "Custom software development, cloud infrastructure, AI solutions, web and mobile app development.",
+        "display_order": 1
+      },
+      "subcategory": {
+        "id": "sub-it-web",
+        "category_id": "cat-it",
+        "name": "Web & Mobile Development",
+        "slug": "web-mobile-development"
+      },
+      "country": {
+        "id": "cnt-gb",
+        "name": "United Kingdom",
+        "slug": "uk",
+        "code": "GB",
+        "flag_emoji": "🇬🇧",
+        "phone_prefix": "+44",
+        "currency": "GBP",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-gb-eng",
+        "country_id": "cnt-gb",
+        "name": "England",
+        "slug": "england",
+        "code": "ENG"
+      },
+      "city": {
+        "id": "cty-gb-man",
+        "region_id": "reg-gb-eng",
+        "country_id": "cnt-gb",
+        "name": "Manchester",
+        "slug": "manchester",
+        "postal_code": "M1 1AD",
+        "is_popular": true,
+        "latitude": 53.4808,
+        "longitude": -2.2426
+      },
+      "reviews": []
+    },
+    {
+      "id": "biz-pk-04",
+      "name": "Monal Restaurant",
+      "slug": "monal-restaurant-islamabad",
+      "short_description": "Iconic scenic hilltop destination serving authentic Pakistani barbecue and continental delights.",
+      "description": "Perched in the Margalla Hills overlooking the capital city, Monal offers a panoramic open-air dining experience, live barbecue grills, and signature mutton Karahi with unrivaled ambiance.",
+      "category_id": "cat-restaurants",
+      "subcategory_id": "sub-rt-fine",
+      "country_id": "cnt-pk",
+      "region_id": "reg-pk-ict",
+      "city_id": "cty-pk-isb",
+      "address": "Daman-e-Koh Margalla Hills, Pir Sohawa Road",
+      "postal_code": "44000",
+      "phone": "+92 51 2898044",
+      "email": "info@themonal.com",
+      "website": "https://themonal.com",
+      "whatsapp": "+923335558888",
+      "logo_url": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=160&h=160&fit=crop",
+      "cover_image_url": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": true,
+      "is_verified": true,
+      "rating": 4.7,
+      "review_count": 140,
+      "created_at": "2025-01-20T14:00:00Z",
+      "updated_at": "2025-03-02T15:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "12:00",
+          "closes_at": "00:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "12:00",
+          "closes_at": "00:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "12:00",
+          "closes_at": "00:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "12:00",
+          "closes_at": "00:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "12:00",
+          "closes_at": "01:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "12:00",
+          "closes_at": "01:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "12:00",
+          "closes_at": "00:00",
+          "is_closed": false
+        }
+      ],
+      "category": {
+        "id": "cat-restaurants",
+        "name": "Restaurants & Dining",
+        "slug": "restaurants-food",
+        "icon": "UtensilsCrossed",
+        "description": "Fine dining, artisanal cafes, traditional local cuisine, bakeries, and catering services.",
+        "display_order": 5
+      },
+      "subcategory": {
+        "id": "sub-rt-fine",
+        "category_id": "cat-restaurants",
+        "name": "Fine Dining",
+        "slug": "fine-dining"
+      },
+      "country": {
+        "id": "cnt-pk",
+        "name": "Pakistan",
+        "slug": "pakistan",
+        "code": "PK",
+        "flag_emoji": "🇵🇰",
+        "phone_prefix": "+92",
+        "currency": "PKR",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-pk-ict",
+        "country_id": "cnt-pk",
+        "name": "Islamabad Capital Territory",
+        "slug": "islamabad-capital",
+        "code": "ICT"
+      },
+      "city": {
+        "id": "cty-pk-isb",
+        "region_id": "reg-pk-ict",
+        "country_id": "cnt-pk",
+        "name": "Islamabad",
+        "slug": "islamabad",
+        "postal_code": "44000",
+        "is_popular": true,
+        "latitude": 33.6844,
+        "longitude": 73.0479
+      },
+      "reviews": []
+    },
+    {
+      "id": "biz-us-05",
+      "name": "Pacific Coast Legal Group",
+      "slug": "pacific-coast-legal-los-angeles",
+      "short_description": "Boutique entertainment, intellectual property, and venture venture financing law firm.",
+      "description": "Providing elite representation in copyright protection, media syndication deals, tech startup seed investments, and complex commercial arbitrations across Southern California.",
+      "category_id": "cat-legal",
+      "subcategory_id": "sub-lg-corp",
+      "country_id": "cnt-us",
+      "region_id": "reg-us-ca",
+      "city_id": "cty-us-la",
+      "address": "10250 Constellation Blvd, Suite 2100, Century City",
+      "postal_code": "90067",
+      "phone": "+1 310 555 4918",
+      "email": "inquiries@pacificcoastlegal.com",
+      "website": "https://pacificcoastlegal.com",
+      "logo_url": "https://images.unsplash.com/photo-1575505586569-646b2ca898fc?w=160&h=160&fit=crop",
+      "cover_image_url": "https://images.unsplash.com/photo-1450133064473-71024230f91b?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": false,
+      "is_verified": true,
+      "rating": 4.8,
+      "review_count": 36,
+      "created_at": "2025-01-16T12:00:00Z",
+      "updated_at": "2025-02-19T13:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "09:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "09:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "09:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "09:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "09:00",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        }
+      ],
+      "category": {
+        "id": "cat-legal",
+        "name": "Legal Services",
+        "slug": "legal-services",
+        "icon": "Scale",
+        "description": "Corporate law practitioners, immigration solicitors, civil litigation, and notary public.",
+        "display_order": 6
+      },
+      "subcategory": {
+        "id": "sub-lg-corp",
+        "category_id": "cat-legal",
+        "name": "Corporate & Commercial Law",
+        "slug": "corporate-law"
+      },
+      "country": {
+        "id": "cnt-us",
+        "name": "United States",
+        "slug": "usa",
+        "code": "US",
+        "flag_emoji": "🇺🇸",
+        "phone_prefix": "+1",
+        "currency": "USD",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-us-ca",
+        "country_id": "cnt-us",
+        "name": "California",
+        "slug": "california",
+        "code": "CA"
+      },
+      "city": {
+        "id": "cty-us-la",
+        "region_id": "reg-us-ca",
+        "country_id": "cnt-us",
+        "name": "Los Angeles",
+        "slug": "los-angeles",
+        "postal_code": "90001",
+        "is_popular": true,
+        "latitude": 34.0522,
+        "longitude": -118.2437
+      },
+      "reviews": []
+    },
+    {
+      "id": "biz-uk-04",
+      "name": "Harley Street Dental Specialists",
+      "slug": "harley-street-dental-specialists-london",
+      "short_description": "Renowned dental implantology, cosmetic veneers, and restorative orthodontics clinic.",
+      "description": "Providing world-class cosmetic dentistry, computerized CAD/CAM ceramic crowns, invisible aligners, and painless dental surgery in central London.",
+      "category_id": "cat-healthcare",
+      "subcategory_id": "sub-hc-dent",
+      "country_id": "cnt-gb",
+      "region_id": "reg-gb-eng",
+      "city_id": "cty-gb-lon",
+      "address": "98 Harley Street, Marylebone",
+      "postal_code": "W1G 7HZ",
+      "phone": "+44 20 7946 0541",
+      "email": "care@harleystreetdentalcare.co.uk",
+      "website": "https://harleystreetdentalcare.co.uk",
+      "logo_url": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=160&h=160&fit=crop",
+      "cover_image_url": "https://images.unsplash.com/photo-1629909615184-74f495363b67?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": false,
+      "is_verified": true,
+      "rating": 4.8,
+      "review_count": 51,
+      "created_at": "2025-01-21T09:30:00Z",
+      "updated_at": "2025-02-26T14:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "08:30",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "08:30",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "08:30",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "08:30",
+          "closes_at": "18:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "08:30",
+          "closes_at": "16:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "09:00",
+          "closes_at": "13:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        }
+      ],
+      "category": {
+        "id": "cat-healthcare",
+        "name": "Healthcare & Medical",
+        "slug": "healthcare",
+        "icon": "Stethoscope",
+        "description": "Hospitals, dental clinics, specialty diagnostics, certified pharmacies, and healthcare centers.",
+        "display_order": 2
+      },
+      "subcategory": {
+        "id": "sub-hc-dent",
+        "category_id": "cat-healthcare",
+        "name": "Dental Clinics",
+        "slug": "dental-clinics"
+      },
+      "country": {
+        "id": "cnt-gb",
+        "name": "United Kingdom",
+        "slug": "uk",
+        "code": "GB",
+        "flag_emoji": "🇬🇧",
+        "phone_prefix": "+44",
+        "currency": "GBP",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-gb-eng",
+        "country_id": "cnt-gb",
+        "name": "England",
+        "slug": "england",
+        "code": "ENG"
+      },
+      "city": {
+        "id": "cty-gb-lon",
+        "region_id": "reg-gb-eng",
+        "country_id": "cnt-gb",
+        "name": "London",
+        "slug": "london",
+        "postal_code": "EC1A 1BB",
+        "is_popular": true,
+        "latitude": 51.5074,
+        "longitude": -0.1278
+      },
+      "reviews": []
+    },
+    {
+      "id": "biz-us-03",
+      "name": "Austin Horizon Commercial Realty",
+      "slug": "austin-horizon-realty-austin",
+      "short_description": "Full-service tenant advisory, tech office leasing, and commercial land investment firm.",
+      "description": "Specializing in tech corridors around Silicon Hills, Austin Horizon provides comprehensive site selection, lease negotiations, capital market investments, and property appraisal services.",
+      "category_id": "cat-construction",
+      "subcategory_id": "sub-cn-re",
+      "country_id": "cnt-us",
+      "region_id": "reg-us-tx",
+      "city_id": "cty-us-aus",
+      "address": "301 Congress Avenue, Suite 1200",
+      "postal_code": "78701",
+      "phone": "+1 512 555 7491",
+      "email": "info@austinhorizonrealty.com",
+      "website": "https://austinhorizonrealty.com",
+      "logo_url": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=160&h=160&fit=crop",
+      "cover_image_url": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": false,
+      "is_verified": true,
+      "rating": 4.7,
+      "review_count": 29,
+      "created_at": "2025-01-28T09:00:00Z",
+      "updated_at": "2025-02-25T11:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "08:30",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "08:30",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "08:30",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "08:30",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "08:30",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        }
+      ],
+      "category": {
+        "id": "cat-construction",
+        "name": "Construction & Real Estate",
+        "slug": "construction-real-estate",
+        "icon": "HardHat",
+        "description": "General contractors, architectural designers, real estate brokers, and structural engineers.",
+        "display_order": 4
+      },
+      "subcategory": {
+        "id": "sub-cn-re",
+        "category_id": "cat-construction",
+        "name": "Commercial Real Estate",
+        "slug": "commercial-real-estate"
+      },
+      "country": {
+        "id": "cnt-us",
+        "name": "United States",
+        "slug": "usa",
+        "code": "US",
+        "flag_emoji": "🇺🇸",
+        "phone_prefix": "+1",
+        "currency": "USD",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-us-tx",
+        "country_id": "cnt-us",
+        "name": "Texas",
+        "slug": "texas",
+        "code": "TX"
+      },
+      "city": {
+        "id": "cty-us-aus",
+        "region_id": "reg-us-tx",
+        "country_id": "cnt-us",
+        "name": "Austin",
+        "slug": "austin",
+        "postal_code": "73301",
+        "is_popular": true,
+        "latitude": 30.2672,
+        "longitude": -97.7431
+      },
+      "reviews": []
+    },
+    {
+      "id": "biz-uk-05",
+      "name": "Birmingham Central Law Advocates",
+      "slug": "birmingham-central-law-birmingham",
+      "short_description": "SRA-regulated solicitors covering commercial contracts, employment law, and immigration.",
+      "description": "Expert solicitors representing West Midlands businesses and individuals in contract negotiations, workplace dispute tribunals, commercial leases, and corporate visa sponsorships.",
+      "category_id": "cat-legal",
+      "subcategory_id": "sub-lg-corp",
+      "country_id": "cnt-gb",
+      "region_id": "reg-gb-eng",
+      "city_id": "cty-gb-bir",
+      "address": "10 Colmore Row",
+      "postal_code": "B3 2QD",
+      "phone": "+44 121 496 0992",
+      "email": "info@birminghamcentrallaw.co.uk",
+      "website": "https://birminghamcentrallaw.co.uk",
+      "logo_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=160&h=160&fit=crop",
+      "cover_image_url": "https://images.unsplash.com/photo-1450133064473-71024230f91b?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": false,
+      "is_verified": true,
+      "rating": 4.7,
+      "review_count": 22,
+      "created_at": "2025-01-24T10:00:00Z",
+      "updated_at": "2025-02-17T11:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "09:00",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "09:00",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "09:00",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "09:00",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "09:00",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        }
+      ],
+      "category": {
+        "id": "cat-legal",
+        "name": "Legal Services",
+        "slug": "legal-services",
+        "icon": "Scale",
+        "description": "Corporate law practitioners, immigration solicitors, civil litigation, and notary public.",
+        "display_order": 6
+      },
+      "subcategory": {
+        "id": "sub-lg-corp",
+        "category_id": "cat-legal",
+        "name": "Corporate & Commercial Law",
+        "slug": "corporate-law"
+      },
+      "country": {
+        "id": "cnt-gb",
+        "name": "United Kingdom",
+        "slug": "uk",
+        "code": "GB",
+        "flag_emoji": "🇬🇧",
+        "phone_prefix": "+44",
+        "currency": "GBP",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-gb-eng",
+        "country_id": "cnt-gb",
+        "name": "England",
+        "slug": "england",
+        "code": "ENG"
+      },
+      "city": {
+        "id": "cty-gb-bir",
+        "region_id": "reg-gb-eng",
+        "country_id": "cnt-gb",
+        "name": "Birmingham",
+        "slug": "birmingham",
+        "postal_code": "B1 1AA",
+        "is_popular": true,
+        "latitude": 52.4862,
+        "longitude": -1.8904
+      },
+      "reviews": []
+    },
+    {
+      "id": "biz-pk-03",
+      "name": "Habib Bank Limited (HBL) Prestige",
+      "slug": "hbl-prestige-karachi",
+      "short_description": "Premier banking branch providing priority wealth management and corporate finance.",
+      "description": "HBL Prestige at Clifton Karachi offers dedicated relationship managers, foreign currency trade finance, high-net-worth portfolio management, and comprehensive commercial banking solutions.",
+      "category_id": "cat-banking",
+      "subcategory_id": "sub-bk-bank",
+      "country_id": "cnt-pk",
+      "region_id": "reg-pk-sd",
+      "city_id": "cty-pk-khi",
+      "address": "Clifton Block 4, Marine Promenade",
+      "postal_code": "75600",
+      "phone": "+92 21 111 111 425",
+      "email": "support@hbl.com",
+      "website": "https://www.hbl.com",
+      "logo_url": "https://images.unsplash.com/photo-1541354329998-f4d9a9f9297f?w=160&h=160&fit=crop",
+      "cover_image_url": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": false,
+      "is_verified": true,
+      "rating": 4.6,
+      "review_count": 24,
+      "created_at": "2025-01-15T09:30:00Z",
+      "updated_at": "2025-02-18T10:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "09:00",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "09:00",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "09:00",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "09:00",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "09:00",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        }
+      ],
+      "category": {
+        "id": "cat-banking",
+        "name": "Banking & Finance",
+        "slug": "banking-finance",
+        "icon": "Building2",
+        "description": "Commercial banks, accounting firms, investment advisors, audit services, and insurance agencies.",
+        "display_order": 3
+      },
+      "subcategory": {
+        "id": "sub-bk-bank",
+        "category_id": "cat-banking",
+        "name": "Commercial Banking",
+        "slug": "commercial-banking"
+      },
+      "country": {
+        "id": "cnt-pk",
+        "name": "Pakistan",
+        "slug": "pakistan",
+        "code": "PK",
+        "flag_emoji": "🇵🇰",
+        "phone_prefix": "+92",
+        "currency": "PKR",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-pk-sd",
+        "country_id": "cnt-pk",
+        "name": "Sindh",
+        "slug": "sindh",
+        "code": "SD"
+      },
+      "city": {
+        "id": "cty-pk-khi",
+        "region_id": "reg-pk-sd",
+        "country_id": "cnt-pk",
+        "name": "Karachi",
+        "slug": "karachi",
+        "postal_code": "74200",
+        "is_popular": true,
+        "latitude": 24.8607,
+        "longitude": 67.0011
+      },
+      "reviews": []
+    },
+    {
+      "id": "biz-pk-06",
+      "name": "Khan & Associates Legal Advocates",
+      "slug": "khan-associates-legal-multan",
+      "short_description": "Full-service civil, corporate, and real estate litigation legal practice in Multan.",
+      "description": "Providing senior high court and supreme court counsel in commercial contracts, tax disputes, property titles, inheritance litigation, and corporate compliance.",
+      "category_id": "cat-legal",
+      "subcategory_id": "sub-lg-corp",
+      "country_id": "cnt-pk",
+      "region_id": "reg-pk-pb",
+      "city_id": "cty-pk-mul",
+      "address": "Katchery Road, District Bar Compound",
+      "postal_code": "60000",
+      "phone": "+92 61 4541290",
+      "email": "contact@khanassociates.law.pk",
+      "website": "https://khanassociates.law.pk",
+      "logo_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=160&h=160&fit=crop",
+      "cover_image_url": "https://images.unsplash.com/photo-1450133064473-71024230f91b?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": false,
+      "is_verified": true,
+      "rating": 4.6,
+      "review_count": 14,
+      "created_at": "2025-01-25T11:00:00Z",
+      "updated_at": "2025-02-20T10:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "09:00",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "09:00",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "09:00",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "09:00",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "09:00",
+          "closes_at": "17:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "10:00",
+          "closes_at": "14:00",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        }
+      ],
+      "category": {
+        "id": "cat-legal",
+        "name": "Legal Services",
+        "slug": "legal-services",
+        "icon": "Scale",
+        "description": "Corporate law practitioners, immigration solicitors, civil litigation, and notary public.",
+        "display_order": 6
+      },
+      "subcategory": {
+        "id": "sub-lg-corp",
+        "category_id": "cat-legal",
+        "name": "Corporate & Commercial Law",
+        "slug": "corporate-law"
+      },
+      "country": {
+        "id": "cnt-pk",
+        "name": "Pakistan",
+        "slug": "pakistan",
+        "code": "PK",
+        "flag_emoji": "🇵🇰",
+        "phone_prefix": "+92",
+        "currency": "PKR",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-pk-pb",
+        "country_id": "cnt-pk",
+        "name": "Punjab",
+        "slug": "punjab",
+        "code": "PB"
+      },
+      "city": {
+        "id": "cty-pk-mul",
+        "region_id": "reg-pk-pb",
+        "country_id": "cnt-pk",
+        "name": "Multan",
+        "slug": "multan",
+        "postal_code": "60000",
+        "is_popular": true,
+        "latitude": 30.1575,
+        "longitude": 71.5249
+      },
+      "reviews": []
+    },
+    {
+      "id": "biz-pk-05",
+      "name": "Habib Construction Services",
+      "slug": "habib-construction-services-lahore",
+      "short_description": "Nationwide engineering infrastructure, highways, and mega-commercial construction group.",
+      "description": "Leading civil engineering contractors specializing in flyovers, transit corridors, commercial skyscrapers, and industrial civil works with stringent safety and environmental certifications.",
+      "category_id": "cat-construction",
+      "subcategory_id": "sub-cn-gen",
+      "country_id": "cnt-pk",
+      "region_id": "reg-pk-pb",
+      "city_id": "cty-pk-lhr",
+      "address": "Plot 32, Sector B, Bahria Town Commercial",
+      "postal_code": "53720",
+      "phone": "+92 42 37862211",
+      "email": "info@hcs.com.pk",
+      "website": "https://hcs.com.pk",
+      "logo_url": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=160&h=160&fit=crop",
+      "cover_image_url": "https://images.unsplash.com/photo-1541888946425-d0fbb186156f?w=1200&h=600&fit=crop",
+      "status": "approved",
+      "is_featured": false,
+      "is_verified": true,
+      "rating": 4.5,
+      "review_count": 18,
+      "created_at": "2025-01-22T08:00:00Z",
+      "updated_at": "2025-02-10T11:00:00Z",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "08:30",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 2,
+          "opens_at": "08:30",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 3,
+          "opens_at": "08:30",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 4,
+          "opens_at": "08:30",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 5,
+          "opens_at": "08:30",
+          "closes_at": "17:30",
+          "is_closed": false
+        },
+        {
+          "day_of_week": 6,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        },
+        {
+          "day_of_week": 0,
+          "opens_at": "00:00",
+          "closes_at": "00:00",
+          "is_closed": true
+        }
+      ],
+      "category": {
+        "id": "cat-construction",
+        "name": "Construction & Real Estate",
+        "slug": "construction-real-estate",
+        "icon": "HardHat",
+        "description": "General contractors, architectural designers, real estate brokers, and structural engineers.",
+        "display_order": 4
+      },
+      "subcategory": {
+        "id": "sub-cn-gen",
+        "category_id": "cat-construction",
+        "name": "General Contractors",
+        "slug": "general-contractors"
+      },
+      "country": {
+        "id": "cnt-pk",
+        "name": "Pakistan",
+        "slug": "pakistan",
+        "code": "PK",
+        "flag_emoji": "🇵🇰",
+        "phone_prefix": "+92",
+        "currency": "PKR",
+        "is_active": true
+      },
+      "region": {
+        "id": "reg-pk-pb",
+        "country_id": "cnt-pk",
+        "name": "Punjab",
+        "slug": "punjab",
+        "code": "PB"
+      },
+      "city": {
+        "id": "cty-pk-lhr",
+        "region_id": "reg-pk-pb",
+        "country_id": "cnt-pk",
+        "name": "Lahore",
+        "slug": "lahore",
+        "postal_code": "54000",
+        "is_popular": true,
+        "latitude": 31.5204,
+        "longitude": 74.3587
+      },
+      "reviews": []
+    },
+    {
+      "name": "Horizon Green Energy Labs",
+      "slug": "horizon-green-energy-labs-1",
+      "category_id": "cat-it",
+      "country_id": "country-pk",
+      "region_id": "reg-pk-punjab",
+      "city_id": "city-lahore",
+      "address": "Phase 5, DHA, Lahore",
+      "postal_code": "54000",
+      "phone": "+92 42 3578 9900",
+      "email": "info@horizongreenenergy.pk",
+      "website": "https://horizongreenenergy.pk",
+      "whatsapp": "+92 300 1234567",
+      "short_description": "Pioneering clean tech, green energy software and IoT analytics.",
+      "description": "Pioneering clean tech, green energy software and IoT smart grid analytics for modern industrial infrastructure and enterprise decarbonization.",
+      "hours": [
+        {
+          "day_of_week": 1,
+          "opens_at": "09:00",
+          "closes_at": "18:00",
+          "is_closed": false
+        }
+      ],
+      "id": "biz-1792733038632-pj0eg",
+      "status": "approved",
+      "is_featured": false,
+      "is_verified": false,
+      "rating": 0,
+      "review_count": 0,
+      "created_at": "2026-10-23T05:23:58.632Z",
+      "updated_at": "2026-10-23T05:23:58.654Z",
+      "category": {
+        "id": "cat-it",
+        "name": "IT & Software",
+        "slug": "it-software",
+        "icon": "Laptop",
+        "description": "Custom software development, cloud infrastructure, AI solutions, web and mobile app development.",
+        "display_order": 1
+      },
+      "reviews": []
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Businesses & Services — NexusBiz Directory</title>
+  <meta name="description" content="Search verified companies, professional offices, healthcare clinics, and retail stores across Pakistan, USA, and UK. Filter by category, country, city, and star rating.">
+  <link rel="canonical" href="https://nexusbiz.directory/search.html">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-badge">NB</span>
+        NexusBiz
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="search.html" class="nav-link active">Search</a></li>
+          <li class="dropdown">
+            <a href="directories.html" class="nav-link">Directories ▾</a>
+            <div class="dropdown-menu">
+              <a href="search.html?country=cnt-pk" class="dropdown-item"><span>🇵🇰</span> Pakistan Directory</a>
+              <a href="search.html?country=cnt-us" class="dropdown-item"><span>🇺🇸</span> United States Directory</a>
+              <a href="search.html?country=cnt-gb" class="dropdown-item"><span>🇬🇧</span> United Kingdom Directory</a>
+              <div style="border-top:1px solid var(--border); margin:4px 0;"></div>
+              <a href="directories.html" class="dropdown-item" style="font-weight:600; color:var(--primary);">Explore All Locations →</a>
+            </div>
+          </li>
+          <li><a href="directories.html" class="nav-link">Categories</a></li>
+          <li><a href="admin.html" class="nav-link" style="color:var(--slate);">Admin Panel</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="add-business.html" class="btn btn-action btn-sm">+ Add Business</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- SEARCH BANNER -->
+  <div style="background:var(--bg-section); border-bottom:1px solid var(--border); padding:30px 0;">
+    <div class="container">
+      <h1 style="font-size:1.8rem; margin-bottom:6px;">Search Directory Listings</h1>
+      <p style="color:var(--slate); font-size:0.95rem;">Filter by name, industry sector, country, and municipal area.</p>
+    </div>
+  </div>
+
+  <!-- SEARCH CONTENT & SIDEBAR -->
+  <div class="container">
+    <div class="search-layout">
+      
+      <!-- Filters Sidebar -->
+      <aside class="filter-sidebar">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+          <h3 style="font-size:1.15rem; font-weight:700;">Filters</h3>
+          <button onclick="window.location.href='search.html'" style="background:transparent; border:none; color:var(--primary); font-size:0.85rem; font-weight:600; cursor:pointer;">Reset All</button>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-title">Keyword / Name</label>
+          <input type="text" id="searchInput" class="filter-input" placeholder="e.g. Hospital, Systems, Bank...">
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-title">Category</label>
+          <select id="filterCategory" class="filter-select">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-title">Country</label>
+          <select id="filterCountry" class="filter-select">
+            <option value="">All Countries</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-title">City</label>
+          <select id="filterCity" class="filter-select">
+            <option value="">All Cities</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-title">Minimum Rating</label>
+          <select id="filterRating" class="filter-select">
+            <option value="0">Any Rating</option>
+            <option value="4.5">★ 4.5 & higher</option>
+            <option value="4.0">★ 4.0 & higher</option>
+            <option value="3.5">★ 3.5 & higher</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-title">Sort By</label>
+          <select id="filterSort" class="filter-select">
+            <option value="popular">Most Popular</option>
+            <option value="rating">Highest Rated</option>
+            <option value="name">Alphabetical (A-Z)</option>
+          </select>
+        </div>
+      </aside>
+
+      <!-- Results Area -->
+      <main>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+          <div id="searchCount" style="font-weight:700; color:var(--navy); font-size:1.1rem;">Loading businesses...</div>
+        </div>
+
+        <div id="searchResultsGrid" class="business-grid">
+          <!-- Populated dynamically by app.js -->
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 NexusBiz Directory. All rights reserved.</div>
+        <div><a href="index.html" style="color:#94A3B8;">Home</a> &nbsp;•&nbsp; <a href="add-business.html" style="color:#94A3B8;">Add Business</a> &nbsp;•&nbsp; <a href="admin.html" style="color:#94A3B8;">Admin</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

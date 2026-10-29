@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Your Business Listing — NexusBiz Directory</title>
+  <meta name="description" content="Submit your business listing to NexusBiz for free. Reach thousands of verified potential customers and corporate clients in Pakistan, USA, and UK.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-badge">NB</span>
+        NexusBiz
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="search.html" class="nav-link">Search</a></li>
+          <li><a href="directories.html" class="nav-link">Directories</a></li>
+          <li><a href="admin.html" class="nav-link" style="color:var(--slate);">Admin Panel</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="add-business.html" class="btn btn-action btn-sm active">+ Add Business</a>
+      </div>
+    </div>
+  </header>
+
+  <div style="background:var(--bg-section); border-bottom:1px solid var(--border); padding:40px 0;">
+    <div class="container" style="max-width:800px; text-align:center;">
+      <h1 style="font-size:2.2rem; margin-bottom:8px;">Add Your Business Listing</h1>
+      <p style="color:var(--slate); font-size:1.05rem;">Submit your company details for review and publication across our verified international directories.</p>
+    </div>
+  </div>
+
+  <div class="container" style="max-width:800px; padding:50px 20px;">
+    
+    <!-- Submission Success Alert (Hidden initially) -->
+    <div id="submissionSuccess" style="display:none; background:#ECFDF5; border:1px solid #A7F3D0; border-radius:var(--radius-md); padding:30px; text-align:center; margin-bottom:30px;">
+      <div style="font-size:3rem; margin-bottom:10px;">🎉</div>
+      <h2 style="color:#065F46; font-size:1.6rem; margin-bottom:8px;">Listing Submitted Successfully!</h2>
+      <p style="color:#044E39; font-size:1rem; margin-bottom:20px; line-height:1.6;">
+        Your business listing has been received and entered into our moderation queue with <strong>Pending Approval</strong> status. Our compliance team will review your contact details and address prior to public indexing.
+      </p>
+      <div style="display:flex; justify-content:center; gap:12px;">
+        <a href="index.html" class="btn btn-primary">Return to Homepage</a>
+        <a href="admin.html" class="btn btn-outline">View in Admin Panel →</a>
+      </div>
+    </div>
+
+    <!-- Main Multi-Step Form -->
+    <form id="addBusinessForm" style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius-md); padding:36px; box-shadow:var(--shadow-sm);">
+      
+      <!-- Section 1: Business Profile -->
+      <h3 style="font-size:1.3rem; margin-bottom:6px; color:var(--primary);">1. Company Identity</h3>
+      <p style="color:var(--slate); font-size:0.88rem; margin-bottom:20px;">Provide official legal business naming and primary categorization.</p>
+
+      <div style="margin-bottom:16px;">
+        <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">Official Business Name *</label>
+        <input type="text" id="addName" required class="filter-input" placeholder="e.g. Acme Industrial Technologies">
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">Primary Industry Category *</label>
+        <select id="addCategory" required class="filter-select">
+          <option value="">Select Category</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">One-Line Tagline / Short Description *</label>
+        <input type="text" id="addShortDesc" required class="filter-input" placeholder="e.g. Leading provider of enterprise cloud infrastructure and data analytics.">
+      </div>
+
+      <div style="margin-bottom:28px;">
+        <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">Full Corporate Overview / Description *</label>
+        <textarea id="addDesc" rows="4" required class="filter-input" placeholder="Detailed description of your core services, history, certifications, and product offerings..."></textarea>
+      </div>
+
+      <div style="border-top:1px solid var(--border); margin:28px 0;"></div>
+
+      <!-- Section 2: Location -->
+      <h3 style="font-size:1.3rem; margin-bottom:6px; color:var(--primary);">2. Location & Geographic Scope</h3>
+      <p style="color:var(--slate); font-size:0.88rem; margin-bottom:20px;">Select country, region, and primary municipal service address.</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+        <div>
+          <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">Country *</label>
+          <select id="addCountry" required class="filter-select">
+            <option value="">Select Country</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">State / Province / Region</label>
+          <select id="addRegion" class="filter-select">
+            <option value="">Select Region</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+        <div>
+          <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">City *</label>
+          <select id="addCity" required class="filter-select">
+            <option value="">Select City</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">Postal / ZIP Code</label>
+          <input type="text" id="addPostal" class="filter-input" placeholder="e.g. 54000 or 10001">
+        </div>
+      </div>
+
+      <div style="margin-bottom:28px;">
+        <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">Street Address / Suite / Building *</label>
+        <input type="text" id="addAddress" required class="filter-input" placeholder="e.g. Suite 400, Commercial Plaza, Main Boulevard">
+      </div>
+
+      <div style="border-top:1px solid var(--border); margin:28px 0;"></div>
+
+      <!-- Section 3: Contact Details -->
+      <h3 style="font-size:1.3rem; margin-bottom:6px; color:var(--primary);">3. Verified Contact Information</h3>
+      <p style="color:var(--slate); font-size:0.88rem; margin-bottom:20px;">Direct channels for customer inquiries, sales, and appointments.</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+        <div>
+          <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">Official Phone Number *</label>
+          <input type="tel" id="addPhone" required class="filter-input" placeholder="e.g. +92 42 3590 5000">
+        </div>
+        <div>
+          <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">Corporate Email *</label>
+          <input type="email" id="addEmail" required class="filter-input" placeholder="e.g. info@company.com">
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px;">
+        <div>
+          <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">Official Website URL (Optional)</label>
+          <input type="url" id="addWebsite" class="filter-input" placeholder="https://www.company.com">
+        </div>
+        <div>
+          <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">WhatsApp Number (Optional)</label>
+          <input type="tel" id="addWhatsApp" class="filter-input" placeholder="e.g. +92 300 1234567">
+        </div>
+      </div>
+
+      <div style="background:#F7F9FC; border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px; margin-bottom:24px; font-size:0.85rem; color:var(--slate);">
+        🛡️ <strong>Listing Moderation Notice:</strong> By submitting, you certify that you are authorized to represent this entity. Submitted listings are held in pending moderation until reviewed by an administrator.
+      </div>
+
+      <button type="submit" class="btn btn-action btn-lg" style="width:100%;">Submit Business for Approval</button>
+    </form>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 NexusBiz Directory. All rights reserved.</div>
+        <div><a href="index.html" style="color:#94A3B8;">Home</a> &nbsp;•&nbsp; <a href="search.html" style="color:#94A3B8;">Search</a> &nbsp;•&nbsp; <a href="admin.html" style="color:#94A3B8;">Admin</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

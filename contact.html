@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — NexusBiz Directory</title>
+  <meta name="description" content="Get in touch with the NexusBiz support, directory moderation, and business verification team.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span class="logo-badge">NB</span> NexusBiz</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="search.html" class="nav-link">Search</a></li>
+          <li><a href="directories.html" class="nav-link">Directories</a></li>
+          <li><a href="admin.html" class="nav-link">Admin Panel</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="add-business.html" class="btn btn-action btn-sm">+ Add Business</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" style="max-width:700px; padding:60px 20px;">
+    <h1 style="font-size:2.2rem; margin-bottom:12px;">Contact NexusBiz Support</h1>
+    <p style="color:var(--slate); margin-bottom:30px;">Have questions regarding business verification, listing updates, or corrections? Drop us a line below.</p>
+
+    <form onsubmit="event.preventDefault(); alert('Thank you! Your message has been sent to our directory team.'); this.reset();" style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius-md); padding:32px; box-shadow:var(--shadow-sm);">
+      <div style="margin-bottom:16px;">
+        <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">Your Name *</label>
+        <input type="text" required class="filter-input" placeholder="e.g. John Doe">
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">Email Address *</label>
+        <input type="email" required class="filter-input" placeholder="e.g. john@example.com">
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">Subject *</label>
+        <select required class="filter-select">
+          <option value="verification">Business Verification Inquiry</option>
+          <option value="update">Update Existing Listing</option>
+          <option value="removal">Listing Removal Request</option>
+          <option value="partnership">Partnership & Advertising</option>
+        </select>
+      </div>
+      <div style="margin-bottom:24px;">
+        <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px;">Message *</label>
+        <textarea rows="5" required class="filter-input" placeholder="Provide details regarding your request or business ID..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
+    </form>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 NexusBiz Directory. All rights reserved.</div>
+        <div><a href="index.html" style="color:#94A3B8;">Home</a> &nbsp;•&nbsp; <a href="privacy.html" style="color:#94A3B8;">Privacy</a> &nbsp;•&nbsp; <a href="terms.html" style="color:#94A3B8;">Terms</a></div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
