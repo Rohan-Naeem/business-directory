@@ -1,11 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { ShieldCheck } from 'lucide-react';
 
 export default function AdminLoginPage() {
-  const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -19,11 +17,16 @@ export default function AdminLoginPage() {
       const res = await fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username: username.trim(), password: password.trim() }),
       });
-      if (!res.ok) throw new Error('Invalid admin username or password');
-      router.push('/admin');
-      router.refresh();
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.error || 'Invalid admin username or password');
+      }
+      // Full reload (not client navigation) so the new admin cookie is
+      // definitely sent to /admin and the middleware sees it. Client
+      // navigation could re-show the login page from cache.
+      window.location.href = '/admin';
     } catch (err: any) {
       setError(err.message || 'Login failed');
     } finally {
@@ -41,6 +44,7 @@ export default function AdminLoginPage() {
           <h1 className="text-xl font-extrabold text-[#172B45]">Admin Login</h1>
         </div>
         <p className="text-sm text-slate-500 mb-6">This page is not linked from the public site. Only use it if you know the admin login.</p>
+        <p className="text-xs text-slate-400 mb-6">If login keeps asking again, set ADMIN_USERNAME and ADMIN_PASSWORD in Vercel, then Redeploy — adding them alone does not update the running site. Use the same domain for login and for /admin.</p>
         <form onSubmit={onSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-bold text-slate-700 mb-1">Username</label>

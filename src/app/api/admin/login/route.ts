@@ -3,8 +3,13 @@ import { ADMIN_COOKIE, adminSessionValue, checkAdminCredentials } from '@/lib/ad
 
 export async function POST(req: NextRequest) {
   try {
-    const { username, password } = await req.json();
-    if (!username || !password || !checkAdminCredentials(String(username), String(password))) {
+    const body = await req.json();
+    const username = String(body?.username ?? '').trim();
+    const password = String(body?.password ?? '').trim();
+    if (!process.env.ADMIN_USERNAME || !process.env.ADMIN_PASSWORD) {
+      return NextResponse.json({ error: 'Admin login is not configured: set ADMIN_USERNAME and ADMIN_PASSWORD in Vercel, then redeploy' }, { status: 500 });
+    }
+    if (!username || !password || !checkAdminCredentials(username, password)) {
       return NextResponse.json({ error: 'Invalid admin username or password' }, { status: 401 });
     }
     const value = await adminSessionValue();

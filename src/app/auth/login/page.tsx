@@ -13,6 +13,18 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [nextPath, setNextPath] = useState('/dashboard');
+
+  // After Add Business protection, users land here with ?next=/add-business.
+  // Only allow safe internal paths, never an external URL.
+  React.useEffect(() => {
+    try {
+      const next = new URLSearchParams(window.location.search).get('next');
+      if (next && next.startsWith('/') && !next.startsWith('//') && !next.startsWith('/admin')) {
+        setNextPath(next);
+      }
+    } catch { /* keep default */ }
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,9 +41,9 @@ export default function LoginPage() {
         if (authError) throw authError;
       }
 
-      setSuccess('Successfully authenticated! Redirecting to dashboard...');
+      setSuccess('Successfully authenticated! Redirecting...');
       setTimeout(() => {
-        router.push('/dashboard');
+        router.push(nextPath);
       }, 1000);
     } catch (err: any) {
       setError(err.message || 'Invalid credentials or login failed.');

@@ -16,6 +16,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { Country, Region, City, Category, Subcategory } from '@/lib/types';
+import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase/client';
 
 interface AddBusinessFormProps {
   countries: Country[];
@@ -33,6 +34,21 @@ export const AddBusinessForm: React.FC<AddBusinessFormProps> = ({
   subcategories,
 }) => {
   const router = useRouter();
+  const [authChecking, setAuthChecking] = useState(true);
+
+  // Add Business requires login: send guests to the login page, which
+  // already shows "Don't have an account? Create an account" below it.
+  useEffect(() => {
+    const supabase = getSupabaseClient();
+    if (!supabase || !isSupabaseConfigured()) { setAuthChecking(false); return; }
+    supabase.auth.getSession().then(({ data }) => {
+      if (!data.session) {
+        router.replace('/auth/login?next=/add-business');
+      } else {
+        setAuthChecking(false);
+      }
+    });
+  }, [router]);
 
   // Wizard Step: 1 = Basic Info, 2 = Location, 3 = Schedule & Media, 4 = Review & Submit
   const [step, setStep] = useState(1);
@@ -235,6 +251,14 @@ export const AddBusinessForm: React.FC<AddBusinessFormProps> = ({
             Browse Other Listings
           </Link>
         </div>
+      </div>
+    );
+  }
+
+  if (authChecking) {
+    return (
+      <div className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-xs text-center max-w-3xl mx-auto text-sm text-slate-500">
+        Checking login...
       </div>
     );
   }
