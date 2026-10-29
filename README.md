@@ -1,8 +1,8 @@
-# NexusBiz - Production Multi-Country Business Directory Platform
+# Global Bizz Hub - Production Multi-Country Business Directory Platform
 
 A modern, scalable, SEO-optimized business directory platform engineered with **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**, and **PostgreSQL (Supabase)**.
 
-NexusBiz is inspired by top modern directory portals (such as *bizbranches.pk* and *bizprimehub.com*) but designed from the ground up with an original identity, strict relational database integrity, dual-mode data architecture (in-memory stateful repository with automatic Supabase failover), multi-step listing submissions, moderation workflows, Schema.org `LocalBusiness` JSON-LD metadata, and multi-country geographic scaling.
+Global Bizz Hub is inspired by top modern directory portals (such as *bizbranches.pk* and *bizprimehub.com*) but designed from the ground up with an original identity, strict relational database integrity, dual-mode data architecture (in-memory stateful repository with automatic Supabase failover), multi-step listing submissions, moderation workflows, Schema.org `LocalBusiness` JSON-LD metadata, and multi-country geographic scaling.
 
 ---
 
@@ -95,7 +95,7 @@ Copy the example environment configuration:
 cp .env.example .env.local
 ```
 
-> **Note:** The directory is architected with a **dual-mode data repository**. If you do not configure Supabase credentials right away, NexusBiz runs automatically in **Local Repository Mode** with pre-seeded data, instant in-memory CRUD operations, and 100% of features functional out of the box!
+> **Note:** The directory is architected with a **dual-mode data repository**. If you do not configure Supabase credentials right away, Global Bizz Hub runs automatically in **Local Repository Mode** with pre-seeded data, instant in-memory CRUD operations, and 100% of features functional out of the box!
 
 ### 3. Run the Development Server
 ```bash
