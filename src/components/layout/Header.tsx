@@ -84,10 +84,10 @@ export const Header: React.FC = () => {
           
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <Image src="/logo.svg" alt="NexusBiz logo" width={44} height={44} className="w-11 h-11 group-hover:scale-105 transition-transform" priority />
+            <Image src="/logo.svg" alt="Global Bizz Hub logo" width={44} height={44} className="w-11 h-11 group-hover:scale-105 transition-transform" priority />
             <div className="flex flex-col">
               <span className="text-2xl font-bold tracking-tight text-[#172B45] flex items-center gap-1.5">
-                Nexus<span className="text-[#10B981]">Biz</span>
+                Global<span className="text-[#10B981]">Bizz Hub</span>
               </span>
               <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 -mt-1">
                 Global Business Directory
@@ -239,6 +239,13 @@ export const Header: React.FC = () => {
             </Link>
 
             <Link
+              href="/auth/login"
+              className="inline-flex items-center gap-2 bg-[#065F46] hover:bg-[#044E39] text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-xs shadow-emerald-900/10 hover:shadow-md transition-all active:scale-[0.98]"
+            >
+              <span>Login</span>
+            </Link>
+
+            <Link
               href="/add-business"
               className="inline-flex items-center gap-2 bg-[#10B981] hover:bg-[#059669] text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-xs shadow-emerald-900/10 hover:shadow-md transition-all active:scale-[0.98]"
             >
@@ -346,6 +353,12 @@ export const Header: React.FC = () => {
               className="w-full text-center py-2.5 px-4 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition-colors"
             >
               Sign In to Your Account
+            </Link>
+            <Link
+              href="/auth/login"
+              className="w-full text-center py-2.5 px-4 rounded-xl bg-[#065F46] text-white font-semibold text-sm hover:bg-[#044E39] transition-colors shadow-xs"
+            >
+              Login
             </Link>
             <Link
               href="/add-business"
