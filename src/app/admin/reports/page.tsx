@@ -4,7 +4,7 @@ import { DirectoryRepository } from '@/lib/data/repository';
 import { AdminReportsClient } from './AdminReportsClient';
 
 export const metadata: Metadata = {
-  title: 'Reported Listings | NexusBiz Admin',
+  title: 'Reported Listings | Global Bizz Hub Admin',
   robots: { index: false, follow: false },
 };
 

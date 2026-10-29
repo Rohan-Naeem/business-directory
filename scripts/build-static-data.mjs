@@ -4,7 +4,7 @@ import path from 'path';
 // Let's create the full data object
 const DATA = {
   site: {
-    name: "NexusBiz",
+    name: "Global Bizz Hub",
     tagline: "Global Verified Business Directory",
     description: "Discover verified companies, professional services, local stores, and B2B suppliers across Pakistan, the United States, and the United Kingdom.",
     support_email: "support@nexusbiz.directory",
@@ -352,7 +352,7 @@ fs.writeFileSync('data.json', JSON.stringify(DATA, null, 2));
 fs.writeFileSync('public/data.json', JSON.stringify(DATA, null, 2));
 
 // Write js/data.js (safe for file:// execution without CORS)
-const jsDataContent = `// NexusBiz Directory Initial Seed Data
+const jsDataContent = `// Global Bizz Hub Directory Initial Seed Data
 window.NEXUS_DATA = ${JSON.stringify(DATA, null, 2)};
 `;
 fs.writeFileSync('js/data.js', jsDataContent);

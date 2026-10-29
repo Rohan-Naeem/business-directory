@@ -4,8 +4,8 @@ import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { ShieldCheck, Globe2, Building2, Users, CheckCircle2 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'About NexusBiz - Our Mission & Verification Standards',
-  description: 'Learn about the mission, geographic scope, and strict editorial verification policies behind the NexusBiz multi-country directory.',
+  title: 'About Global Bizz Hub - Our Mission & Verification Standards',
+  description: 'Learn about the mission, geographic scope, and strict editorial verification policies behind the Global Bizz Hub multi-country directory.',
 };
 
 export default function AboutPage() {
@@ -21,12 +21,12 @@ export default function AboutPage() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-extrabold text-[#172B45] tracking-tight">
-            About NexusBiz Directory
+            About Global Bizz Hub Directory
           </h1>
 
           <div className="prose prose-slate text-sm text-slate-600 leading-relaxed space-y-4">
             <p>
-              NexusBiz is an authoritative, multi-country business discovery platform created to provide honest, structured, and verified commercial listings across <strong>Pakistan</strong>, the <strong>United States</strong>, and the <strong>United Kingdom</strong>.
+              Global Bizz Hub is an authoritative, multi-country business discovery platform created to provide honest, structured, and verified commercial listings across <strong>Pakistan</strong>, the <strong>United States</strong>, and the <strong>United Kingdom</strong>.
             </p>
 
             <h2 className="text-xl font-bold text-[#172B45] pt-4">

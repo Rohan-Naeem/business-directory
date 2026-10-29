@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-console.log('Testing NexusBiz Static HTML/CSS/JS/JSON/Sitemap Suite...\n');
+console.log('Testing Global Bizz Hub Static HTML/CSS/JS/JSON/Sitemap Suite...\n');
 
 const files = [
   'index.html',

@@ -19,7 +19,7 @@ async function testEndpoints() {
     '/api/businesses'
   ];
 
-  console.log('Testing NexusBiz Endpoints on http://localhost:3000...\n');
+  console.log('Testing Global Bizz Hub Endpoints on http://localhost:3000...\n');
   let passed = 0;
   let failed = 0;
 

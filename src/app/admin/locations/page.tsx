@@ -4,7 +4,7 @@ import { DirectoryRepository } from '@/lib/data/repository';
 import { AdminGeoImporterClient } from './AdminGeoImporterClient';
 
 export const metadata: Metadata = {
-  title: 'Geographic Locations & Importer | NexusBiz Admin',
+  title: 'Geographic Locations & Importer | Global Bizz Hub Admin',
   robots: { index: false, follow: false },
 };
 

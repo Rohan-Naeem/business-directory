@@ -16,7 +16,7 @@ import {
 import { AdminPendingListingsClient } from './AdminPendingListingsClient';
 
 export const metadata: Metadata = {
-  title: 'Admin Dashboard Overview | NexusBiz',
+  title: 'Admin Dashboard Overview | Global Bizz Hub',
   robots: { index: false, follow: false },
 };
 

@@ -29,7 +29,7 @@ export default function AdminLayout({
             </div>
             <div>
               <span className="text-lg font-bold text-white tracking-tight block">
-                Nexus<span className="text-[#10B981]">Admin</span>
+                Global Bizz Hub<span className="text-[#10B981]"> Admin</span>
               </span>
               <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block -mt-1">
                 Moderation Panel

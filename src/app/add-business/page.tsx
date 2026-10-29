@@ -6,8 +6,8 @@ import { AddBusinessForm } from '@/components/business/AddBusinessForm';
 import { PlusCircle, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Add Your Business Listing | NexusBiz Directory',
-  description: 'Submit your commercial enterprise, hospital, legal practice, or local service to the NexusBiz multi-country directory. Free submission and verified editorial indexing.',
+  title: 'Add Your Business Listing | Global Bizz Hub',
+  description: 'Submit your commercial enterprise, hospital, legal practice, or local service to the Global Bizz Hub multi-country directory. Free submission and verified editorial indexing.',
 };
 
 export default async function AddBusinessPage() {
@@ -37,7 +37,7 @@ export default async function AddBusinessPage() {
             Submit Your Business Listing
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-            Fill out the verified company details below. Your listing will be reviewed by our editorial team and published on the NexusBiz directory.
+            Fill out the verified company details below. Your listing will be reviewed by our editorial team and published on the Global Bizz Hub directory.
           </p>
         </div>
 

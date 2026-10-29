@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { PlusCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Manage Listings | NexusBiz Admin',
+  title: 'Manage Listings | Global Bizz Hub Admin',
   robots: { index: false, follow: false },
 };
 

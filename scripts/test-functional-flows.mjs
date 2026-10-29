@@ -1,5 +1,5 @@
 async function testMutations() {
-  console.log('Testing NexusBiz Dynamic Mutation Flows on http://localhost:3000...\n');
+  console.log('Testing Global Bizz Hub Dynamic Mutation Flows on http://localhost:3000...\n');
 
   // 1. Submit a new business
   console.log('1. Testing Business Submission via /api/businesses (POST)...');
