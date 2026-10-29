@@ -1,7 +1,7 @@
-// NexusBiz Directory Initial Seed Data
+// Global Bizz Hub Directory Initial Seed Data
 window.NEXUS_DATA = {
   "site": {
-    "name": "NexusBiz",
+    "name": "Global Bizz Hub",
     "tagline": "Global Verified Business Directory",
     "description": "Discover verified companies, professional services, local stores, and B2B suppliers across Pakistan, the United States, and the United Kingdom.",
     "support_email": "support@nexusbiz.directory",
