@@ -36,7 +36,7 @@ export default async function DirectoriesOverviewPage() {
             Browse by Country & City
           </h1>
           <p className="text-sm text-slate-600 max-w-2xl leading-relaxed">
-            NexusBiz currently provides curated commercial coverage across Pakistan, the United States, and the United Kingdom, spanning over {cities.length} populated cities.
+            Global Bizz Hub currently provides curated commercial coverage across Pakistan, the United States, and the United Kingdom, spanning over {cities.length} populated cities.
           </p>
         </div>
 

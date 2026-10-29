@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: CountryPageProps): Promise<Me
       canonical: `https://nexusbiz.directory/directories/${country.slug}`,
     },
     openGraph: {
-      title: `${country.name} Business Directory | NexusBiz`,
+      title: `${country.name} Business Directory | Global Bizz Hub`,
       description: `Explore verified businesses across ${country.name}.`,
       url: `https://nexusbiz.directory/directories/${country.slug}`,
     },

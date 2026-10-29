@@ -4,8 +4,8 @@ import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { ShieldCheck, CheckCircle2, AlertTriangle, FileText } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Listing Submission & Moderation Guidelines | NexusBiz',
-  description: 'Guidelines and quality standards for submitting and verifying commercial listings on NexusBiz directory.',
+  title: 'Listing Submission & Moderation Guidelines | Global Bizz Hub',
+  description: 'Guidelines and quality standards for submitting and verifying commercial listings on Global Bizz Hub directory.',
 };
 
 export default function GuidelinesPage() {
@@ -26,7 +26,7 @@ export default function GuidelinesPage() {
 
           <div className="text-sm text-slate-600 leading-relaxed space-y-4">
             <p>
-              To maintain high organic search value and protect users from deceitful commercial practices, NexusBiz enforces clear editorial criteria for listing approval.
+              To maintain high organic search value and protect users from deceitful commercial practices, Global Bizz Hub enforces clear editorial criteria for listing approval.
             </p>
 
             <h2 className="text-lg font-bold text-[#172B45] pt-3">

@@ -48,7 +48,7 @@ export default function LoginPage() {
             <Building2 className="w-6 h-6 text-white" />
           </div>
           <span className="text-2xl font-bold tracking-tight text-[#172B45]">
-            Nexus<span className="text-[#10B981]">Biz</span>
+            Global<span className="text-[#10B981]">Bizz Hub</span>
           </span>
         </Link>
         <h1 className="text-2xl font-extrabold text-[#172B45] tracking-tight">

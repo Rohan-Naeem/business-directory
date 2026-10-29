@@ -59,7 +59,7 @@ export default function ContactPage() {
               <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
               <h3 className="font-bold text-base text-slate-900">Message Received</h3>
               <p className="text-xs text-slate-600">
-                Thank you for contacting NexusBiz. An editorial representative will respond to your inquiry shortly.
+                Thank you for contacting Global Bizz Hub. An editorial representative will respond to your inquiry shortly.
               </p>
             </div>
           ) : (

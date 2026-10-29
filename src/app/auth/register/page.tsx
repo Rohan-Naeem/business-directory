@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Building2, Lock, Mail, User, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Building2, Lock, Mail, User, Phone, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client';
 
 export default function RegisterPage() {
@@ -11,6 +11,10 @@ export default function RegisterPage() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [accountType, setAccountType] = useState<'business_owner' | 'customer'>('business_owner');
+  const [phone, setPhone] = useState('');
+  const [businessName, setBusinessName] = useState('');
+  const [country, setCountry] = useState('Pakistan');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -21,13 +25,25 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
+      if (accountType === 'business_owner' && !businessName.trim()) {
+        setError('Business name is required for business owners.');
+        setLoading(false);
+        return;
+      }
+
       const supabase = getSupabaseClient();
       if (supabase) {
         const { error: authError } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            data: { full_name: fullName },
+            data: {
+              full_name: fullName,
+              account_type: accountType,
+              phone: phone.trim() || undefined,
+              business_name: businessName.trim() || undefined,
+              country,
+            },
           },
         });
         if (authError) throw authError;
@@ -52,7 +68,7 @@ export default function RegisterPage() {
             <Building2 className="w-6 h-6 text-white" />
           </div>
           <span className="text-2xl font-bold tracking-tight text-[#172B45]">
-            Nexus<span className="text-[#10B981]">Biz</span>
+            Global<span className="text-[#10B981]">Bizz Hub</span>
           </span>
         </Link>
         <h1 className="text-2xl font-extrabold text-[#172B45] tracking-tight">
@@ -129,6 +145,72 @@ export default function RegisterPage() {
                   className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs font-medium focus:border-emerald-500 focus:outline-hidden"
                 />
               </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                I am signing up as
+              </label>
+              <select
+                required
+                value={accountType}
+                onChange={(e) => setAccountType(e.target.value as 'business_owner' | 'customer')}
+                className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs font-medium focus:border-emerald-500 focus:outline-hidden"
+              >
+                <option value="business_owner">Business Owner</option>
+                <option value="customer">Customer / Visitor</option>
+              </select>
+            </div>
+
+            {accountType === 'business_owner' && (
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  Business Name
+                </label>
+                <div className="relative flex items-center">
+                  <Building2 className="w-4 h-4 text-slate-400 absolute left-3.5" />
+                  <input
+                    type="text"
+                    required
+                    value={businessName}
+                    onChange={(e) => setBusinessName(e.target.value)}
+                    placeholder="e.g. Systems Limited"
+                    className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs font-medium focus:border-emerald-500 focus:outline-hidden"
+                  />
+                </div>
+              </div>
+            )}
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Phone Number
+              </label>
+              <div className="relative flex items-center">
+                <Phone className="w-4 h-4 text-slate-400 absolute left-3.5" />
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="e.g. +92 300 1234567"
+                  className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs font-medium focus:border-emerald-500 focus:outline-hidden"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Country
+              </label>
+              <select
+                required
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs font-medium focus:border-emerald-500 focus:outline-hidden"
+              >
+                <option value="Pakistan">Pakistan</option>
+                <option value="United States">United States</option>
+                <option value="United Kingdom">United Kingdom</option>
+              </select>
             </div>
 
             <button

@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'My Business Dashboard | NexusBiz',
+  title: 'My Business Dashboard | Global Bizz Hub',
   robots: { index: false, follow: false },
 };
 

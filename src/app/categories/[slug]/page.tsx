@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
       canonical: `https://nexusbiz.directory/categories/${category.slug}`,
     },
     openGraph: {
-      title: `${category.name} Directory | NexusBiz`,
+      title: `${category.name} Directory | Global Bizz Hub`,
       description: category.description,
       url: `https://nexusbiz.directory/categories/${category.slug}`,
     },

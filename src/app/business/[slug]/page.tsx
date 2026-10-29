@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: BusinessPageProps): Promise<M
       canonical: `https://nexusbiz.directory/business/${business.slug}`,
     },
     openGraph: {
-      title: `${business.name} | NexusBiz Directory`,
+      title: `${business.name} | Global Bizz Hub Directory`,
       description: business.short_description || business.description,
       url: `https://nexusbiz.directory/business/${business.slug}`,
       images: business.cover_image_url ? [{ url: business.cover_image_url }] : undefined,

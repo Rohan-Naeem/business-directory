@@ -12,10 +12,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | NexusBiz Business Directory',
-    default: 'NexusBiz - Trusted Multi-Country Business Directory (Pakistan, USA, UK)',
+    template: '%s | Global Bizz Hub',
+    default: 'Global Bizz Hub - Trusted Multi-Country Business Directory (Pakistan, USA, UK)',
   },
-  description: 'Discover verified companies, hospitals, law firms, software houses, and local services across Pakistan, the United States, and the United Kingdom on NexusBiz.',
+  description: 'Discover verified companies, hospitals, law firms, software houses, and local services across Pakistan, the United States, and the United Kingdom on Global Bizz Hub.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://nexusbiz.directory'),
   keywords: [
     'business directory',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     'london lawyers',
     'new york doctors',
   ],
-  authors: [{ name: 'NexusBiz International' }],
+  authors: [{ name: 'Global Bizz Hub' }],
   robots: {
     index: true,
     follow: true,
@@ -41,13 +41,13 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://nexusbiz.directory',
-    siteName: 'NexusBiz Business Directory',
-    title: 'NexusBiz - Trusted Multi-Country Business Directory',
+    siteName: 'Global Bizz Hub',
+    title: 'Global Bizz Hub - Trusted Multi-Country Business Directory',
     description: 'Find verified businesses, commercial agencies, and certified local services across Pakistan, USA, and UK.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NexusBiz - Trusted Multi-Country Business Directory',
+    title: 'Global Bizz Hub - Trusted Multi-Country Business Directory',
     description: 'Find verified businesses across Pakistan, USA, and UK.',
   },
 };
