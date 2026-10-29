@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import { cookies } from 'next/headers';
+import { ADMIN_COOKIE, isAdminSession } from '@/lib/admin-auth';
 import { 
   Building2, 
   ShieldCheck, 
@@ -13,11 +15,17 @@ import {
   LogOut
 } from 'lucide-react';
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // The login page itself must not show the admin sidebar.
+  const cookieStore = await cookies();
+  const isAdmin = await isAdminSession(cookieStore.get(ADMIN_COOKIE)?.value);
+  if (!isAdmin) {
+    return <div className="min-h-screen bg-slate-100">{children}</div>;
+  }
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col md:flex-row">
       {/* Sidebar Navigation */}
@@ -103,7 +111,7 @@ export default function AdminLayout({
           <div className="flex items-center gap-4 text-xs font-semibold text-slate-600">
             <span>Admin Staff User</span>
             <Link
-              href="/"
+              href="/api/admin/logout"
               className="text-slate-400 hover:text-slate-700 flex items-center gap-1"
             >
               <LogOut className="w-3.5 h-3.5" />

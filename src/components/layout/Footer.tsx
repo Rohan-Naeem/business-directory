@@ -182,8 +182,7 @@ export const Footer: React.FC = () => {
             <Link href="/privacy" className="hover:text-slate-300">Privacy</Link>
             <Link href="/terms" className="hover:text-slate-300">Terms</Link>
             <Link href="/guidelines" className="hover:text-slate-300">Listing Policy</Link>
-            <Link href="/admin" className="text-slate-600 hover:text-slate-400">Staff Portal</Link>
-          </div>
+            </div>
         </div>
       </div>
     </footer>

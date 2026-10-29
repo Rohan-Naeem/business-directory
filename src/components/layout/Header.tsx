@@ -11,18 +11,46 @@ import {
   ChevronDown, 
   PlusCircle, 
   Globe2, 
-  ShieldCheck, 
   Layers, 
   User,
   ArrowRight
 } from 'lucide-react';
 import { CategoryIcon } from '../ui/CategoryIcon';
+import { getSupabaseClient } from '@/lib/supabase/client';
 
 export const Header: React.FC = () => {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [directoriesOpen, setDirectoriesOpen] = useState(false);
+  const [authUser, setAuthUser] = useState<{ name: string; email: string; avatarUrl?: string } | null>(null);
+
+  // Logged-in users see their profile avatar, not Login / Sign Up.
+  useEffect(() => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return;
+    supabase.auth.getSession().then(({ data }) => {
+      const user = data.session?.user;
+      if (!user) { setAuthUser(null); return; }
+      const meta: any = user.user_metadata || {};
+      setAuthUser({
+        name: meta.full_name || meta.name || user.email || 'My Account',
+        email: user.email || '',
+        avatarUrl: meta.avatar_url || meta.picture || undefined,
+      });
+    });
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      const user = session?.user;
+      if (!user) { setAuthUser(null); return; }
+      const meta: any = user.user_metadata || {};
+      setAuthUser({
+        name: meta.full_name || meta.name || user.email || 'My Account',
+        email: user.email || '',
+        avatarUrl: meta.avatar_url || meta.picture || undefined,
+      });
+    });
+    return () => listener.subscription.unsubscribe();
+  }, []);
 
   const catDropdownRef = useRef<HTMLDivElement>(null);
   const dirDropdownRef = useRef<HTMLDivElement>(null);
@@ -76,6 +104,8 @@ export const Header: React.FC = () => {
       cities: ['London', 'Manchester', 'Birmingham', 'Edinburgh', 'Glasgow'] 
     },
   ];
+
+  if (pathname.startsWith('/admin')) return null;
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all shadow-xs">
@@ -219,31 +249,44 @@ export const Header: React.FC = () => {
               <span>Search</span>
             </Link>
 
-            <Link 
-              href="/admin" 
-              className={`flex items-center gap-1 px-3 py-2 rounded-lg transition-colors text-slate-500 hover:text-[#065F46] hover:bg-slate-50 ${pathname.startsWith('/admin') ? 'text-[#065F46] font-semibold' : ''}`}
-            >
-              <ShieldCheck className="w-4 h-4" />
-              <span>Admin</span>
-            </Link>
           </nav>
 
           {/* Desktop Right Action Area */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link
-              href="/auth/login"
-              className="flex items-center gap-1.5 text-sm font-semibold text-slate-700 hover:text-[#065F46] px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors"
-            >
-              <User className="w-4 h-4" />
-              <span>Sign In</span>
-            </Link>
+            {authUser ? (
+              <Link
+                href="/dashboard"
+                title={authUser.name}
+                className="flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-[#065F46] px-2 py-1 rounded-lg hover:bg-slate-50 transition-colors"
+              >
+                {authUser.avatarUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={authUser.avatarUrl} alt={authUser.name} className="w-10 h-10 rounded-full object-cover border border-slate-200" />
+                ) : (
+                  <span className="w-10 h-10 rounded-full bg-[#065F46] text-white flex items-center justify-center text-base font-bold">
+                    {authUser.name.charAt(0).toUpperCase()}
+                  </span>
+                )}
+                <span className="max-w-[140px] truncate">{authUser.name}</span>
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/auth/register"
+                  className="flex items-center gap-1.5 text-sm font-semibold text-slate-700 hover:text-[#065F46] px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors"
+                >
+                  <User className="w-4 h-4" />
+                  <span>Sign Up</span>
+                </Link>
 
-            <Link
-              href="/auth/login"
-              className="inline-flex items-center gap-2 bg-[#065F46] hover:bg-[#044E39] text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-xs shadow-emerald-900/10 hover:shadow-md transition-all active:scale-[0.98]"
-            >
-              <span>Login</span>
-            </Link>
+                <Link
+                  href="/auth/login"
+                  className="inline-flex items-center gap-2 bg-[#065F46] hover:bg-[#044E39] text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-xs shadow-emerald-900/10 hover:shadow-md transition-all active:scale-[0.98]"
+                >
+                  <span>Login</span>
+                </Link>
+              </>
+            )}
 
             <Link
               href="/add-business"
@@ -338,28 +381,40 @@ export const Header: React.FC = () => {
               ))}
             </div>
 
-            <Link
-              href="/admin"
-              className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-semibold text-slate-700"
-            >
-              <ShieldCheck className="w-5 h-5 text-slate-400" />
-              Admin Portal
-            </Link>
           </div>
 
           <div className="mt-6 pt-5 border-t border-slate-200 flex flex-col gap-3">
-            <Link
-              href="/auth/login"
-              className="w-full text-center py-2.5 px-4 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition-colors"
-            >
-              Sign In to Your Account
-            </Link>
-            <Link
-              href="/auth/login"
-              className="w-full text-center py-2.5 px-4 rounded-xl bg-[#065F46] text-white font-semibold text-sm hover:bg-[#044E39] transition-colors shadow-xs"
-            >
-              Login
-            </Link>
+            {authUser ? (
+              <Link
+                href="/dashboard"
+                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition-colors"
+              >
+                {authUser.avatarUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={authUser.avatarUrl} alt={authUser.name} className="w-8 h-8 rounded-full object-cover border border-slate-200" />
+                ) : (
+                  <span className="w-8 h-8 rounded-full bg-[#065F46] text-white flex items-center justify-center text-sm font-bold">
+                    {authUser.name.charAt(0).toUpperCase()}
+                  </span>
+                )}
+                {authUser.name}
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/auth/register"
+                  className="w-full text-center py-2.5 px-4 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition-colors"
+                >
+                  Create Your Account
+                </Link>
+                <Link
+                  href="/auth/login"
+                  className="w-full text-center py-2.5 px-4 rounded-xl bg-[#065F46] text-white font-semibold text-sm hover:bg-[#044E39] transition-colors shadow-xs"
+                >
+                  Login
+                </Link>
+              </>
+            )}
             <Link
               href="/add-business"
               className="w-full text-center py-2.5 px-4 rounded-xl bg-[#10B981] text-white font-semibold text-sm hover:bg-[#059669] transition-colors shadow-xs"

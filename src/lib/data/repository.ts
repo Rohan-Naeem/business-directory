@@ -63,13 +63,163 @@ function populateBusinessRelations(biz: Business, store: DataStore): Business {
 
   return {
     ...biz,
-    category,
-    subcategory,
-    country,
-    region,
-    city,
-    reviews,
+    // Keep Supabase-populated relations when the in-memory store has no
+    // matching UUID row (Supabase IDs differ from seed IDs).
+    category: category || biz.category,
+    subcategory: subcategory || biz.subcategory,
+    country: country || biz.country,
+    region: region || biz.region,
+    city: city || biz.city,
+    reviews: biz.reviews ?? reviews,
   };
+}
+
+
+// --- Supabase persistence for businesses (admin moderation) ---
+// The site historically kept businesses only in memory, so a submission made
+// on one serverless instance never reached /admin on another. When Supabase
+// is configured, submissions are also written to the public.businesses table
+// (status pending) and admin/public reads merge Supabase rows with the
+// in-memory seed store. In-memory IDs (cnt-pk, cat-it, ...) do not match
+// Supabase UUIDs, so they are resolved by slug, creating a missing
+// region/city/category/subcategory row when needed.
+function isUuid(value: string): boolean {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
+}
+
+async function fetchSupabaseLookups(client: any) {
+  const [countries, regions, cities, categories, subcategories] = await Promise.all([
+    client.from('countries').select('*'),
+    client.from('regions').select('*'),
+    client.from('cities').select('*'),
+    client.from('categories').select('*'),
+    client.from('subcategories').select('*'),
+  ]);
+  const byId = (rows: any[]) => new Map<string, any>((rows || []).map((r: any) => [r.id, r]));
+  return {
+    countries: byId(countries.data || []),
+    regions: byId(regions.data || []),
+    cities: byId(cities.data || []),
+    categories: byId(categories.data || []),
+    subcategories: byId(subcategories.data || []),
+  };
+}
+
+function mapSupabaseBusiness(row: any, lookups: any): Business {
+  return {
+    id: row.id,
+    user_id: row.user_id || undefined,
+    name: row.name,
+    slug: row.slug,
+    description: row.description,
+    short_description: row.short_description,
+    category_id: row.category_id,
+    subcategory_id: row.subcategory_id || undefined,
+    country_id: row.country_id,
+    region_id: row.region_id,
+    city_id: row.city_id,
+    address: row.address,
+    postal_code: row.postal_code || undefined,
+    phone: row.phone,
+    email: row.email,
+    website: row.website || undefined,
+    whatsapp: row.whatsapp || undefined,
+    logo_url: row.logo_url || undefined,
+    cover_image_url: row.cover_image_url || undefined,
+    status: row.status,
+    is_featured: !!row.is_featured,
+    is_verified: !!row.is_verified,
+    rating: Number(row.rating || 0),
+    review_count: Number(row.review_count || 0),
+    created_at: row.created_at,
+    updated_at: row.updated_at,
+    category: lookups.categories.get(row.category_id),
+    subcategory: row.subcategory_id ? lookups.subcategories.get(row.subcategory_id) : undefined,
+    country: lookups.countries.get(row.country_id),
+    region: lookups.regions.get(row.region_id),
+    city: lookups.cities.get(row.city_id),
+    reviews: [],
+  } as Business;
+}
+
+async function fetchSupabaseBusinesses(statusFilter?: string): Promise<Business[]> {
+  try {
+    const client = getSupabaseServerClient();
+    if (!client) return [];
+    let query = client.from('businesses').select('*').order('created_at', { ascending: false });
+    if (statusFilter && statusFilter !== 'all') query = query.eq('status', statusFilter);
+    const { data, error } = await query;
+    if (error || !data) { console.error('Supabase businesses fetch failed:', error?.message); return []; }
+    const lookups = await fetchSupabaseLookups(client);
+    return (data as any[]).map((row) => mapSupabaseBusiness(row, lookups));
+  } catch (err) {
+    console.error('Supabase businesses fetch failed:', err);
+    return [];
+  }
+}
+
+async function resolveSupabaseLookupId(client: any, table: string, slug: string, insertRow?: Record<string, any>): Promise<string | null> {
+  const { data } = await client.from(table).select('id').eq('slug', slug).maybeSingle();
+  if (data?.id) return data.id;
+  if (!insertRow) return null;
+  const { data: created, error } = await client.from(table).insert(insertRow).select('id').single();
+  if (error || !created?.id) { console.error(`Supabase ${table} create failed:`, error?.message); return null; }
+  return created.id;
+}
+
+async function persistBusinessToSupabase(data: any, slug: string): Promise<string | null> {
+  try {
+    const client = getSupabaseServerClient();
+    if (!client) return null;
+    const store = getStore();
+    const countryRec = store.countries.find((c) => c.id === data.country_id || c.slug === data.country_id);
+    const regionRec = store.regions.find((r) => r.id === data.region_id || r.slug === data.region_id);
+    const cityRec = store.cities.find((c) => c.id === data.city_id || c.slug === data.city_id);
+    const categoryRec = store.categories.find((c) => c.id === data.category_id || c.slug === data.category_id);
+    const subcategoryRec = data.subcategory_id ? store.subcategories.find((s) => s.id === data.subcategory_id || s.slug === data.subcategory_id) : undefined;
+    if (!countryRec || !regionRec || !cityRec || !categoryRec) return null;
+
+    const countryId = isUuid(countryRec.id) ? countryRec.id : await resolveSupabaseLookupId(client, 'countries', countryRec.slug, { name: countryRec.name, slug: countryRec.slug, code: countryRec.code, flag_emoji: countryRec.flag_emoji, phone_prefix: countryRec.phone_prefix, currency: countryRec.currency, is_active: true });
+    if (!countryId) return null;
+    const regionId = isUuid(regionRec.id) ? regionRec.id : await resolveSupabaseLookupId(client, 'regions', regionRec.slug, { country_id: countryId, name: regionRec.name, slug: regionRec.slug, code: regionRec.code || regionRec.slug.toUpperCase().slice(0, 3) });
+    if (!regionId) return null;
+    const cityId = isUuid(cityRec.id) ? cityRec.id : await resolveSupabaseLookupId(client, 'cities', cityRec.slug, { country_id: countryId, region_id: regionId, name: cityRec.name, slug: cityRec.slug, postal_code: cityRec.postal_code || null, is_popular: !!cityRec.is_popular });
+    if (!cityId) return null;
+    const categoryId = isUuid(categoryRec.id) ? categoryRec.id : await resolveSupabaseLookupId(client, 'categories', categoryRec.slug, { name: categoryRec.name, slug: categoryRec.slug, icon: categoryRec.icon, description: categoryRec.description, display_order: categoryRec.display_order || 0 });
+    if (!categoryId) return null;
+    let subcategoryId: string | null = null;
+    if (subcategoryRec) {
+      subcategoryId = isUuid(subcategoryRec.id) ? subcategoryRec.id : await resolveSupabaseLookupId(client, 'subcategories', subcategoryRec.slug, { category_id: categoryId, name: subcategoryRec.name, slug: subcategoryRec.slug });
+    }
+
+    const { data: created, error } = await client.from('businesses').insert({
+      name: data.name, slug, description: data.description, short_description: data.short_description,
+      category_id: categoryId, subcategory_id: subcategoryId, country_id: countryId, region_id: regionId, city_id: cityId,
+      address: data.address, postal_code: data.postal_code || null, phone: data.phone, email: data.email,
+      website: data.website || null, whatsapp: data.whatsapp || null, logo_url: data.logo_url || null, cover_image_url: data.cover_image_url || null,
+      status: 'pending', is_featured: false, is_verified: false, rating: 0, review_count: 0,
+    }).select('id').single();
+    if (error || !created?.id) { console.error('Supabase business insert failed:', error?.message); return null; }
+    if (Array.isArray(data.hours) && data.hours.length > 0) {
+      await client.from('business_hours').insert(data.hours.map((h: any) => ({ business_id: created.id, day_of_week: h.day_of_week, opens_at: h.opens_at, closes_at: h.closes_at, is_closed: !!h.is_closed })));
+    }
+    return created.id;
+  } catch (err) {
+    console.error('Supabase business insert failed:', err);
+    return null;
+  }
+}
+
+function mergeBusinesses(primary: Business[], secondary: Business[]): Business[] {
+  const seen = new Set<string>();
+  const out: Business[] = [];
+  for (const b of [...primary, ...secondary]) {
+    const key = b.slug.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(b);
+  }
+  return out;
 }
 
 export class DirectoryRepository {
@@ -177,7 +327,12 @@ export class DirectoryRepository {
   // --- BUSINESSES SEARCH & RETRIEVAL ---
   static async searchBusinesses(filters: SearchQueryFilters = {}): Promise<SearchResult> {
     const store = getStore();
-    let results = store.businesses.filter(b => b.status === 'approved');
+    let allApproved = store.businesses.filter(b => b.status === 'approved');
+    if (isSupabaseConfigured()) {
+      const fromDb = await fetchSupabaseBusinesses('approved');
+      allApproved = mergeBusinesses(fromDb, allApproved);
+    }
+    let results = allApproved;
 
     // 1. Text Search (Name, short_description, description, address)
     if (filters.q && filters.q.trim()) {
@@ -194,7 +349,7 @@ export class DirectoryRepository {
     if (filters.category && filters.category !== 'all') {
       const cat = store.categories.find(c => c.slug === filters.category || c.id === filters.category);
       if (cat) {
-        results = results.filter(b => b.category_id === cat.id);
+        results = results.filter(b => b.category_id === cat.id || b.category?.slug === cat.slug);
       }
     }
 
@@ -202,7 +357,7 @@ export class DirectoryRepository {
     if (filters.country && filters.country !== 'all') {
       const country = store.countries.find(c => c.slug === filters.country || c.id === filters.country || c.code.toLowerCase() === filters.country?.toLowerCase());
       if (country) {
-        results = results.filter(b => b.country_id === country.id);
+        results = results.filter(b => b.country_id === country.id || b.country?.slug === country.slug);
       }
     }
 
@@ -210,7 +365,7 @@ export class DirectoryRepository {
     if (filters.city && filters.city !== 'all') {
       const city = store.cities.find(c => c.slug === filters.city || c.id === filters.city);
       if (city) {
-        results = results.filter(b => b.city_id === city.id);
+        results = results.filter(b => b.city_id === city.id || b.city?.slug === city.slug);
       }
     }
 
@@ -248,8 +403,13 @@ export class DirectoryRepository {
   static async getBusinessBySlug(slug: string): Promise<Business | null> {
     const store = getStore();
     const business = store.businesses.find(b => b.slug === slug.toLowerCase());
-    if (!business) return null;
-    return populateBusinessRelations(business, store);
+    if (business) return populateBusinessRelations(business, store);
+    if (isSupabaseConfigured()) {
+      const fromDb = await fetchSupabaseBusinesses('all');
+      const found = fromDb.find(b => b.slug === slug.toLowerCase());
+      if (found) return found;
+    }
+    return null;
   }
 
   static async getFeaturedBusinesses(limit: number = 6): Promise<Business[]> {
@@ -299,6 +459,9 @@ export class DirectoryRepository {
     };
 
     store.businesses.unshift(newBusiness);
+    // Persist to Supabase when configured, so /admin sees it on any instance.
+    // A Supabase failure must not lose the in-memory submission.
+    try { await persistBusinessToSupabase(data, slug); } catch { /* logged inside */ }
     return populateBusinessRelations(newBusiness, store);
   }
 
@@ -308,32 +471,47 @@ export class DirectoryRepository {
     if (statusFilter && statusFilter !== 'all') {
       list = list.filter(b => b.status === statusFilter);
     }
-    return list.map(b => populateBusinessRelations(b, store));
+    const inMemory = list.map(b => populateBusinessRelations(b, store));
+    if (isSupabaseConfigured()) {
+      const fromDb = await fetchSupabaseBusinesses(statusFilter);
+      // Supabase rows first: they are the durable source of truth.
+      return mergeBusinesses(fromDb, inMemory);
+    }
+    return inMemory;
   }
 
   static async updateBusinessStatus(id: string, status: 'approved' | 'rejected' | 'pending'): Promise<boolean> {
     const store = getStore();
     const biz = store.businesses.find(b => b.id === id);
-    if (!biz) return false;
-    biz.status = status;
-    biz.updated_at = new Date().toISOString();
-    return true;
+    if (biz) { biz.status = status; biz.updated_at = new Date().toISOString(); }
+    if (isSupabaseConfigured() && isUuid(id)) {
+      const client = getSupabaseServerClient();
+      if (client) { const { error } = await client.from('businesses').update({ status }).eq('id', id); if (error) { console.error('Supabase status update failed:', error.message); return !!biz; } return true; }
+    }
+    return !!biz;
   }
 
   static async toggleBusinessFeatured(id: string): Promise<boolean> {
     const store = getStore();
     const biz = store.businesses.find(b => b.id === id);
-    if (!biz) return false;
-    biz.is_featured = !biz.is_featured;
-    biz.updated_at = new Date().toISOString();
-    return true;
+    if (biz) { biz.is_featured = !biz.is_featured; biz.updated_at = new Date().toISOString(); }
+    if (isSupabaseConfigured() && isUuid(id)) {
+      const client = getSupabaseServerClient();
+      if (client) { const { data } = await client.from('businesses').select('is_featured').eq('id', id).maybeSingle(); const { error } = await client.from('businesses').update({ is_featured: !(data?.is_featured ?? false) }).eq('id', id); if (error) { console.error('Supabase featured update failed:', error.message); return !!biz; } return true; }
+    }
+    return !!biz;
   }
 
   static async deleteBusiness(id: string): Promise<boolean> {
     const store = getStore();
     const initialLen = store.businesses.length;
     store.businesses = store.businesses.filter(b => b.id !== id);
-    return store.businesses.length < initialLen;
+    const removedInMemory = store.businesses.length < initialLen;
+    if (isSupabaseConfigured() && isUuid(id)) {
+      const client = getSupabaseServerClient();
+      if (client) { const { error } = await client.from('businesses').delete().eq('id', id); if (error) { console.error('Supabase delete failed:', error.message); return removedInMemory; } return true; }
+    }
+    return removedInMemory;
   }
 
   // --- REVIEWS ---
@@ -435,6 +613,23 @@ export class DirectoryRepository {
   // --- STATS FOR ADMIN DASHBOARD ---
   static async getAdminStats() {
     const store = getStore();
+    if (isSupabaseConfigured()) {
+      const dbBusinesses = await fetchSupabaseBusinesses('all');
+      const merged = mergeBusinesses(dbBusinesses, store.businesses.map(b => populateBusinessRelations(b, store)));
+      return {
+        totalListings: merged.length,
+        approvedListings: merged.filter(b => b.status === 'approved').length,
+        pendingListings: merged.filter(b => b.status === 'pending').length,
+        featuredListings: merged.filter(b => b.is_featured).length,
+        totalCountries: store.countries.length,
+        totalRegions: store.regions.length,
+        totalCities: store.cities.length,
+        totalCategories: store.categories.length,
+        totalReviews: store.reviews.length,
+        pendingReviews: store.reviews.filter(r => r.status === 'pending').length,
+        openReports: store.reports.filter(r => r.status === 'open').length,
+      };
+    }
     return {
       totalListings: store.businesses.length,
       approvedListings: store.businesses.filter(b => b.status === 'approved').length,
