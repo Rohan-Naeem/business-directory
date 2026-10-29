@@ -55,7 +55,7 @@ export default async function HomePage() {
         '@id': 'https://nexusbiz.directory/#organization',
         name: 'NexusBiz International',
         url: 'https://nexusbiz.directory',
-        logo: 'https://nexusbiz.directory/logo.png',
+        logo: 'https://nexusbiz.directory/logo.svg',
         sameAs: [],
       },
     ],
@@ -270,3 +270,4 @@ export default async function HomePage() {
     </div>
   );
 }
+

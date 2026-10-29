@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { 
   Search, 
@@ -12,7 +13,6 @@ import {
   Globe2, 
   ShieldCheck, 
   Layers, 
-  Building2,
   User,
   ArrowRight
 } from 'lucide-react';
@@ -84,9 +84,7 @@ export const Header: React.FC = () => {
           
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#065F46] to-[#10B981] flex items-center justify-center text-white shadow-md shadow-emerald-950/10 group-hover:scale-105 transition-transform">
-              <Building2 className="w-6 h-6 text-white" />
-            </div>
+            <Image src="/logo.svg" alt="NexusBiz logo" width={44} height={44} className="w-11 h-11 group-hover:scale-105 transition-transform" priority />
             <div className="flex flex-col">
               <span className="text-2xl font-bold tracking-tight text-[#172B45] flex items-center gap-1.5">
                 Nexus<span className="text-[#10B981]">Biz</span>
@@ -361,3 +359,4 @@ export const Header: React.FC = () => {
     </header>
   );
 };
+

@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { Building2, Globe2, ShieldCheck, Mail, MapPin, Heart } from 'lucide-react';
+import Image from 'next/image';
+import { Globe2, ShieldCheck, Mail, MapPin, Heart } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -11,9 +12,7 @@ export const Footer: React.FC = () => {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#065F46] to-[#10B981] flex items-center justify-center text-white shadow-md">
-                <Building2 className="w-5 h-5 text-white" />
-              </div>
+              <Image src="/logo.svg" alt="NexusBiz logo" width={40} height={40} className="w-10 h-10" />
               <span className="text-2xl font-bold tracking-tight text-white flex items-center gap-1.5">
                 Nexus<span className="text-[#10B981]">Biz</span>
               </span>
@@ -190,3 +189,4 @@ export const Footer: React.FC = () => {
     </footer>
   );
 };
+
