@@ -207,7 +207,7 @@ export const AddBusinessForm: React.FC<AddBusinessFormProps> = ({
         throw new Error(data.error || 'Submission failed');
       }
 
-      setSubmissionSuccess(data.business);
+      setSubmissionSuccess({ ...data.business, savedToDatabase: data.savedToDatabase });
     } catch (err: any) {
       setFormError(err.message || 'An unexpected error occurred during submission.');
     } finally {
@@ -232,6 +232,11 @@ export const AddBusinessForm: React.FC<AddBusinessFormProps> = ({
           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-md mx-auto">
             Your listing for <strong>{submissionSuccess.name}</strong> has been saved. To ensure directory accuracy and prevent spam, our moderation team will review and approve your submission within 24 hours.
           </p>
+          {submissionSuccess.savedToDatabase === false && isSupabaseConfigured() && (
+            <p className="text-xs sm:text-sm text-rose-600 font-semibold leading-relaxed max-w-md mx-auto">
+              Warning: this listing was saved locally only and did not reach the database, so it may not appear in the admin panel. Please submit again or check Supabase settings.
+            </p>
+          )}
         </div>
 
         <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-xs text-slate-500 space-y-1 text-left max-w-sm mx-auto">

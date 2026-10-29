@@ -89,6 +89,7 @@ export async function POST(req: NextRequest) {
       {
         message: 'Business listing successfully submitted for review',
         business: newBusiness,
+        savedToDatabase: (newBusiness as any).savedToDatabase ?? false,
       },
       { status: 201 }
     );

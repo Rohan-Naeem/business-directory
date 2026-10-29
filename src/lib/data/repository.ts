@@ -192,15 +192,27 @@ async function persistBusinessToSupabase(data: any, slug: string): Promise<strin
       subcategoryId = isUuid(subcategoryRec.id) ? subcategoryRec.id : await resolveSupabaseLookupId(client, 'subcategories', subcategoryRec.slug, { category_id: categoryId, name: subcategoryRec.name, slug: subcategoryRec.slug });
     }
 
-    const { data: created, error } = await client.from('businesses').insert({
-      name: data.name, slug, description: data.description, short_description: data.short_description,
-      category_id: categoryId, subcategory_id: subcategoryId, country_id: countryId, region_id: regionId, city_id: cityId,
-      address: data.address, postal_code: data.postal_code || null, phone: data.phone, email: data.email,
-      website: data.website || null, whatsapp: data.whatsapp || null, logo_url: data.logo_url || null, cover_image_url: data.cover_image_url || null,
-      user_id: (data as any).user_id || null,
-      status: 'pending', is_featured: false, is_verified: false, rating: 0, review_count: 0,
-    }).select('id').single();
-    if (error || !created?.id) { console.error('Supabase business insert failed:', error?.message); return null; }
+    // Slug must be unique in Supabase too, not just in this instance's memory.
+    // A repeat test on another serverless instance reuses the same slug and
+    // would otherwise fail silently while the form still shows success.
+    let finalSlug = slug;
+    let created: any = null;
+    for (let attempt = 0; attempt < 5; attempt++) {
+      const trySlug = attempt === 0 ? slug : `${slug}-${attempt + 1}`;
+      const { data: inserted, error } = await client.from('businesses').insert({
+        name: data.name, slug: trySlug, description: data.description, short_description: data.short_description,
+        category_id: categoryId, subcategory_id: subcategoryId, country_id: countryId, region_id: regionId, city_id: cityId,
+        address: data.address, postal_code: data.postal_code || null, phone: data.phone, email: data.email,
+        website: data.website || null, whatsapp: data.whatsapp || null, logo_url: data.logo_url || null, cover_image_url: data.cover_image_url || null,
+        user_id: (data as any).user_id || null,
+        status: 'pending', is_featured: false, is_verified: false, rating: 0, review_count: 0,
+      }).select('id').single();
+      if (!error && inserted?.id) { created = inserted; finalSlug = trySlug; break; }
+      if (error?.code !== '23505') { console.error('Supabase business insert failed:', error?.message); return null; }
+    }
+    if (!created?.id) { console.error('Supabase business insert failed: slug already exists after retries'); return null; }
+    // Return the final slug so the in-memory copy matches the database row.
+    (persistBusinessToSupabase as any)._lastSlug = finalSlug;
     if (Array.isArray(data.hours) && data.hours.length > 0) {
       await client.from('business_hours').insert(data.hours.map((h: any) => ({ business_id: created.id, day_of_week: h.day_of_week, opens_at: h.opens_at, closes_at: h.closes_at, is_closed: !!h.is_closed })));
     }
@@ -442,7 +454,17 @@ export class DirectoryRepository {
     }
     let slug = baseSlug;
     let counter = 1;
-    while (store.businesses.some(b => b.slug === slug)) {
+    // Also avoid slugs already in Supabase (other serverless instances
+    // do not share this in-memory store).
+    let dbSlugs = new Set<string>();
+    if (isSupabaseConfigured()) {
+      try {
+        const client = getSupabaseServerClient();
+        const { data } = await client!.from('businesses').select('slug');
+        dbSlugs = new Set((data || []).map((r: any) => r.slug));
+      } catch { /* pre-check is best effort; persist retries on conflict */ }
+    }
+    while (store.businesses.some(b => b.slug === slug) || dbSlugs.has(slug)) {
       slug = `${baseSlug}-${counter++}`;
     }
 
@@ -461,8 +483,21 @@ export class DirectoryRepository {
 
     store.businesses.unshift(newBusiness);
     // Persist to Supabase when configured, so /admin sees it on any instance.
-    // A Supabase failure must not lose the in-memory submission.
-    try { await persistBusinessToSupabase(data, slug); } catch { /* logged inside */ }
+    // If Supabase save fails, flag it so the form does NOT claim success
+    // in the database - an in-memory-only submission will not appear in
+    // /admin on another instance and is lost on redeploy.
+    let savedToDatabase = false;
+    if (isSupabaseConfigured()) {
+      try {
+        const persistedId = await persistBusinessToSupabase(data, slug);
+        if (persistedId) {
+          savedToDatabase = true;
+          const finalSlug = (persistBusinessToSupabase as any)._lastSlug;
+          if (finalSlug && finalSlug !== slug) { newBusiness.slug = finalSlug; }
+        }
+      } catch { /* logged inside */ }
+    }
+    (newBusiness as any).savedToDatabase = savedToDatabase;
     return populateBusinessRelations(newBusiness, store);
   }
 
