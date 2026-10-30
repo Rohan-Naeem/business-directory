@@ -39,7 +39,8 @@ export const AdminListingsClient: React.FC<AdminListingsClientProps> = ({
 
   const handleUpdateStatus = async (id: string, status: 'approved' | 'rejected' | 'pending', slug?: string) => {
     try {
-      await updateListingStatusAction(id, status, slug);
+      const result = await updateListingStatusAction(id, status, slug);
+      if (!result.success) throw new Error(result.error || 'Status update failed');
 
       setBusinesses(prev => prev.map(b => b.id === id ? { ...b, status } : b));
       setFeedback(`Listing status updated to ${status}.`);

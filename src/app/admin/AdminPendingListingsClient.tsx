@@ -20,7 +20,8 @@ export const AdminPendingListingsClient: React.FC<AdminPendingListingsClientProp
   const handleAction = async (id: string, status: 'approved' | 'rejected', slug?: string) => {
     setActionLoading(id);
     try {
-      await updateListingStatusAction(id, status, slug);
+      const result = await updateListingStatusAction(id, status, slug);
+      if (!result.success) throw new Error(result.error || 'Action failed');
 
       setPending(prev => prev.filter(b => b.id !== id));
       setFeedback(`Listing successfully marked as ${status}.`);
