@@ -15,6 +15,8 @@ import {
   Layers
 } from 'lucide-react';
 import { AdminPendingListingsClient } from './AdminPendingListingsClient';
+import { cookies } from 'next/headers';
+import { ADMIN_COOKIE } from '@/lib/admin-auth';
 
 export const metadata: Metadata = {
   title: 'Admin Dashboard Overview | Global Bizz Hub',
@@ -24,6 +26,15 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboardPage() {
+  // Server-side session token for Approve/Reject. This page GET *does*
+  // see the httpOnly admin cookie (AdminShell proves it), even though
+  // the Approve POST does not. Passing the session value as a page prop
+  // (the standard CSRF-token pattern) lets the button send it back in
+  // the action body, without relying on document.cookie or on the POST
+  // Cookie header at all. The value is never logged, only checked
+  // server-side against the env admin hash in the action.
+  const cookieStore = await cookies();
+  const adminToken = cookieStore.get(ADMIN_COOKIE)?.value;
   const [stats, pendingBusinesses, openReports, pendingReviews] = await Promise.all([
     DirectoryRepository.getAdminStats(),
     DirectoryRepository.getAllBusinessesForAdmin('pending'),
@@ -142,7 +153,7 @@ export default async function AdminDashboardPage() {
           </Link>
         </div>
 
-        <AdminPendingListingsClient initialPending={pendingBusinesses} />
+        <AdminPendingListingsClient initialPending={pendingBusinesses} adminToken={adminToken} />
       </div>
 
       {/* Quick Links & Shortcuts */}

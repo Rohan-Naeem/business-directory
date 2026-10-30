@@ -3,6 +3,8 @@ import AdminShell from '@/components/admin/AdminShell';
 import type { Metadata } from 'next';
 import { DirectoryRepository } from '@/lib/data/repository';
 import { AdminListingsClient } from './AdminListingsClient';
+import { cookies } from 'next/headers';
+import { ADMIN_COOKIE } from '@/lib/admin-auth';
 import Link from 'next/link';
 import { PlusCircle } from 'lucide-react';
 
@@ -14,6 +16,8 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 export default async function AdminListingsPage() {
+  const cookieStore = await cookies();
+  const adminToken = cookieStore.get(ADMIN_COOKIE)?.value;
   const businesses = await DirectoryRepository.getAllBusinessesForAdmin('all');
 
   return (
@@ -38,7 +42,7 @@ export default async function AdminListingsPage() {
         </Link>
       </div>
 
-      <AdminListingsClient initialBusinesses={businesses} />
+      <AdminListingsClient initialBusinesses={businesses} adminToken={adminToken} />
     </div>
     </AdminShell>
   );

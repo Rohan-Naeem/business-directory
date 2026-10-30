@@ -24,10 +24,12 @@ function getAdminToken(): string | undefined {
 
 interface AdminListingsClientProps {
   initialBusinesses: Business[];
+  adminToken?: string;
 }
 
 export const AdminListingsClient: React.FC<AdminListingsClientProps> = ({
   initialBusinesses,
+  adminToken,
 }) => {
   const [businesses, setBusinesses] = useState<Business[]>(initialBusinesses);
   const [searchTerm, setSearchTerm] = useState('');
@@ -46,7 +48,7 @@ export const AdminListingsClient: React.FC<AdminListingsClientProps> = ({
 
   const handleUpdateStatus = async (id: string, status: 'approved' | 'rejected' | 'pending', slug?: string) => {
     try {
-      const result = await updateListingStatusAction(id, status, slug, getAdminToken());
+      const result = await updateListingStatusAction(id, status, slug, adminToken || getAdminToken());
       if (!result.success) throw new Error(result.error || 'Status update failed');
 
       setBusinesses(prev => prev.map(b => b.id === id ? { ...b, status } : b));

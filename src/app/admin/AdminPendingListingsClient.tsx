@@ -15,10 +15,12 @@ function getAdminToken(): string | undefined {
 
 interface AdminPendingListingsClientProps {
   initialPending: Business[];
+  adminToken?: string;
 }
 
 export const AdminPendingListingsClient: React.FC<AdminPendingListingsClientProps> = ({
   initialPending,
+  adminToken,
 }) => {
   const [pending, setPending] = useState<Business[]>(initialPending);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
@@ -27,7 +29,10 @@ export const AdminPendingListingsClient: React.FC<AdminPendingListingsClientProp
   const handleAction = async (id: string, status: 'approved' | 'rejected', slug?: string) => {
     setActionLoading(id);
     try {
-      const result = await updateListingStatusAction(id, status, slug, getAdminToken());
+      // Page-prop token first (server saw the cookie when rendering
+      // this page), document.cookie token as fallback. If both are
+      // missing, the action diagnostic will report that, not a value.
+      const result = await updateListingStatusAction(id, status, slug, adminToken || getAdminToken());
       if (!result.success) throw new Error(result.error || 'Action failed');
 
       setPending(prev => prev.filter(b => b.id !== id));
