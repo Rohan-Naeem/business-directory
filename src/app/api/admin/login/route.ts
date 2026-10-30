@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ADMIN_COOKIE, adminSessionValue, checkAdminCredentials } from '@/lib/admin-auth';
+import { ADMIN_COOKIE, ADMIN_TOKEN_COOKIE, adminSessionValue, checkAdminCredentials } from '@/lib/admin-auth';
 
 export async function POST(req: NextRequest) {
   try {
@@ -19,6 +19,16 @@ export async function POST(req: NextRequest) {
     const res = NextResponse.json({ success: true });
     res.cookies.set(ADMIN_COOKIE, value, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7,
+    });
+    // Readable copy for Server Actions: the Cookie header is not reaching
+    // Server Action POSTs on live Vercel, so the client sends this token
+    // explicitly in the action arguments instead.
+    res.cookies.set(ADMIN_TOKEN_COOKIE, value, {
+      httpOnly: false,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',

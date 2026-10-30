@@ -15,6 +15,13 @@ import {
 import { Business } from '@/lib/types';
 import { updateListingStatusAction } from '../actions';
 
+function getAdminToken(): string | undefined {
+  try {
+    const m = document.cookie.match(/(?:^|; )gbh_admin_token=([^;]*)/);
+    return m ? decodeURIComponent(m[1]) : undefined;
+  } catch { return undefined; }
+}
+
 interface AdminListingsClientProps {
   initialBusinesses: Business[];
 }
@@ -39,7 +46,7 @@ export const AdminListingsClient: React.FC<AdminListingsClientProps> = ({
 
   const handleUpdateStatus = async (id: string, status: 'approved' | 'rejected' | 'pending', slug?: string) => {
     try {
-      const result = await updateListingStatusAction(id, status, slug);
+      const result = await updateListingStatusAction(id, status, slug, getAdminToken());
       if (!result.success) throw new Error(result.error || 'Status update failed');
 
       setBusinesses(prev => prev.map(b => b.id === id ? { ...b, status } : b));

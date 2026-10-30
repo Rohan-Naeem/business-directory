@@ -1,4 +1,11 @@
 export const ADMIN_COOKIE = 'gbh_admin_session';
+// Readable copy of the same session hash, sent explicitly by the client
+// in Server Action arguments. Live proof (2026-10-30): the dashboard page
+// GET sees the httpOnly cookie, but the Server Action POST does not see
+// it at all ("no admin cookie found by the server"), even though the
+// action itself runs. The POST body does reach the server, so passing the
+// token in the body bypasses that Cookie-header failure.
+export const ADMIN_TOKEN_COOKIE = 'gbh_admin_token';
 
 // The admin username/password are NEVER hard-coded here. They come only
 // from Vercel Environment Variables (ADMIN_USERNAME / ADMIN_PASSWORD),

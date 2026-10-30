@@ -6,6 +6,13 @@ import { Check, X, ExternalLink, CheckCircle2, AlertCircle } from 'lucide-react'
 import { Business } from '@/lib/types';
 import { updateListingStatusAction } from './actions';
 
+function getAdminToken(): string | undefined {
+  try {
+    const m = document.cookie.match(/(?:^|; )gbh_admin_token=([^;]*)/);
+    return m ? decodeURIComponent(m[1]) : undefined;
+  } catch { return undefined; }
+}
+
 interface AdminPendingListingsClientProps {
   initialPending: Business[];
 }
@@ -20,7 +27,7 @@ export const AdminPendingListingsClient: React.FC<AdminPendingListingsClientProp
   const handleAction = async (id: string, status: 'approved' | 'rejected', slug?: string) => {
     setActionLoading(id);
     try {
-      const result = await updateListingStatusAction(id, status, slug);
+      const result = await updateListingStatusAction(id, status, slug, getAdminToken());
       if (!result.success) throw new Error(result.error || 'Action failed');
 
       setPending(prev => prev.filter(b => b.id !== id));
