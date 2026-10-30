@@ -13,7 +13,7 @@ import {
   SlidersHorizontal 
 } from 'lucide-react';
 import { Business } from '@/lib/types';
-import { updateListingStatusAction } from '../actions';
+import { updateListingStatusAction, toggleBusinessFeaturedAction, deleteBusinessAction } from '../actions';
 
 function getAdminToken(): string | undefined {
   try {
@@ -61,13 +61,8 @@ export const AdminListingsClient: React.FC<AdminListingsClientProps> = ({
 
   const handleToggleFeatured = async (id: string) => {
     try {
-      const res = await fetch('/api/admin/listings', {
-        method: 'PATCH',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, action: 'toggle_featured' }),
-      });
-      if (!res.ok) throw new Error('Failed to toggle featured status');
+      const result = await toggleBusinessFeaturedAction(id, adminToken || getAdminToken());
+      if (!result.success) throw new Error(result.error || 'Failed to toggle featured status');
 
       setBusinesses(prev => prev.map(b => b.id === id ? { ...b, is_featured: !b.is_featured } : b));
       setFeedback('Featured status updated.');
@@ -83,10 +78,8 @@ export const AdminListingsClient: React.FC<AdminListingsClientProps> = ({
     }
 
     try {
-      const res = await fetch(`/api/admin/listings?id=${id}`, {
-        method: 'DELETE',
-      });
-      if (!res.ok) throw new Error('Delete failed');
+      const result = await deleteBusinessAction(id, adminToken || getAdminToken());
+      if (!result.success) throw new Error(result.error || 'Delete failed');
 
       setBusinesses(prev => prev.filter(b => b.id !== id));
       setFeedback(`"${name}" was deleted.`);

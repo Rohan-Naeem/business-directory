@@ -12,17 +12,27 @@ import {
 } from 'lucide-react';
 import { Country, Region, City } from '@/lib/types';
 import { GEOGRAPHIC_DATA_PACKAGES } from '@/lib/data/geo-data';
+import { importGeoAction } from '../actions';
+
+function getAdminToken(): string | undefined {
+  try {
+    const m = document.cookie.match(/(?:^|; )gbh_admin_token=([^;]*)/);
+    return m ? decodeURIComponent(m[1]) : undefined;
+  } catch { return undefined; }
+}
 
 interface AdminGeoImporterClientProps {
   countries: Country[];
   regions: Region[];
   cities: City[];
+  adminToken?: string;
 }
 
 export const AdminGeoImporterClient: React.FC<AdminGeoImporterClientProps> = ({
   countries,
   regions,
   cities: initialCities,
+  adminToken,
 }) => {
   const [cities, setCities] = useState<City[]>(initialCities);
   const [selectedCountrySlug, setSelectedCountrySlug] = useState('pakistan');
@@ -41,23 +51,11 @@ export const AdminGeoImporterClient: React.FC<AdminGeoImporterClientProps> = ({
     setImportMessage(null);
 
     try {
-      const res = await fetch('/api/admin/import-geo', {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ region_slug: regionSlug }),
-      });
+      const data = await importGeoAction(regionSlug, adminToken || getAdminToken());
+      if (!data.success) throw new Error(data.error || 'Import failed');
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Import failed');
-
-      setImportMessage(data.message);
-      
-      // Refresh cities list
-      const updated = await fetch('/api/businesses?limit=1').then(() => {
-        // Trigger page refresh or local state update
-        window.location.reload();
-      });
+      setImportMessage(data.message || 'Import complete.');
+      window.location.reload();
     } catch (err: any) {
       alert(err.message || 'Import failed');
     } finally {

@@ -3,6 +3,8 @@ import AdminShell from '@/components/admin/AdminShell';
 import type { Metadata } from 'next';
 import { DirectoryRepository } from '@/lib/data/repository';
 import { AdminGeoImporterClient } from './AdminGeoImporterClient';
+import { cookies } from 'next/headers';
+import { ADMIN_COOKIE } from '@/lib/admin-auth';
 
 export const metadata: Metadata = {
   title: 'Geographic Locations & Importer | Global Bizz Hub Admin',
@@ -12,6 +14,7 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 export default async function AdminLocationsPage() {
+  const adminToken = (await cookies()).get(ADMIN_COOKIE)?.value;
   const [countries, regions, cities] = await Promise.all([
     DirectoryRepository.getCountries(),
     DirectoryRepository.getRegions(),
@@ -34,6 +37,7 @@ export default async function AdminLocationsPage() {
         countries={countries}
         regions={regions}
         cities={cities}
+        adminToken={adminToken}
       />
     </div>
     </AdminShell>

@@ -5,28 +5,33 @@ import Link from 'next/link';
 import { Flag, Check, X, CheckCircle2, AlertCircle, ExternalLink } from 'lucide-react';
 import { Report, Business } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
+import { updateReportStatusAction } from '../actions';
+
+function getAdminToken(): string | undefined {
+  try {
+    const m = document.cookie.match(/(?:^|; )gbh_admin_token=([^;]*)/);
+    return m ? decodeURIComponent(m[1]) : undefined;
+  } catch { return undefined; }
+}
 
 interface AdminReportsClientProps {
   initialReports: Report[];
   businesses: Business[];
+  adminToken?: string;
 }
 
 export const AdminReportsClient: React.FC<AdminReportsClientProps> = ({
   initialReports,
   businesses,
+  adminToken,
 }) => {
   const [reports, setReports] = useState<Report[]>(initialReports);
   const [feedback, setFeedback] = useState<string | null>(null);
 
   const handleUpdateStatus = async (id: string, status: 'resolved' | 'dismissed') => {
     try {
-      const res = await fetch('/api/admin/reports', {
-        method: 'PATCH',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, status }),
-      });
-      if (!res.ok) throw new Error('Status update failed');
+      const result = await updateReportStatusAction(id, status, adminToken || getAdminToken());
+      if (!result.success) throw new Error(result.error || 'Status update failed');
 
       setReports(prev => prev.map(r => r.id === id ? { ...r, status } : r));
       setFeedback(`Report marked as ${status}.`);

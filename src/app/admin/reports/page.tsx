@@ -3,6 +3,8 @@ import AdminShell from '@/components/admin/AdminShell';
 import type { Metadata } from 'next';
 import { DirectoryRepository } from '@/lib/data/repository';
 import { AdminReportsClient } from './AdminReportsClient';
+import { cookies } from 'next/headers';
+import { ADMIN_COOKIE } from '@/lib/admin-auth';
 
 export const metadata: Metadata = {
   title: 'Reported Listings | Global Bizz Hub Admin',
@@ -12,6 +14,7 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 export default async function AdminReportsPage() {
+  const adminToken = (await cookies()).get(ADMIN_COOKIE)?.value;
   const [reports, businesses] = await Promise.all([
     DirectoryRepository.getReports(),
     DirectoryRepository.getAllBusinessesForAdmin('all'),
@@ -32,6 +35,7 @@ export default async function AdminReportsPage() {
       <AdminReportsClient
         initialReports={reports}
         businesses={businesses}
+        adminToken={adminToken}
       />
     </div>
     </AdminShell>
