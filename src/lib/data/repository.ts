@@ -19,6 +19,7 @@ import {
   INITIAL_BUSINESSES 
 } from './initial-data';
 import { INITIAL_REVIEWS } from './reviews-data';
+import { TOP_BUSINESSES } from './top-businesses';
 import { INITIAL_REPORTS } from './reports-data';
 import { getSupabaseServerClient, isSupabaseConfigured } from '../supabase/server';
 
@@ -44,7 +45,7 @@ function getStore(): DataStore {
       cities: [...INITIAL_CITIES],
       categories: [...INITIAL_CATEGORIES],
       subcategories: [...INITIAL_SUBCATEGORIES],
-      businesses: [...INITIAL_BUSINESSES],
+      businesses: [...INITIAL_BUSINESSES, ...TOP_BUSINESSES],
       reviews: [...INITIAL_REVIEWS],
       reports: [...INITIAL_REPORTS],
     };

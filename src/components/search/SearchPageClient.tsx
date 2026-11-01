@@ -57,6 +57,7 @@ export const SearchPageClient: React.FC<SearchPageClientProps> = ({
   const [selectedCountry, setSelectedCountry] = useState(currentCountry);
   const [selectedCity, setSelectedCity] = useState(currentCity);
   const [selectedSort, setSelectedSort] = useState(currentSort || 'featured');
+  const selectedCountryObj = countries.find(c => c.slug === selectedCountry);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   // Filter cities by selected country
@@ -135,7 +136,7 @@ export const SearchPageClient: React.FC<SearchPageClientProps> = ({
           <Breadcrumbs
             items={[
               { label: 'Directory Search', href: '/search' },
-              ...(selectedCountry ? [{ label: selectedCountry.toUpperCase() }] : []),
+              ...(selectedCountry ? [{ label: `${selectedCountryObj?.flag_emoji || ''} ${selectedCountryObj?.name || selectedCountry}`.trim() }] : []),
               ...(selectedCity ? [{ label: selectedCity }] : []),
             ]}
           />
@@ -197,7 +198,8 @@ export const SearchPageClient: React.FC<SearchPageClientProps> = ({
               )}
               {selectedCountry && (
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-[#065F46] font-medium border border-emerald-200">
-                  Country: {selectedCountry}
+                  <span>{selectedCountryObj?.flag_emoji || '🌐'}</span>
+                  Country: {selectedCountryObj?.name || selectedCountry}
                   <button type="button" onClick={() => handleCountryChange('')}>
                     <X className="w-3 h-3 hover:text-red-500" />
                   </button>
@@ -265,7 +267,7 @@ export const SearchPageClient: React.FC<SearchPageClientProps> = ({
                       !selectedCountry ? 'bg-emerald-50 text-[#065F46]' : 'text-slate-600 hover:bg-slate-50'
                     }`}
                   >
-                    <span>All Countries</span>
+                    <span className="flex items-center gap-2"><span>🌐</span><span>All Countries</span></span>
                   </button>
                   {countries.map((cnt) => (
                     <button
@@ -488,16 +490,19 @@ export const SearchPageClient: React.FC<SearchPageClientProps> = ({
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
                   Country
                 </label>
-                <select
-                  value={selectedCountry}
-                  onChange={(e) => handleCountryChange(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800"
-                >
-                  <option value="">All Countries</option>
-                  {countries.map((c) => (
-                    <option key={c.id} value={c.slug}>{c.name}</option>
-                  ))}
-                </select>
+                <div className="flex items-center gap-2 px-3 py-1 rounded-xl border border-slate-200">
+                  <span className="text-base leading-none shrink-0" aria-hidden="true">{selectedCountryObj?.flag_emoji || '🌐'}</span>
+                  <select
+                    value={selectedCountry}
+                    onChange={(e) => handleCountryChange(e.target.value)}
+                    className="w-full py-1 text-xs font-semibold text-slate-800 focus:outline-hidden cursor-pointer bg-transparent"
+                  >
+                    <option value="">🌐 All Countries</option>
+                    {countries.map((c) => (
+                      <option key={c.id} value={c.slug}>{c.flag_emoji} {c.name}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               {/* Mobile City */}
