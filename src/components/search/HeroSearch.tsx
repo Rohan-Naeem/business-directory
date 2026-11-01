@@ -96,7 +96,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ countries, categories, i
 
         {/* Country Selector - flag on the left, changes with the country */}
         <div className="w-full md:w-1/4 flex items-center gap-2 px-3 py-2 bg-slate-50/80 rounded-2xl border border-slate-200/60 focus-within:border-emerald-500 focus-within:bg-white transition-all">
-          <CountryFlag country={countries.find(c => c.slug === selectedCountry)} className="h-5 w-7" />
+          <CountryFlag country={countries.find(c => c.slug === selectedCountry)} className="h-6 w-6" />
           <div className="flex-1">
             <label htmlFor="hero-country" className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
               Country

@@ -56,7 +56,7 @@ export default async function DirectoriesOverviewPage() {
                 <div>
                   <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
                     <div className="flex items-center gap-3">
-                      <CountryFlag country={country} className="h-8 w-12" />
+                      <CountryFlag country={country} className="h-10 w-10" />
                       <div>
                         <h2 className="text-xl font-bold text-[#172B45]">
                           {country.name}

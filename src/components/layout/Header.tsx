@@ -14,7 +14,11 @@ import {
   Layers, 
   User,
   ArrowRight,
-  LogOut
+  LogOut,
+  Home,
+  LayoutGrid,
+  Info,
+  Mail
 } from 'lucide-react';
 import { CategoryIcon } from '../ui/CategoryIcon';
 import { getSupabaseClient } from '@/lib/supabase/client';
@@ -117,24 +121,30 @@ export const Header: React.FC = () => {
     { name: 'Legal Services', slug: 'legal-services', icon: 'Scale', desc: 'Corporate & immigration' },
   ];
 
+  // Same layout as the BizPrimeHub example the user sent, but with our
+  // own emerald colours and only our real countries. No UAE: it is not
+  // in this directory's data yet, so adding it would be a broken link.
   const countries = [
-    { 
-      name: 'Pakistan', 
-      slug: 'pakistan', 
-      flag: '🇵🇰', 
-      cities: ['Lahore', 'Karachi', 'Islamabad', 'Multan', 'Rawalpindi'] 
+    {
+      name: 'Pakistan',
+      slug: 'pakistan',
+      code: 'PK',
+      totalCities: 11,
+      cities: ['Lahore', 'Karachi', 'Islamabad', 'Multan', 'Rawalpindi']
     },
-    { 
-      name: 'United States', 
-      slug: 'usa', 
-      flag: '🇺🇸', 
-      cities: ['New York City', 'San Francisco', 'Los Angeles', 'Austin', 'Chicago'] 
+    {
+      name: 'United States',
+      slug: 'usa',
+      code: 'US',
+      totalCities: 10,
+      cities: ['New York City', 'San Francisco', 'Los Angeles', 'Austin', 'Chicago']
     },
-    { 
-      name: 'United Kingdom', 
-      slug: 'uk', 
-      flag: '🇬🇧', 
-      cities: ['London', 'Manchester', 'Birmingham', 'Edinburgh', 'Glasgow'] 
+    {
+      name: 'United Kingdom',
+      slug: 'uk',
+      code: 'GB',
+      totalCities: 9,
+      cities: ['London', 'Manchester', 'Birmingham', 'Edinburgh', 'Glasgow']
     },
   ];
 
@@ -158,14 +168,68 @@ export const Header: React.FC = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - icons like the example: Home, Directories, Categories, About, Contact */}
           <nav className="hidden lg:flex items-center gap-1 text-sm font-medium text-slate-700">
-            <Link 
-              href="/" 
-              className={`px-3 py-2 rounded-lg transition-colors hover:text-[#065F46] hover:bg-slate-50 ${pathname === '/' ? 'text-[#065F46] font-semibold bg-emerald-50/60' : ''}`}
+            <Link
+              href="/"
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition-colors hover:text-[#065F46] hover:bg-slate-50 ${pathname === '/' ? 'text-[#065F46] font-semibold bg-emerald-50/60' : ''}`}
             >
-              Home
+              <Home className="w-4 h-4" />
+              <span>Home</span>
             </Link>
+
+            {/* Directories Dropdown */}
+            <div className="relative" ref={dirDropdownRef}>
+              <button
+                type="button"
+                onClick={() => {
+                  setDirectoriesOpen(!directoriesOpen);
+                  setCategoriesOpen(false);
+                }}
+                className={`flex items-center gap-1 px-3 py-2 rounded-full transition-colors cursor-pointer ${directoriesOpen || pathname.startsWith('/directories') ? 'bg-[#065F46] text-white font-semibold' : 'hover:text-[#065F46] hover:bg-slate-50'}`}
+                aria-expanded={directoriesOpen}
+              >
+                <Globe2 className="w-4 h-4" />
+                <span>Directories</span>
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${directoriesOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {directoriesOpen && (
+                <div className="absolute top-full left-0 w-[400px] mt-2 p-4 bg-white rounded-2xl shadow-xl border border-slate-200 flex flex-col gap-1 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="px-2 pb-3 flex items-center justify-between">
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Choose Directory</span>
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-[#065F46]">3 Countries</span>
+                  </div>
+                  {countries.map((cnt) => (
+                    <Link
+                      key={cnt.slug}
+                      href={`/directories/${cnt.slug}`}
+                      className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors"
+                    >
+                      {/* Circular flag image, like the example - not an emoji, so it shows on Windows too */}
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={`https://flagcdn.com/w80/${cnt.code.toLowerCase()}.png`}
+                        alt={`${cnt.name} flag`}
+                        width={40}
+                        height={40}
+                        loading="lazy"
+                        className="h-10 w-10 shrink-0 rounded-full object-cover ring-1 ring-slate-200"
+                      />
+                      <span className="flex-1 min-w-0">
+                        <span className="flex items-center gap-2">
+                          <span className="font-bold text-slate-900">{cnt.name}</span>
+                          <span className="text-[11px] font-bold px-1.5 py-0.5 rounded bg-emerald-50 text-[#065F46] border border-emerald-100">{cnt.code}</span>
+                        </span>
+                        <span className="block text-xs text-slate-500 truncate">
+                          {cnt.cities.slice(0, 3).join(', ')} &amp; {cnt.totalCities - 3} more cities
+                        </span>
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Categories Mega Dropdown */}
             <div className="relative" ref={catDropdownRef}>
@@ -178,6 +242,7 @@ export const Header: React.FC = () => {
                 className={`flex items-center gap-1 px-3 py-2 rounded-lg transition-colors hover:text-[#065F46] hover:bg-slate-50 cursor-pointer ${categoriesOpen || pathname.startsWith('/categories') ? 'text-[#065F46] font-semibold bg-emerald-50/60' : ''}`}
                 aria-expanded={categoriesOpen}
               >
+                <LayoutGrid className="w-4 h-4" />
                 <span>Categories</span>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${categoriesOpen ? 'rotate-180' : ''}`} />
               </button>
@@ -213,69 +278,24 @@ export const Header: React.FC = () => {
               )}
             </div>
 
-            {/* Directories Dropdown */}
-            <div className="relative" ref={dirDropdownRef}>
-              <button
-                type="button"
-                onClick={() => {
-                  setDirectoriesOpen(!directoriesOpen);
-                  setCategoriesOpen(false);
-                }}
-                className={`flex items-center gap-1 px-3 py-2 rounded-lg transition-colors hover:text-[#065F46] hover:bg-slate-50 cursor-pointer ${directoriesOpen || pathname.startsWith('/directories') ? 'text-[#065F46] font-semibold bg-emerald-50/60' : ''}`}
-                aria-expanded={directoriesOpen}
-              >
-                <Globe2 className="w-4 h-4 text-[#10B981]" />
-                <span>Directories</span>
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${directoriesOpen ? 'rotate-180' : ''}`} />
-              </button>
+            <Link
+              href="/about"
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition-colors hover:text-[#065F46] hover:bg-slate-50 ${pathname === '/about' ? 'text-[#065F46] font-semibold bg-emerald-50/60' : ''}`}
+            >
+              <Info className="w-4 h-4" />
+              <span>About Us</span>
+            </Link>
 
-              {directoriesOpen && (
-                <div className="absolute top-full left-0 w-[420px] mt-2 p-5 bg-white rounded-2xl shadow-xl border border-slate-200 flex flex-col gap-4 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="pb-2 border-b border-slate-100 flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Supported Countries</span>
-                    <Link href="/directories" className="text-xs font-semibold text-[#10B981] hover:underline flex items-center gap-1">
-                      Browse all <ArrowRight className="w-3 h-3" />
-                    </Link>
-                  </div>
-                  {countries.map((cnt) => (
-                    <div key={cnt.slug} className="p-2 rounded-xl hover:bg-slate-50/80 transition-colors">
-                      <div className="flex items-center justify-between mb-2">
-                        <Link 
-                          href={`/directories/${cnt.slug}`}
-                          className="flex items-center gap-2 font-bold text-slate-900 hover:text-[#065F46]"
-                        >
-                          <span className="text-xl">{cnt.flag}</span>
-                          <span>{cnt.name}</span>
-                        </Link>
-                        <Link 
-                          href={`/directories/${cnt.slug}`} 
-                          className="text-xs font-semibold text-[#065F46] hover:underline"
-                        >
-                          View Country
-                        </Link>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5">
-                        {cnt.cities.map(city => {
-                          const citySlug = city.toLowerCase().replace(/\s+/g, '-');
-                          return (
-                            <Link
-                              key={city}
-                              href={`/directories/${cnt.slug}/${citySlug}`}
-                              className="text-xs px-2.5 py-1 rounded-md bg-slate-100 hover:bg-emerald-100 hover:text-emerald-900 text-slate-600 transition-colors font-medium"
-                            >
-                              {city}
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <Link
+              href="/contact"
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition-colors hover:text-[#065F46] hover:bg-slate-50 ${pathname === '/contact' ? 'text-[#065F46] font-semibold bg-emerald-50/60' : ''}`}
+            >
+              <Mail className="w-4 h-4" />
+              <span>Contact</span>
+            </Link>
 
-            <Link 
-              href="/search" 
+            <Link
+              href="/search"
               className={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition-colors hover:text-[#065F46] hover:bg-slate-50 ${pathname.startsWith('/search') ? 'text-[#065F46] font-semibold bg-emerald-50/60' : ''}`}
             >
               <Search className="w-4 h-4 text-slate-400" />
@@ -430,8 +450,10 @@ export const Header: React.FC = () => {
                     href={`/directories/${cnt.slug}`}
                     className="flex items-center gap-2 text-sm font-bold text-slate-900"
                   >
-                    <span>{cnt.flag}</span>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={`https://flagcdn.com/w80/${cnt.code.toLowerCase()}.png`} alt={`${cnt.name} flag`} width={28} height={28} loading="lazy" className="h-7 w-7 rounded-full object-cover ring-1 ring-slate-200" />
                     <span>{cnt.name}</span>
+                    <span className="text-[11px] font-bold px-1.5 py-0.5 rounded bg-emerald-50 text-[#065F46] border border-emerald-100">{cnt.code}</span>
                   </Link>
                   <div className="flex flex-wrap gap-1 pl-6">
                     {cnt.cities.slice(0, 3).map(city => (

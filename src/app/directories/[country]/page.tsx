@@ -68,7 +68,7 @@ export default async function CountryDirectoryPage({ params }: CountryPageProps)
         <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 shadow-xs mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="flex items-start gap-4">
-              <CountryFlag country={country} className="h-10 w-14" />
+              <CountryFlag country={country} className="h-12 w-12" />
               <div>
                 <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#10B981] mb-1">
                   <ShieldCheck className="w-4 h-4" />

@@ -37,7 +37,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({ countries, reg
                   : 'bg-slate-100/80 text-slate-700 hover:bg-slate-200/80'
               }`}
             >
-              <CountryFlag country={cnt} className="h-5 w-7" />
+              <CountryFlag country={cnt} className="h-6 w-6" />
               <span>{cnt.name}</span>
               <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${
                 isActive ? 'bg-emerald-700 text-white' : 'bg-slate-200 text-slate-600'
@@ -56,7 +56,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({ countries, reg
         <div className="bg-gradient-to-br from-emerald-50/80 to-slate-50 p-6 rounded-2xl border border-emerald-100/60 flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 text-2xl font-bold text-[#172B45] mb-2">
-              <CountryFlag country={activeCountry} className="h-6 w-9" />
+              <CountryFlag country={activeCountry} className="h-8 w-8" />
               <span>{activeCountry.name} Directory</span>
             </div>
             <p className="text-sm text-slate-600 leading-relaxed mb-6">

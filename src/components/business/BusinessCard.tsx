@@ -115,7 +115,7 @@ export const BusinessCard: React.FC<BusinessCardProps> = ({ business, priorityIm
           <div className="flex items-center gap-1.5 truncate">
             <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
             <span className="truncate">
-              <CountryFlag country={business.country} className="h-3.5 w-5" /> {business.city ? `${business.city.name}, ` : ''}{business.country?.name}
+              <CountryFlag country={business.country} className="h-4 w-4" /> {business.city ? `${business.city.name}, ` : ''}{business.country?.name}
             </span>
           </div>
           {business.phone && (

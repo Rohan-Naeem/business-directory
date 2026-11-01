@@ -138,7 +138,7 @@ export const BusinessProfileClient: React.FC<BusinessProfileClientProps> = ({
                 <div className="flex items-center gap-1.5 text-slate-700 font-medium">
                   <MapPin className="w-4 h-4 text-[#10B981] shrink-0" />
                   <span>
-                    {business.address}, {business.city?.name}, {business.region?.name}, {business.country?.name} <CountryFlag country={business.country} className="h-3.5 w-5" />
+                    {business.address}, {business.city?.name}, {business.region?.name}, {business.country?.name} <CountryFlag country={business.country} className="h-4 w-4" />
                   </span>
                 </div>
 
@@ -372,7 +372,7 @@ export const BusinessProfileClient: React.FC<BusinessProfileClientProps> = ({
                   {business.city?.name}, {business.region?.name} {business.postal_code || ''}
                 </p>
                 <p className="text-slate-500">
-                  {business.country?.name} <CountryFlag country={business.country} className="h-3.5 w-5" />
+                  {business.country?.name} <CountryFlag country={business.country} className="h-4 w-4" />
                 </p>
               </div>
 

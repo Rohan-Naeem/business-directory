@@ -199,7 +199,7 @@ export const SearchPageClient: React.FC<SearchPageClientProps> = ({
               )}
               {selectedCountry && (
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-[#065F46] font-medium border border-emerald-200">
-                  <CountryFlag country={selectedCountryObj} className="h-4 w-6" />
+                  <CountryFlag country={selectedCountryObj} className="h-5 w-5" />
                   Country: {selectedCountryObj?.name || selectedCountry}
                   <button type="button" onClick={() => handleCountryChange('')}>
                     <X className="w-3 h-3 hover:text-red-500" />
@@ -280,7 +280,7 @@ export const SearchPageClient: React.FC<SearchPageClientProps> = ({
                       }`}
                     >
                       <span className="flex items-center gap-2">
-                        <CountryFlag country={cnt} className="h-4 w-6" />
+                        <CountryFlag country={cnt} className="h-5 w-5" />
                         <span>{cnt.name}</span>
                       </span>
                     </button>
@@ -492,7 +492,7 @@ export const SearchPageClient: React.FC<SearchPageClientProps> = ({
                   Country
                 </label>
                 <div className="flex items-center gap-2 px-3 py-1 rounded-xl border border-slate-200">
-                  <CountryFlag country={selectedCountryObj} className="h-4 w-6" />
+                  <CountryFlag country={selectedCountryObj} className="h-5 w-5" />
                   <select
                     value={selectedCountry}
                     onChange={(e) => handleCountryChange(e.target.value)}

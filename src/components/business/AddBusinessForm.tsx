@@ -472,7 +472,7 @@ export const AddBusinessForm: React.FC<AddBusinessFormProps> = ({
                   Country <span className="text-red-500">*</span>
                 </label>
                 <div className="flex items-center gap-2 px-3 py-1 rounded-xl border border-slate-200 focus-within:border-emerald-500">
-                  <CountryFlag country={countries.find(c => c.id === countryId)} className="h-4 w-6" />
+                  <CountryFlag country={countries.find(c => c.id === countryId)} className="h-5 w-5" />
                   <select
                     value={countryId}
                     onChange={(e) => setCountryId(e.target.value)}
