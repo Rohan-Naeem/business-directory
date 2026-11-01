@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Country, Region, City, Category, Subcategory } from '@/lib/types';
 import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase/client';
+import CountryFlag from '@/components/ui/CountryFlag';
 
 interface AddBusinessFormProps {
   countries: Country[];
@@ -471,7 +472,7 @@ export const AddBusinessForm: React.FC<AddBusinessFormProps> = ({
                   Country <span className="text-red-500">*</span>
                 </label>
                 <div className="flex items-center gap-2 px-3 py-1 rounded-xl border border-slate-200 focus-within:border-emerald-500">
-                  <span className="text-base leading-none shrink-0" aria-hidden="true">{countries.find(c => c.id === countryId)?.flag_emoji || '🌐'}</span>
+                  <CountryFlag country={countries.find(c => c.id === countryId)} className="h-4 w-6" />
                   <select
                     value={countryId}
                     onChange={(e) => setCountryId(e.target.value)}

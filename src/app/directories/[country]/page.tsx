@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { DirectoryRepository } from '@/lib/data/repository';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
+import CountryFlag from '@/components/ui/CountryFlag';
 import { BusinessCard } from '@/components/business/BusinessCard';
 import { MapPin, Globe2, Search, ArrowRight, ShieldCheck } from 'lucide-react';
 
@@ -67,7 +68,7 @@ export default async function CountryDirectoryPage({ params }: CountryPageProps)
         <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 shadow-xs mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="flex items-start gap-4">
-              <span className="text-4xl sm:text-5xl shrink-0">{country.flag_emoji}</span>
+              <CountryFlag country={country} className="h-10 w-14" />
               <div>
                 <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#10B981] mb-1">
                   <ShieldCheck className="w-4 h-4" />

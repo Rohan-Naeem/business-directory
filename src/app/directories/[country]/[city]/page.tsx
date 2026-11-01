@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { DirectoryRepository } from '@/lib/data/repository';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
+import CountryFlag from '@/components/ui/CountryFlag';
 import { BusinessCard } from '@/components/business/BusinessCard';
 import { CategoryIcon } from '@/components/ui/CategoryIcon';
 import { MapPin, Search, PlusCircle, ArrowRight, Building2, CheckCircle2 } from 'lucide-react';
@@ -109,7 +110,7 @@ export default async function CityDirectoryPage({ params }: CityPageProps) {
             <div>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#10B981] mb-1">
                 <MapPin className="w-4 h-4" />
-                <span>{country.flag_emoji} {country.name} • Local Metropolitan Directory</span>
+                <span className="inline-flex items-center gap-2"><CountryFlag country={country} className="h-5 w-7" /> {country.name} • Local Metropolitan Directory</span>
               </div>
               <h1 className="text-2xl sm:text-4xl font-extrabold text-[#172B45] tracking-tight mb-2">
                 {city.name} Business Directory

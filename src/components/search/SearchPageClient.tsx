@@ -19,6 +19,7 @@ import {
 import { Country, City, Category, Business } from '@/lib/types';
 import { BusinessCard } from '@/components/business/BusinessCard';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
+import CountryFlag from '@/components/ui/CountryFlag';
 
 interface SearchPageClientProps {
   initialBusinesses: Business[];
@@ -136,7 +137,7 @@ export const SearchPageClient: React.FC<SearchPageClientProps> = ({
           <Breadcrumbs
             items={[
               { label: 'Directory Search', href: '/search' },
-              ...(selectedCountry ? [{ label: `${selectedCountryObj?.flag_emoji || ''} ${selectedCountryObj?.name || selectedCountry}`.trim() }] : []),
+              ...(selectedCountry ? [{ label: `${selectedCountryObj?.code || ''} ${selectedCountryObj?.name || selectedCountry}`.trim() }] : []),
               ...(selectedCity ? [{ label: selectedCity }] : []),
             ]}
           />
@@ -198,7 +199,7 @@ export const SearchPageClient: React.FC<SearchPageClientProps> = ({
               )}
               {selectedCountry && (
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-[#065F46] font-medium border border-emerald-200">
-                  <span>{selectedCountryObj?.flag_emoji || '🌐'}</span>
+                  <CountryFlag country={selectedCountryObj} className="h-4 w-6" />
                   Country: {selectedCountryObj?.name || selectedCountry}
                   <button type="button" onClick={() => handleCountryChange('')}>
                     <X className="w-3 h-3 hover:text-red-500" />
@@ -279,7 +280,7 @@ export const SearchPageClient: React.FC<SearchPageClientProps> = ({
                       }`}
                     >
                       <span className="flex items-center gap-2">
-                        <span>{cnt.flag_emoji}</span>
+                        <CountryFlag country={cnt} className="h-4 w-6" />
                         <span>{cnt.name}</span>
                       </span>
                     </button>
@@ -491,7 +492,7 @@ export const SearchPageClient: React.FC<SearchPageClientProps> = ({
                   Country
                 </label>
                 <div className="flex items-center gap-2 px-3 py-1 rounded-xl border border-slate-200">
-                  <span className="text-base leading-none shrink-0" aria-hidden="true">{selectedCountryObj?.flag_emoji || '🌐'}</span>
+                  <CountryFlag country={selectedCountryObj} className="h-4 w-6" />
                   <select
                     value={selectedCountry}
                     onChange={(e) => handleCountryChange(e.target.value)}

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, MapPin, Layers, ArrowRight } from 'lucide-react';
 import { Country, City, Category } from '@/lib/types';
+import CountryFlag from '@/components/ui/CountryFlag';
 
 interface HeroSearchProps {
   countries: Country[];
@@ -95,7 +96,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ countries, categories, i
 
         {/* Country Selector - flag on the left, changes with the country */}
         <div className="w-full md:w-1/4 flex items-center gap-2 px-3 py-2 bg-slate-50/80 rounded-2xl border border-slate-200/60 focus-within:border-emerald-500 focus-within:bg-white transition-all">
-          <span className="text-lg leading-none shrink-0" aria-hidden="true">{countries.find(c => c.slug === selectedCountry)?.flag_emoji || '🌐'}</span>
+          <CountryFlag country={countries.find(c => c.slug === selectedCountry)} className="h-5 w-7" />
           <div className="flex-1">
             <label htmlFor="hero-country" className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
               Country

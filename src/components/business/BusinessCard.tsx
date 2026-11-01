@@ -13,6 +13,7 @@ import {
 import { Business } from '@/lib/types';
 import { checkBusinessOpenStatus, truncateText } from '@/lib/utils';
 import { CategoryIcon } from '../ui/CategoryIcon';
+import CountryFlag from '../ui/CountryFlag';
 
 interface BusinessCardProps {
   business: Business;
@@ -21,7 +22,6 @@ interface BusinessCardProps {
 
 export const BusinessCard: React.FC<BusinessCardProps> = ({ business, priorityImage = false }) => {
   const openStatus = checkBusinessOpenStatus(business.hours);
-  const countryFlag = business.country?.flag_emoji || '🌐';
 
   return (
     <article className="group bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all duration-200 flex flex-col overflow-hidden">
@@ -115,7 +115,7 @@ export const BusinessCard: React.FC<BusinessCardProps> = ({ business, priorityIm
           <div className="flex items-center gap-1.5 truncate">
             <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
             <span className="truncate">
-              {countryFlag} {business.city ? `${business.city.name}, ` : ''}{business.country?.name}
+              <CountryFlag country={business.country} className="h-3.5 w-5" /> {business.city ? `${business.city.name}, ` : ''}{business.country?.name}
             </span>
           </div>
           {business.phone && (
