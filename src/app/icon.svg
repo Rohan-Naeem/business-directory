@@ -1,7 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Global Bizz Hub logo">
   <title>Global Bizz Hub</title>
-  <polygon points="256,16 464,136 464,376 256,496 48,376 48,136" fill="#065F46"/>
-  <polygon points="256,40 440,148 440,364 256,472 72,364 72,148" fill="none" stroke="#044E39" stroke-width="8"/>
-  <text x="256" y="352" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="280" font-weight="900" fill="#FFFFFF">G</text>
-  <circle cx="384" cy="116" r="24" fill="#FBBF24"/>
+  <!-- Unique mark: an emerald location pin shaped like a G, with a white
+       globe inside it and a small amber spark on top. No skyline, no shopfront. -->
+  <defs>
+    <mask id="g-cut">
+      <path d="M256 24 C148 24 60 112 60 220 C60 344 168 452 256 492 C344 452 452 344 452 220 C452 112 364 24 256 24 Z" fill="#FFFFFF"/>
+      <rect x="380" y="196" width="80" height="32" fill="#000000"/>
+      <rect x="380" y="268" width="80" height="32" fill="#000000"/>
+    </mask>
+  </defs>
+  <path d="M256 24 C148 24 60 112 60 220 C60 344 168 452 256 492 C344 452 452 344 452 220 C452 112 364 24 256 24 Z" fill="#10B981" mask="url(#g-cut)"/>
+  <path d="M256 24 C148 24 60 112 60 220 C60 344 168 452 256 492 C344 452 452 344 452 220 C452 112 364 24 256 24 Z" fill="none" stroke="#065F46" stroke-width="10"/>
+  <circle cx="256" cy="218" r="132" fill="#065F46"/>
+  <!-- Globe -->
+  <circle cx="256" cy="218" r="92" fill="none" stroke="#FFFFFF" stroke-width="12"/>
+  <ellipse cx="256" cy="218" rx="42" ry="92" fill="none" stroke="#FFFFFF" stroke-width="10"/>
+  <line x1="164" y1="218" x2="348" y2="218" stroke="#FFFFFF" stroke-width="10"/>
+  <line x1="178" y1="172" x2="334" y2="172" stroke="#FFFFFF" stroke-width="10"/>
+  <line x1="178" y1="264" x2="334" y2="264" stroke="#FFFFFF" stroke-width="10"/>
+  <line x1="256" y1="126" x2="256" y2="310" stroke="#FFFFFF" stroke-width="10"/>
+  <!-- Amber spark -->
+  <path d="M392 28 L402 58 L432 68 L402 78 L392 108 L382 78 L352 68 L382 58 Z" fill="#FBBF24"/>
 </svg>
