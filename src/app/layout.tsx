@@ -31,6 +31,9 @@ export const metadata: Metadata = {
     'new york doctors',
   ],
   authors: [{ name: 'Global Bizz Hub' }],
+  verification: {
+    google: 'F35rqbBVg6ENbyYrUl2NkJEeMcFJ85l4w1VI4RaCMEo',
+  },
   robots: {
     index: true,
     follow: true,
