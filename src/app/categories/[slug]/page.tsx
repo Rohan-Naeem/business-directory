@@ -28,12 +28,12 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     title: `${category.name} Directory - Verified Businesses & Services`,
     description: `Discover verified ${category.name.toLowerCase()} companies, service providers, and top rated businesses across Pakistan, USA, and UK. ${category.description}`,
     alternates: {
-      canonical: `https://nexusbiz.directory/categories/${category.slug}`,
+      canonical: `https://globalbizzhub.vercel.app/categories/${category.slug}`,
     },
     openGraph: {
       title: `${category.name} Directory | Global Bizz Hub`,
       description: category.description,
-      url: `https://nexusbiz.directory/categories/${category.slug}`,
+      url: `https://globalbizzhub.vercel.app/categories/${category.slug}`,
     },
   };
 }

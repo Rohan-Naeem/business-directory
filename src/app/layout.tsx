@@ -16,15 +16,19 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: {
     template: '%s | Global Bizz Hub',
-    default: 'Global Bizz Hub - Trusted Multi-Country Business Directory (Pakistan, USA, UK)',
+    default: 'Global Bizz Hub | Free Business Directory for Pakistan, USA & UK',
   },
-  description: 'Discover verified companies, hospitals, law firms, software houses, and local services across Pakistan, the United States, and the United Kingdom on Global Bizz Hub.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://nexusbiz.directory'),
+  description: 'Find verified local businesses in Pakistan, USA and UK on Global Bizz Hub, a free business directory. Search by city and category, compare listings, and list your business free.',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://globalbizzhub.vercel.app'),
   keywords: [
     'business directory',
     'pakistan businesses',
     'usa business listings',
     'uk business directory',
+    'free business directory pakistan',
+    'pakistan business directory',
+    'find local businesses near me',
+    'list your business free',
     'lahore software houses',
     'karachi hospitals',
     'london lawyers',
@@ -46,15 +50,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://nexusbiz.directory',
+    url: 'https://globalbizzhub.vercel.app',
     siteName: 'Global Bizz Hub',
-    title: 'Global Bizz Hub - Trusted Multi-Country Business Directory',
-    description: 'Find verified businesses, commercial agencies, and certified local services across Pakistan, USA, and UK.',
+    title: 'Global Bizz Hub | Free Business Directory for Pakistan, USA & UK',
+    description: 'Find verified local businesses across Pakistan, USA, and UK, and list your business free.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Global Bizz Hub - Trusted Multi-Country Business Directory',
-    description: 'Find verified businesses across Pakistan, USA, and UK.',
+    title: 'Global Bizz Hub | Free Business Directory for Pakistan, USA & UK',
+    description: 'Find verified local businesses across Pakistan, USA, and UK.',
   },
 };
 

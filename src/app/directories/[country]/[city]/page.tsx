@@ -31,12 +31,12 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
     title: `${city.name} Business Directory, ${country.name} - Verified Local Companies`,
     description: `Discover top rated businesses, software firms, medical clinics, and professional services in ${city.name}, ${country.name}. Find phone numbers, reviews, operating hours, and addresses.`,
     alternates: {
-      canonical: `https://nexusbiz.directory/directories/${country.slug}/${city.slug}`,
+      canonical: `https://globalbizzhub.vercel.app/directories/${country.slug}/${city.slug}`,
     },
     openGraph: {
       title: `${city.name} Business Directory | ${country.name}`,
       description: `Explore verified businesses in ${city.name}, ${country.name}.`,
-      url: `https://nexusbiz.directory/directories/${country.slug}/${city.slug}`,
+      url: `https://globalbizzhub.vercel.app/directories/${country.slug}/${city.slug}`,
     },
   };
 }
@@ -69,19 +69,19 @@ export default async function CityDirectoryPage({ params }: CityPageProps) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://nexusbiz.directory',
+        item: 'https://globalbizzhub.vercel.app',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: country.name,
-        item: `https://nexusbiz.directory/directories/${country.slug}`,
+        item: `https://globalbizzhub.vercel.app/directories/${country.slug}`,
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: `${city.name} Directory`,
-        item: `https://nexusbiz.directory/directories/${country.slug}/${city.slug}`,
+        item: `https://globalbizzhub.vercel.app/directories/${country.slug}/${city.slug}`,
       },
     ],
   };
@@ -116,7 +116,7 @@ export default async function CityDirectoryPage({ params }: CityPageProps) {
                 {city.name} Business Directory
               </h1>
               <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
-                Explore authenticated commercial enterprises, medical facilities, legal consultancies, and consumer services located throughout {city.name}, {country.name}.
+                Find local businesses in {city.name}, {country.name} — explore authenticated commercial enterprises, medical facilities, legal consultancies, and consumer services located throughout the city.
               </p>
             </div>
 

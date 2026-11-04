@@ -37,25 +37,25 @@ export default async function HomePage() {
     '@graph': [
       {
         '@type': 'WebSite',
-        '@id': 'https://nexusbiz.directory/#website',
-        url: 'https://nexusbiz.directory',
+        '@id': 'https://globalbizzhub.vercel.app/#website',
+        url: 'https://globalbizzhub.vercel.app',
         name: 'Global Bizz Hub Business Directory',
         description: 'Comprehensive Multi-Country Business Directory for Pakistan, USA, and UK.',
         potentialAction: {
           '@type': 'SearchAction',
           target: {
             '@type': 'EntryPoint',
-            urlTemplate: 'https://nexusbiz.directory/search?q={search_term_string}',
+            urlTemplate: 'https://globalbizzhub.vercel.app/search?q={search_term_string}',
           },
           'query-input': 'required name=search_term_string',
         },
       },
       {
         '@type': 'Organization',
-        '@id': 'https://nexusbiz.directory/#organization',
+        '@id': 'https://globalbizzhub.vercel.app/#organization',
         name: 'Global Bizz Hub',
-        url: 'https://nexusbiz.directory',
-        logo: 'https://nexusbiz.directory/logo.svg',
+        url: 'https://globalbizzhub.vercel.app',
+        logo: 'https://globalbizzhub.vercel.app/logo.svg',
         sameAs: [],
       },
     ],
@@ -87,7 +87,7 @@ export default async function HomePage() {
 
           {/* Main Headline */}
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#172B45] tracking-tight max-w-4xl mx-auto leading-tight sm:leading-none mb-6">
-            Discover <span className="text-[#065F46]">Trusted Businesses</span> Across Major Global Cities
+            Global Bizz Hub: <span className="text-[#065F46]">Free Business Directory</span> for Pakistan, USA &amp; UK
           </h1>
 
           {/* Subtitle */}
@@ -146,6 +146,36 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* SECTION: WHAT IS GLOBAL BIZZ HUB - inspired by competitor structure, original wording */}
+      <section className="py-16 md:py-20 bg-white border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mb-10">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#172B45] tracking-tight mb-2">
+              What is Global Bizz Hub?
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+              Global Bizz Hub is a free, multi-country business directory. It helps people find a
+              real business near them, and helps businesses get found online, win more customers,
+              and grow faster, without paying to be listed.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="p-6 rounded-2xl border border-slate-200/80 bg-slate-50/50">
+              <h3 className="text-base font-bold text-[#172B45] mb-2">Search &amp; Discover</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">Search by business name, service, or keyword, then open a full profile with contact details and reviews.</p>
+            </div>
+            <div className="p-6 rounded-2xl border border-slate-200/80 bg-slate-50/50">
+              <h3 className="text-base font-bold text-[#172B45] mb-2">Browse by Location</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">Browse by country and city, so you only see businesses that actually serve your area.</p>
+            </div>
+            <div className="p-6 rounded-2xl border border-slate-200/80 bg-slate-50/50">
+              <h3 className="text-base font-bold text-[#172B45] mb-2">Free Listings</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">Listing a business is free, with no hidden cost. Every submission is checked before it goes live.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* SECTION B: TOP LISTINGS */}
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -156,7 +186,7 @@ export default async function HomePage() {
                 <span>Featured Selections</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-[#172B45] tracking-tight">
-                Top Rated Business Listings
+                Our Top Listings
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 mt-1">
                 Verified establishments known for exceptional service quality and client satisfaction.
@@ -207,7 +237,7 @@ export default async function HomePage() {
               Geographic Coverage
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#172B45] tracking-tight mt-1 mb-2">
-              Discover Businesses by Country & City
+              Discover Businesses in Top Cities
             </h2>
             <p className="text-xs sm:text-sm text-slate-500">
               Browse localized directories tailored for Pakistan, the United States, and the United Kingdom.
@@ -219,6 +249,24 @@ export default async function HomePage() {
             regions={regions} 
             cities={cities} 
           />
+
+          {/* Top cities as headings, linking to real city directories */}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
+            {[
+              { name: 'Karachi', href: '/directories/pakistan/karachi' },
+              { name: 'Lahore', href: '/directories/pakistan/lahore' },
+              { name: 'Islamabad', href: '/directories/pakistan/islamabad' },
+              { name: 'Rawalpindi', href: '/directories/pakistan/rawalpindi' },
+              { name: 'Faisalabad', href: '/directories/pakistan/faisalabad' },
+              { name: 'Multan', href: '/directories/pakistan/multan' },
+              { name: 'London', href: '/directories/uk/london' },
+              { name: 'New York City', href: '/directories/usa/new-york-city' },
+            ].map((city) => (
+              <Link key={city.href} href={city.href} className="px-4 py-2 rounded-full border border-slate-200 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-200 transition-colors">
+                <h3 className="text-sm font-bold text-[#172B45]">{city.name}</h3>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -5,4 +5,4 @@ Disallow: /admin/
 Disallow: /dashboard/
 Disallow: /api/
 
-Sitemap: https://nexusbiz.directory/sitemap.xml
+Sitemap: https://globalbizzhub.vercel.app/sitemap.xml

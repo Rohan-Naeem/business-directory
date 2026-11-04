@@ -30,6 +30,14 @@ const FAQS: FaqItem[] = [
     answer: 'To protect businesses and consumers from review fraud, all reviews submitted by customers undergo automated spam filtration and administrative moderation before appearing publicly on a business profile.',
   },
   {
+    question: 'What is a free business directory?',
+    answer: 'A free business directory is a searchable list of real businesses by city and category. On Global Bizz Hub you can find local businesses in Pakistan, USA and UK, see their contact details and reviews, and business owners can list their business free.',
+  },
+  {
+    question: 'How do I find local businesses near me?',
+    answer: 'Choose your country, then your city, then a category, or search by service name. For example, search for a hospital in Karachi, a restaurant in London, or a software company in Lahore, and you will see only businesses listed for that city.',
+  },
+  {
     question: 'Can more countries and cities be added to the directory?',
     answer: 'Global Bizz Hub is architected as an expandable multi-country platform. We currently support Pakistan, the United States, and the United Kingdom, and our geographic management system enables seamless expansion to new territories and cities.',
   },

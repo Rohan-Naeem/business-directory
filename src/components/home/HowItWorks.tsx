@@ -5,26 +5,26 @@ export const HowItWorks: React.FC = () => {
   const steps = [
     {
       step: '01',
-      title: 'Search for Businesses',
-      desc: 'Quickly find companies by commercial name, specialized service, or keyword across Pakistan, USA, and UK.',
+      title: 'Search & Discover',
+      desc: 'Quickly find a business by name, service, or keyword across Pakistan, USA, and UK.',
       icon: Search,
     },
     {
       step: '02',
-      title: 'Browse Locations & Sectors',
-      desc: 'Filter by country, province, or populated cities, and drill down into niche business subcategories.',
+      title: 'Browse & Compare',
+      desc: 'Filter by country and city, compare listings side by side, and check reviews and details.',
       icon: Compass,
     },
     {
       step: '03',
-      title: 'Compare Verified Details',
-      desc: 'Check genuine customer reviews, operating hours, physical street addresses, and verified credentials.',
+      title: 'Connect & Engage',
+      desc: 'Call, WhatsApp, or visit the business website directly from its profile page.',
       icon: ShieldCheck,
     },
     {
       step: '04',
-      title: 'Connect Directly',
-      desc: 'Make a direct phone call, send a WhatsApp inquiry, visit their official website, or submit your own company listing.',
+      title: 'List Your Business',
+      desc: 'Own a business? List it free, get found online, and win more customers.',
       icon: PhoneCall,
     },
   ];

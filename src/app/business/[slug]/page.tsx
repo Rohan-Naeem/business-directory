@@ -28,12 +28,12 @@ export async function generateMetadata({ params }: BusinessPageProps): Promise<M
     title: `${business.name} - ${business.category?.name} in ${business.city?.name || 'Local City'}, ${business.country?.name}`,
     description: business.short_description || `${business.name} is a verified ${business.category?.name.toLowerCase()} enterprise located in ${locationStr}. Check phone numbers, hours, reviews, and directions.`,
     alternates: {
-      canonical: `https://nexusbiz.directory/business/${business.slug}`,
+      canonical: `https://globalbizzhub.vercel.app/business/${business.slug}`,
     },
     openGraph: {
       title: `${business.name} | Global Bizz Hub Directory`,
       description: business.short_description || business.description,
-      url: `https://nexusbiz.directory/business/${business.slug}`,
+      url: `https://globalbizzhub.vercel.app/business/${business.slug}`,
       images: business.cover_image_url ? [{ url: business.cover_image_url }] : undefined,
     },
   };
@@ -56,10 +56,10 @@ export default async function BusinessProfilePage({ params }: BusinessPageProps)
   const localBusinessJsonLd: Record<string, any> = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    '@id': `https://nexusbiz.directory/business/${business.slug}#localbusiness`,
+    '@id': `https://globalbizzhub.vercel.app/business/${business.slug}#localbusiness`,
     name: business.name,
     description: business.short_description || business.description,
-    url: `https://nexusbiz.directory/business/${business.slug}`,
+    url: `https://globalbizzhub.vercel.app/business/${business.slug}`,
     telephone: business.phone,
     email: business.email,
     image: business.cover_image_url,
