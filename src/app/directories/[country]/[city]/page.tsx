@@ -28,8 +28,8 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
   }
 
   return {
-    title: `${city.name} Business Directory, ${country.name} - Verified Local Companies`,
-    description: `Discover top rated businesses, software firms, medical clinics, and professional services in ${city.name}, ${country.name}. Find phone numbers, reviews, operating hours, and addresses.`,
+    title: `${city.name} Business Directory, ${country.name} - Find Local Businesses`,
+    description: `Find local businesses in ${city.name}, ${country.name}. Browse ${city.name} businesses by category, from software companies to hospitals and restaurants, with phone numbers, reviews and hours.`,
     alternates: {
       canonical: `https://globalbizzhub.vercel.app/directories/${country.slug}/${city.slug}`,
     },

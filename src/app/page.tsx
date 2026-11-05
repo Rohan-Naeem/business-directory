@@ -61,9 +61,44 @@ export default async function HomePage() {
     ],
   };
 
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What is a free business directory?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'A free business directory is a searchable list of real businesses by city and category. On Global Bizz Hub you can find local businesses in Pakistan, USA and UK, see their contact details and reviews, and business owners can list their business free.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is listing my business on Global Bizz Hub free?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes! Standard business listing submissions on Global Bizz Hub are 100% free. Once you submit your details through our multi-step form, our editorial moderation team reviews the information before publishing it live on the directory.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How do I find local businesses near me?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Choose your country, then your city, then a category, or search by service name. For example, search for a hospital in Karachi, a restaurant in London, or a software company in Lahore, and you will see only businesses listed for that city.',
+        },
+      },
+    ],
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Structured Data Script */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

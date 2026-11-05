@@ -6,8 +6,8 @@ import { AddBusinessForm } from '@/components/business/AddBusinessForm';
 import { PlusCircle, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Add Your Business Listing | Global Bizz Hub',
-  description: 'Submit your commercial enterprise, hospital, legal practice, or local service to the Global Bizz Hub multi-country directory. Free submission and verified editorial indexing.',
+  title: 'List Your Business Free | Free Business Listing | Global Bizz Hub',
+  description: 'Get a free business listing on Global Bizz Hub. List your business free in Pakistan, USA or UK, reach customers searching for local businesses, and get found online.'
 };
 
 export default async function AddBusinessPage() {
@@ -34,10 +34,10 @@ export default async function AddBusinessPage() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-extrabold text-[#172B45] tracking-tight mb-2">
-            Submit Your Business Listing
+            List Your Business Free
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-            Fill out the verified company details below. Your listing will be reviewed by our editorial team and published on the Global Bizz Hub directory.
+            Get a free business listing in minutes. Fill out the verified company details below, and our editorial team will review your listing before publishing it on the Global Bizz Hub directory.
           </p>
         </div>
 

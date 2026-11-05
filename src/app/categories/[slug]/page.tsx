@@ -25,8 +25,8 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   }
 
   return {
-    title: `${category.name} Directory - Verified Businesses & Services`,
-    description: `Discover verified ${category.name.toLowerCase()} companies, service providers, and top rated businesses across Pakistan, USA, and UK. ${category.description}`,
+    title: `${category.name} in Pakistan, USA & UK | Free Business Directory`,
+    description: `Find verified ${category.name.toLowerCase()} businesses in Pakistan, USA and UK. Browse by city, compare listings, and list your business free. ${category.description}`,
     alternates: {
       canonical: `https://globalbizzhub.vercel.app/categories/${category.slug}`,
     },
@@ -77,7 +77,7 @@ export default async function CategoryDetailPage({ params }: CategoryPageProps) 
                 {category.name}
               </h1>
               <p className="text-xs sm:text-sm text-slate-500 max-w-xl leading-relaxed">
-                {category.description}
+                {category.description} Find {category.name.toLowerCase()} businesses near you by city, and list your business free.
               </p>
             </div>
           </div>
