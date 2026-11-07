@@ -83,6 +83,14 @@ export default async function HomePage() {
       },
       {
         '@type': 'Question',
+        name: 'What makes Global Bizz Hub different from other business directories?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Listing and searching are free, and one directory covers Pakistan, USA and UK instead of one country only. Every listing is checked before it goes live, and business profiles show contact details and reviews so you can reach the business directly.',
+        },
+      },
+      {
+        '@type': 'Question',
         name: 'How do I find local businesses near me?',
         acceptedAnswer: {
           '@type': 'Answer',
@@ -324,6 +332,10 @@ export default async function HomePage() {
               { label: 'Software companies in Karachi', href: '/search?country=pakistan&city=karachi&category=it-software' },
               { label: 'Hotels in London', href: '/search?country=uk&city=london&category=hotels-travel' },
               { label: 'Restaurants in London', href: '/search?country=uk&city=london&category=restaurants-food' },
+              { label: 'Restaurants in Lahore', href: '/search?country=pakistan&city=lahore&category=restaurants-food' },
+              { label: 'Hospitals in Karachi', href: '/search?country=pakistan&city=karachi&category=healthcare' },
+              { label: 'Hotels in Karachi', href: '/search?country=pakistan&city=karachi&category=hotels-travel' },
+              { label: 'List your business free', href: '/add-business' },
             ].map((item) => (
               <Link key={item.href} href={item.href} className="px-4 py-2 rounded-full border border-slate-200 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-200 transition-colors">
                 <h3 className="text-sm font-bold text-[#172B45]">{item.label}</h3>

@@ -23,14 +23,14 @@ export async function generateMetadata({ params }: CountryPageProps): Promise<Me
   }
 
   return {
-    title: `${country.name} Business Directory - Verified Companies & Cities`,
-    description: `Browse verified business listings, healthcare centers, law offices, and software providers in ${country.name}. Discover top companies in major ${country.name} metropolitan areas.`,
+    title: `${country.name} Business Directory | Free Business Listing`,
+    description: `Find local businesses in ${country.name} on Global Bizz Hub, a free business directory for Pakistan, USA and UK. Search by city and category, see contact details and reviews, and list your business free.`,
     alternates: {
       canonical: `https://globalbizzhub.vercel.app/directories/${country.slug}`,
     },
     openGraph: {
       title: `${country.name} Business Directory | Global Bizz Hub`,
-      description: `Explore verified businesses across ${country.name}.`,
+      description: `Find local businesses in ${country.name}. Free to search, free to list, across Pakistan, USA and UK.`,
       url: `https://globalbizzhub.vercel.app/directories/${country.slug}`,
     },
   };
@@ -78,7 +78,7 @@ export default async function CountryDirectoryPage({ params }: CountryPageProps)
                   {country.name} Business Directory
                 </h1>
                 <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
-                  Discover verified commercial entities, industrial facilities, medical clinics, legal advocates, and technical enterprises across {regions.length} regions and {cities.length} cities in {country.name}.
+                  Discover businesses across {regions.length} regions and {cities.length} cities in {country.name}. Free to search and free to list, in one directory covering Pakistan, USA and UK.
                 </p>
               </div>
             </div>

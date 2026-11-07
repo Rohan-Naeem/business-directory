@@ -38,6 +38,10 @@ const FAQS: FaqItem[] = [
     answer: 'Choose your country, then your city, then a category, or search by service name. For example, search for a hospital in Karachi, a restaurant in London, or a software company in Lahore, and you will see only businesses listed for that city.',
   },
   {
+    question: 'What makes Global Bizz Hub different from other business directories?',
+    answer: 'Listing and searching are free, and one directory covers Pakistan, USA and UK instead of one country only. Every listing is checked before it goes live, and business profiles show contact details and reviews so you can reach the business directly.',
+  },
+  {
     question: 'Can more countries and cities be added to the directory?',
     answer: 'Global Bizz Hub is architected as an expandable multi-country platform. We currently support Pakistan, the United States, and the United Kingdom, and our geographic management system enables seamless expansion to new territories and cities.',
   },
