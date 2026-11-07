@@ -305,6 +305,34 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* SECTION: POPULAR SEARCHES - real filtered search pages, no new URLs */}
+      <section className="py-16 md:py-20 bg-white border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mb-10">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#172B45] tracking-tight mb-2">
+              Popular Searches
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+              The searches people run most on Global Bizz Hub, by city and category.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            {[
+              { label: 'Restaurants in Karachi', href: '/search?country=pakistan&city=karachi&category=restaurants-food' },
+              { label: 'Software companies in Lahore', href: '/search?country=pakistan&city=lahore&category=it-software' },
+              { label: 'Hospitals in Lahore', href: '/search?country=pakistan&city=lahore&category=healthcare' },
+              { label: 'Software companies in Karachi', href: '/search?country=pakistan&city=karachi&category=it-software' },
+              { label: 'Hotels in London', href: '/search?country=uk&city=london&category=hotels-travel' },
+              { label: 'Restaurants in London', href: '/search?country=uk&city=london&category=restaurants-food' },
+            ].map((item) => (
+              <Link key={item.href} href={item.href} className="px-4 py-2 rounded-full border border-slate-200 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-200 transition-colors">
+                <h3 className="text-sm font-bold text-[#172B45]">{item.label}</h3>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* SECTION E: HOW IT WORKS */}
       <section className="py-16 md:py-24 bg-[#F7F9FC] border-y border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

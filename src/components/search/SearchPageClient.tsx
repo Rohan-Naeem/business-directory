@@ -359,10 +359,21 @@ export const SearchPageClient: React.FC<SearchPageClientProps> = ({
             <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h1 className="text-lg font-bold text-[#172B45]">
-                  {total} {total === 1 ? 'Business Found' : 'Businesses Found'}
+                  {(() => {
+                    const cat = categories.find((c) => c.slug === currentCategory);
+                    const cty = allCities.find((c) => c.slug === currentCity);
+                    const ctry = countries.find((c) => c.slug === currentCountry);
+                    if (cat && cty) return `${cat.name} in ${cty.name}`;
+                    if (cat && ctry) return `${cat.name} in ${ctry.name}`;
+                    if (cat) return cat.name;
+                    if (cty) return `Businesses in ${cty.name}`;
+                    if (ctry) return `Businesses in ${ctry.name}`;
+                    if (currentQuery) return `Search results for "${currentQuery}"`;
+                    return 'Search Businesses';
+                  })()}
                 </h1>
                 <p className="text-xs text-slate-500">
-                  Showing page {currentPage} of {totalPages}
+                  {total} {total === 1 ? 'business found' : 'businesses found'} · Showing page {currentPage} of {totalPages}
                 </p>
               </div>
 
