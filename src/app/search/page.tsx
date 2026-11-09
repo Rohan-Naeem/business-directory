@@ -31,25 +31,25 @@ export async function generateMetadata({ searchParams }: SearchPageProps): Promi
   let description: string;
   if (catName && cityName && countryName) {
     title = `${catName} in ${cityName}, ${countryName}`;
-    description = `Find ${catName.toLowerCase()} in ${cityName}, ${countryName}. Browse verified listings with phone numbers, reviews and hours, and list your business free.`;
+    description = `Find ${catName.toLowerCase()} in ${cityName}, ${countryName}. Browse listings with contact details, reviews and hours where listed, and list your business free.`;
   } else if (catName && countryName) {
     title = `${catName} in ${countryName}`;
-    description = `Find verified ${catName.toLowerCase()} in ${countryName}. Browse by city, compare listings, and list your business free.`;
+    description = `Find ${catName.toLowerCase()} in ${countryName}. Browse by city, compare listings, and list your business free.`;
   } else if (catName) {
     title = `${catName} in Pakistan, USA & UK`;
-    description = `Find verified ${catName.toLowerCase()} in Pakistan, USA and UK. Browse by city, compare listings, and list your business free.`;
+    description = `Find ${catName.toLowerCase()} in Pakistan, USA and UK. Browse by city, compare listings, and list your business free.`;
   } else if (cityName && countryName) {
     title = `Businesses in ${cityName}, ${countryName} - Find Local Businesses`;
     description = `Find local businesses in ${cityName}, ${countryName}. Browse by category, compare listings, and list your business free.`;
   } else if (countryName) {
     title = `${countryName} Business Directory - Find Local Businesses`;
-    description = `Find verified businesses in ${countryName}. Browse by city and category, compare listings, and list your business free.`;
+    description = `Find businesses in ${countryName}. Browse by city and category, compare listings, and list your business free.`;
   } else if (params.q) {
     title = `Search Businesses "${params.q}"`;
-    description = `Search and find verified businesses for "${params.q}" on Global Bizz Hub Directory.`;
+    description = `Search and find businesses for "${params.q}" on Global Bizz Hub Directory.`;
   } else {
     title = 'Search Businesses';
-    description = 'Search and find verified businesses, clinics, legal experts, and services on Global Bizz Hub Directory.';
+    description = 'Search and find businesses, clinics, legal experts, and services on Global Bizz Hub Directory.';
   }
 
   return {

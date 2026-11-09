@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: BusinessPageProps): Promise<M
 
   return {
     title: `${business.name} - ${business.category?.name} in ${business.city?.name || 'Local City'}, ${business.country?.name}`,
-    description: business.short_description || `${business.name} is a verified ${business.category?.name.toLowerCase()} enterprise located in ${locationStr}. Check phone numbers, hours, reviews, and directions.`,
+    description: business.short_description || `${business.name} is a ${business.category?.name.toLowerCase()} business in ${locationStr}. See contact details, reviews and location on Global Bizz Hub.`,
     alternates: {
       canonical: `https://globalbizzhub.vercel.app/business/${business.slug}`,
     },
@@ -121,7 +121,7 @@ export default async function BusinessProfilePage({ params }: BusinessPageProps)
                   Related {business.category?.name} Businesses
                 </h3>
                 <p className="text-xs text-slate-500">
-                  Other verified establishments in similar industry sectors.
+                  Other businesses in similar industry sectors.
                 </p>
               </div>
 

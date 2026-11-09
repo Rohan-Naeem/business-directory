@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 
   return {
     title: `${category.name} in Pakistan, USA & UK | Free Business Directory`,
-    description: `Find verified ${category.name.toLowerCase()} businesses in Pakistan, USA and UK. Browse by city, compare listings, and list your business free. ${category.description}`,
+    description: `Find ${category.name.toLowerCase()} businesses in Pakistan, USA and UK. Browse by city, compare listings, and list your business free. ${category.description}`,
     alternates: {
       canonical: `https://globalbizzhub.vercel.app/categories/${category.slug}`,
     },
@@ -122,7 +122,7 @@ export default async function CategoryDetailPage({ params }: CategoryPageProps) 
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold text-[#172B45]">
-              Featured {category.name} Listings ({searchResult.total})
+              {category.name} Businesses ({searchResult.total})
             </h2>
             <Link
               href={`/search?category=${category.slug}&sort=rating`}

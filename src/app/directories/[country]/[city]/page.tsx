@@ -29,13 +29,13 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
 
   return {
     title: `${city.name} Business Directory, ${country.name} - Find Local Businesses`,
-    description: `Find local businesses in ${city.name}, ${country.name}. Browse ${city.name} businesses by category, from software companies to hospitals and restaurants, with phone numbers, reviews and hours.`,
+    description: `Find local businesses in ${city.name}, ${country.name}. Browse ${city.name} businesses by category, from software companies to hospitals and restaurants, with contact details and reviews where listed.`,
     alternates: {
       canonical: `https://globalbizzhub.vercel.app/directories/${country.slug}/${city.slug}`,
     },
     openGraph: {
       title: `${city.name} Business Directory | ${country.name}`,
-      description: `Explore verified businesses in ${city.name}, ${country.name}.`,
+      description: `Explore businesses in ${city.name}, ${country.name}.`,
       url: `https://globalbizzhub.vercel.app/directories/${country.slug}/${city.slug}`,
     },
   };
@@ -163,7 +163,7 @@ export default async function CityDirectoryPage({ params }: CityPageProps) {
         <div className="space-y-6 mb-12">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold text-[#172B45]">
-              Verified Businesses in {city.name} ({searchResult.total})
+              Businesses in {city.name} ({searchResult.total})
             </h2>
             <Link
               href={`/search?country=${country.slug}&city=${city.slug}`}
