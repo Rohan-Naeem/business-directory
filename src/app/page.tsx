@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { 
   Building2, 
@@ -21,6 +22,17 @@ import { AddBusinessCTA } from '@/components/home/AddBusinessCTA';
 import { FaqAccordion } from '@/components/home/FaqAccordion';
 
 export const revalidate = 60; // ISR revalidation
+
+export const metadata: Metadata = {
+  title: 'Global Bizz Hub | Free Business Directory for Pakistan, USA & UK',
+  description:
+    'Find local businesses in Pakistan, USA and UK on Global Bizz Hub. Search by city and category, see contact details, and list your business free.',
+  openGraph: {
+    title: 'Global Bizz Hub | Free Business Directory for Pakistan, USA & UK',
+    description:
+      'Find local businesses in Pakistan, USA and UK on Global Bizz Hub. Search by city and category, see contact details, and list your business free.',
+  },
+};
 
 export default async function HomePage() {
   const [countries, categories, cities, regions, featuredBusinesses] = await Promise.all([

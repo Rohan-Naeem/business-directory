@@ -24,13 +24,13 @@ export async function generateMetadata({ params }: CountryPageProps): Promise<Me
 
   return {
     title: `${country.name} Business Directory | Free Business Listing`,
-    description: `Find local businesses in ${country.name} on Global Bizz Hub, a free business directory for Pakistan, USA and UK. Search by city and category, see contact details and reviews, and list your business free.`,
+    description: `Find local businesses in ${country.name} — free business directory. Search by city and category, see contact details, and list your business free.`,
     alternates: {
       canonical: `https://globalbizzhub.vercel.app/directories/${country.slug}`,
     },
     openGraph: {
       title: `${country.name} Business Directory | Global Bizz Hub`,
-      description: `Find local businesses in ${country.name}. Free to search, free to list, across Pakistan, USA and UK.`,
+      description: `Find local businesses in ${country.name} — free business directory. Search by city and category, see contact details, and list your business free.`,
       url: `https://globalbizzhub.vercel.app/directories/${country.slug}`,
     },
   };
