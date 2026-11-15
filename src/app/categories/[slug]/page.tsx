@@ -14,6 +14,22 @@ interface CategoryPageProps {
   }>;
 }
 
+// Hand-written meta for the two category pages done 15 Nov 2026.
+// All other categories keep the generic template below. No trust-badge
+// wording in meta: the site's listings are unverified.
+const CATEGORY_META_OVERRIDES: Record<string, { title: string; description: string }> = {
+  'it-software': {
+    title: 'IT & Software Companies in Pakistan, USA & UK | Global Bizz Hub',
+    description:
+      'Find IT & software companies in Pakistan, USA and UK — software development, cloud, AI, web & mobile apps. Browse by city, list your business free.',
+  },
+  'hotels-travel': {
+    title: 'Hotels & Travel in Pakistan, USA & UK | Global Bizz Hub',
+    description:
+      'Find hotels and travel businesses in Pakistan, USA and UK — boutique hotels, resorts, travel agencies and serviced apartments. Browse by city.',
+  },
+};
+
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params;
   const category = await DirectoryRepository.getCategoryBySlug(slug);
@@ -24,15 +40,20 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     };
   }
 
+  const override = CATEGORY_META_OVERRIDES[category.slug];
+
   return {
-    title: `${category.name} in Pakistan, USA & UK | Free Business Directory`,
-    description: `Find ${category.name.toLowerCase()} businesses in Pakistan, USA and UK. Browse by city, compare listings, and list your business free. ${category.description}`,
+    title:
+      override?.title ?? `${category.name} in Pakistan, USA & UK | Free Business Directory`,
+    description:
+      override?.description ??
+      `Find ${category.name.toLowerCase()} businesses in Pakistan, USA and UK. Browse by city, compare listings, and list your business free. ${category.description}`,
     alternates: {
       canonical: `https://globalbizzhub.vercel.app/categories/${category.slug}`,
     },
     openGraph: {
-      title: `${category.name} Directory | Global Bizz Hub`,
-      description: category.description,
+      title: override?.title ?? `${category.name} Directory | Global Bizz Hub`,
+      description: override?.description ?? category.description,
       url: `https://globalbizzhub.vercel.app/categories/${category.slug}`,
     },
   };
