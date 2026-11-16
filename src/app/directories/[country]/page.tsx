@@ -26,12 +26,12 @@ export async function generateMetadata({ params }: CountryPageProps): Promise<Me
     title: `${country.name} Business Directory | Free Business Listing`,
     description: `Find local businesses in ${country.name} — free business directory. Search by city and category, see contact details, and list your business free.`,
     alternates: {
-      canonical: `https://globalbizzhub.vercel.app/directories/${country.slug}`,
+      canonical: `https://www.globalbizzhub.com/directories/${country.slug}`,
     },
     openGraph: {
       title: `${country.name} Business Directory | Global Bizz Hub`,
       description: `Find local businesses in ${country.name} — free business directory. Search by city and category, see contact details, and list your business free.`,
-      url: `https://globalbizzhub.vercel.app/directories/${country.slug}`,
+      url: `https://www.globalbizzhub.com/directories/${country.slug}`,
     },
   };
 }

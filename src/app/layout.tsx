@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: 'Global Bizz Hub | Free Business Directory for Pakistan, USA & UK',
   },
   description: 'Find local businesses in Pakistan, USA and UK on Global Bizz Hub, a free business directory. Search by city and category, compare listings, and list your business free.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://globalbizzhub.vercel.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globalbizzhub.com'),
   keywords: [
     'business directory',
     'pakistan businesses',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://globalbizzhub.vercel.app',
+    url: 'https://www.globalbizzhub.com',
     siteName: 'Global Bizz Hub',
     title: 'Global Bizz Hub | Free Business Directory for Pakistan, USA & UK',
     description: 'Find local businesses across Pakistan, USA, and UK, and list your business free.',

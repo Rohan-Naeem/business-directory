@@ -49,25 +49,25 @@ export default async function HomePage() {
     '@graph': [
       {
         '@type': 'WebSite',
-        '@id': 'https://globalbizzhub.vercel.app/#website',
-        url: 'https://globalbizzhub.vercel.app',
+        '@id': 'https://www.globalbizzhub.com/#website',
+        url: 'https://www.globalbizzhub.com',
         name: 'Global Bizz Hub Business Directory',
         description: 'Comprehensive Multi-Country Business Directory for Pakistan, USA, and UK.',
         potentialAction: {
           '@type': 'SearchAction',
           target: {
             '@type': 'EntryPoint',
-            urlTemplate: 'https://globalbizzhub.vercel.app/search?q={search_term_string}',
+            urlTemplate: 'https://www.globalbizzhub.com/search?q={search_term_string}',
           },
           'query-input': 'required name=search_term_string',
         },
       },
       {
         '@type': 'Organization',
-        '@id': 'https://globalbizzhub.vercel.app/#organization',
+        '@id': 'https://www.globalbizzhub.com/#organization',
         name: 'Global Bizz Hub',
-        url: 'https://globalbizzhub.vercel.app',
-        logo: 'https://globalbizzhub.vercel.app/logo.svg',
+        url: 'https://www.globalbizzhub.com',
+        logo: 'https://www.globalbizzhub.com/logo.svg',
         sameAs: [],
       },
     ],

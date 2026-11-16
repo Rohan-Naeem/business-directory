@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { DirectoryRepository } from '@/lib/data/repository';
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://globalbizzhub.vercel.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globalbizzhub.com';
 
   const [countries, cities, categories, searchResult] = await Promise.all([
     DirectoryRepository.getCountries(),

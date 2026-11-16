@@ -31,12 +31,12 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
     title: `${city.name} Business Directory, ${country.name} - Find Local Businesses`,
     description: `Find local businesses in ${city.name}, ${country.name}. Browse ${city.name} businesses by category, from software companies to hospitals and restaurants, with contact details and reviews where listed.`,
     alternates: {
-      canonical: `https://globalbizzhub.vercel.app/directories/${country.slug}/${city.slug}`,
+      canonical: `https://www.globalbizzhub.com/directories/${country.slug}/${city.slug}`,
     },
     openGraph: {
       title: `${city.name} Business Directory | ${country.name}`,
       description: `Explore businesses in ${city.name}, ${country.name}.`,
-      url: `https://globalbizzhub.vercel.app/directories/${country.slug}/${city.slug}`,
+      url: `https://www.globalbizzhub.com/directories/${country.slug}/${city.slug}`,
     },
   };
 }
@@ -69,19 +69,19 @@ export default async function CityDirectoryPage({ params }: CityPageProps) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://globalbizzhub.vercel.app',
+        item: 'https://www.globalbizzhub.com',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: country.name,
-        item: `https://globalbizzhub.vercel.app/directories/${country.slug}`,
+        item: `https://www.globalbizzhub.com/directories/${country.slug}`,
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: `${city.name} Directory`,
-        item: `https://globalbizzhub.vercel.app/directories/${country.slug}/${city.slug}`,
+        item: `https://www.globalbizzhub.com/directories/${country.slug}/${city.slug}`,
       },
     ],
   };

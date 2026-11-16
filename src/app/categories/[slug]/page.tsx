@@ -59,12 +59,12 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
       override?.description ??
       `Find ${category.name.toLowerCase()} businesses in Pakistan, USA and UK. Browse by city, compare listings, and list your business free. ${category.description}`,
     alternates: {
-      canonical: `https://globalbizzhub.vercel.app/categories/${category.slug}`,
+      canonical: `https://www.globalbizzhub.com/categories/${category.slug}`,
     },
     openGraph: {
       title: override?.title ?? `${category.name} Directory | Global Bizz Hub`,
       description: override?.description ?? category.description,
-      url: `https://globalbizzhub.vercel.app/categories/${category.slug}`,
+      url: `https://www.globalbizzhub.com/categories/${category.slug}`,
     },
   };
 }
