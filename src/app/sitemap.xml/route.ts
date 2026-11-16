@@ -8,12 +8,13 @@ export async function GET() {
     DirectoryRepository.getCountries(),
     DirectoryRepository.getCities(),
     DirectoryRepository.getCategories(),
-    DirectoryRepository.searchBusinesses({ limit: 1000 }),
+    DirectoryRepository.searchBusinesses({ limit: 2000 }),
   ]);
 
   const staticUrls = [
     { loc: `${baseUrl}`, priority: '1.0', changefreq: 'daily' },
     { loc: `${baseUrl}/categories`, priority: '0.8', changefreq: 'weekly' },
+    { loc: `${baseUrl}/guides/software-companies-in-lahore`, priority: '0.8', changefreq: 'weekly' },
     { loc: `${baseUrl}/directories`, priority: '0.9', changefreq: 'weekly' },
     { loc: `${baseUrl}/add-business`, priority: '0.7', changefreq: 'monthly' },
     { loc: `${baseUrl}/about`, priority: '0.5', changefreq: 'monthly' },

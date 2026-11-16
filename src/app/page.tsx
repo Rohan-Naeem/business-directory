@@ -339,7 +339,7 @@ export default async function HomePage() {
           <div className="flex flex-wrap gap-3">
             {[
               { label: 'Restaurants in Karachi', href: '/search?country=pakistan&city=karachi&category=restaurants-food' },
-              { label: 'Software companies in Lahore', href: '/search?country=pakistan&city=lahore&category=it-software' },
+              { label: 'Software companies in Lahore', href: '/guides/software-companies-in-lahore' },
               { label: 'Hospitals in Lahore', href: '/search?country=pakistan&city=lahore&category=healthcare' },
               { label: 'Software companies in Karachi', href: '/search?country=pakistan&city=karachi&category=it-software' },
               { label: 'Hotels in London', href: '/search?country=uk&city=london&category=hotels-travel' },
