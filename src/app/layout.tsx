@@ -19,7 +19,9 @@ export const metadata: Metadata = {
     default: 'Global Bizz Hub | Free Business Directory for Pakistan, USA & UK',
   },
   description: 'Find local businesses in Pakistan, USA and UK on Global Bizz Hub, a free business directory. Search by city and category, compare listings, and list your business free.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globalbizzhub.com'),
+  // Canonical domain, hardcoded: the Vercel NEXT_PUBLIC_SITE_URL variable
+  // still points at the old vercel.app host.
+  metadataBase: new URL('https://www.globalbizzhub.com'),
   keywords: [
     'business directory',
     'pakistan businesses',

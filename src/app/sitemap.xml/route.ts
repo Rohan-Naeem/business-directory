@@ -2,7 +2,9 @@ import { NextResponse } from 'next/server';
 import { DirectoryRepository } from '@/lib/data/repository';
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.globalbizzhub.com';
+  // Canonical domain, hardcoded: the Vercel NEXT_PUBLIC_SITE_URL variable
+  // still points at the old vercel.app host, so the sitemap must not trust it.
+  const baseUrl = 'https://www.globalbizzhub.com';
 
   const [countries, cities, categories, searchResult] = await Promise.all([
     DirectoryRepository.getCountries(),
