@@ -14,7 +14,7 @@ interface CategoryPageProps {
   }>;
 }
 
-// Hand-written meta for the two category pages done 15 Nov 2026.
+// Hand-written meta for the category pages done 15–16 Nov 2026.
 // All other categories keep the generic template below. No trust-badge
 // wording in meta: the site's listings are unverified.
 const CATEGORY_META_OVERRIDES: Record<string, { title: string; description: string }> = {
@@ -27,6 +27,16 @@ const CATEGORY_META_OVERRIDES: Record<string, { title: string; description: stri
     title: 'Hotels & Travel in Pakistan, USA & UK | Global Bizz Hub',
     description:
       'Find hotels and travel businesses in Pakistan, USA and UK — boutique hotels, resorts, travel agencies and serviced apartments. Browse by city.',
+  },
+  'restaurants-food': {
+    title: 'Restaurants & Dining in Pakistan, USA & UK | Global Bizz Hub',
+    description:
+      'Find restaurants and dining spots in Pakistan, USA and UK — fine dining, cafes, bakeries and local cuisine. Browse by city, list your restaurant free.',
+  },
+  'construction-real-estate': {
+    title: 'Construction & Real Estate in Pakistan, USA & UK | Global Bizz Hub',
+    description:
+      'Find construction and real estate businesses in Pakistan, USA and UK — contractors, architects, brokers & engineers. Browse by city, list your business free.',
   },
 };
 
