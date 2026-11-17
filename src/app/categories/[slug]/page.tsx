@@ -38,6 +38,16 @@ const CATEGORY_META_OVERRIDES: Record<string, { title: string; description: stri
     description:
       'Find construction and real estate businesses in Pakistan, USA and UK — contractors, architects, brokers & engineers. Browse by city, list your business free.',
   },
+  'healthcare': {
+    title: 'Healthcare Directory Pakistan, USA & UK | Global Bizz Hub',
+    description:
+      'Find hospitals, dental clinics, pharmacies and diagnostic centres in Pakistan, USA & UK. Browse healthcare businesses by city and list yours free.',
+  },
+  'banking-finance': {
+    title: 'Banking & Finance in Pakistan, USA & UK | Global Bizz Hub',
+    description:
+      'Find banks, accounting firms, investment advisors and insurance agencies in Pakistan, USA & UK. Browse finance businesses by city and list yours free.',
+  },
 };
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
