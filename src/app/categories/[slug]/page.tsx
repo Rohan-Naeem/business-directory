@@ -48,6 +48,16 @@ const CATEGORY_META_OVERRIDES: Record<string, { title: string; description: stri
     description:
       'Find banks, accounting firms, investment advisors and insurance agencies in Pakistan, USA & UK. Browse finance businesses by city and list yours free.',
   },
+  'automotive': {
+    title: 'Automotive Directory Pakistan, USA & UK | Global Bizz Hub',
+    description:
+      'Find car dealerships, repair workshops, auto parts and vehicle rentals in Pakistan, USA & UK. Browse by city, compare listings, and list your business free.',
+  },
+  'education': {
+    title: 'Education Directory Pakistan, USA & UK | Global Bizz Hub',
+    description:
+      'Find colleges, universities, vocational academies and tutoring centres in Pakistan, USA & UK. Browse by city, compare listings, and list your business free.',
+  },
 };
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
