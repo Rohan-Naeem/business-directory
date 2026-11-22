@@ -58,6 +58,24 @@ const CATEGORY_META_OVERRIDES: Record<string, { title: string; description: stri
     description:
       'Find colleges, universities, vocational academies and tutoring centres in Pakistan, USA & UK. Browse by city, compare listings, and list your business free.',
   },
+
+  'legal-services': {
+    // Title has no "| Global Bizz Hub" suffix: the layout template appends it
+    // once. (The older overrides above include it and render it twice.)
+    // Merged 2026-11-19: morning meta wording + GSC query words ("companies",
+    // "personal and business legal services") checked against live queries.
+    title: 'Legal Services Companies in Pakistan, USA & UK',
+    description:
+      'Find legal services companies in Pakistan, USA & UK — personal and business legal services, solicitors and law firms. Browse by city, list your business free.',
+  },
+
+  'manufacturing': {
+    // Staged by the 19 Nov morning run, blocked by restarts; added here so the
+    // staged work is not lost. Title has no manual suffix (see legal note).
+    title: 'Manufacturing Directory Pakistan, USA & UK',
+    description:
+      'Find manufacturing businesses in Pakistan, USA and UK — textile exporters, electronics, precision tooling and packaging. Browse by city, list yours free.',
+  },
 };
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
