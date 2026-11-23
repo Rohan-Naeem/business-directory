@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: '%s | Global Bizz Hub',
     default: 'Global Bizz Hub | Free Business Directory for Pakistan, USA & UK',
   },
-  description: 'Find local businesses in Pakistan, USA and UK on Global Bizz Hub, a free business directory. Search by city and category, compare listings, and list your business free.',
+  description: 'Global Bizz Hub — the global business directory and online directory for Pakistan, USA and UK. Find local businesses by city and category, compare listings, and list your business free.',
   // Canonical domain, hardcoded: the Vercel NEXT_PUBLIC_SITE_URL variable
   // still points at the old vercel.app host.
   metadataBase: new URL('https://www.globalbizzhub.com'),
@@ -39,6 +39,9 @@ export const metadata: Metadata = {
   authors: [{ name: 'Global Bizz Hub' }],
   verification: {
     google: 'F35rqbBVg6ENbyYrUl2NkJEeMcFJ85l4w1VI4RaCMEo',
+    other: {
+      'msvalidate.01': '293080E4132E85D0051BC2DF7F78BDD2',
+    },
   },
   robots: {
     index: true,
@@ -55,12 +58,12 @@ export const metadata: Metadata = {
     url: 'https://www.globalbizzhub.com',
     siteName: 'Global Bizz Hub',
     title: 'Global Bizz Hub | Free Business Directory for Pakistan, USA & UK',
-    description: 'Find local businesses across Pakistan, USA, and UK, and list your business free.',
+    description: 'The global business directory and online directory for Pakistan, USA and UK — find local businesses and list yours free.',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Global Bizz Hub | Free Business Directory for Pakistan, USA & UK',
-    description: 'Find local businesses across Pakistan, USA, and UK.',
+    description: 'The global business directory and online directory for Pakistan, USA and UK.',
   },
 };
 
