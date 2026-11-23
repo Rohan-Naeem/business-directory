@@ -76,6 +76,22 @@ const CATEGORY_META_OVERRIDES: Record<string, { title: string; description: stri
     description:
       'Find manufacturing businesses in Pakistan, USA and UK — textile exporters, electronics, precision tooling and packaging. Browse by city, list yours free.',
   },
+
+  'shopping-retail': {
+    // Added 2026-11-23 morning run (last 2 categories). Title has no manual
+    // suffix (see legal note).
+    title: 'Shopping & Retail Directory Pakistan, USA & UK',
+    description:
+      'Find shopping and retail businesses in Pakistan, USA and UK — malls, department stores, electronics, specialty boutiques. Browse by city, list yours free.',
+  },
+
+  'home-professional-services': {
+    // Added 2026-11-23 morning run (last 2 categories). Title has no manual
+    // suffix (see legal note).
+    title: 'Home & Professional Services Pakistan, USA & UK',
+    description:
+      'Find home and professional services in Pakistan, USA and UK — HVAC repair, solar installation, plumbing, cleaning, facilities management. Browse by city.',
+  },
 };
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
