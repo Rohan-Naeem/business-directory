@@ -65,7 +65,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ countries, categories, i
               type="text"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
-              placeholder="e.g. Systems Limited, Dentist, Law Firm..."
+              placeholder="e.g. Dentist, Law Firm, Restaurant..."
               className="w-full bg-transparent text-sm font-semibold text-slate-800 placeholder-slate-400 focus:outline-hidden"
             />
           </div>

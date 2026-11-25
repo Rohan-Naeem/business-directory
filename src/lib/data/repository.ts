@@ -341,7 +341,7 @@ export class DirectoryRepository {
   // --- BUSINESSES SEARCH & RETRIEVAL ---
   static async searchBusinesses(filters: SearchQueryFilters = {}): Promise<SearchResult> {
     const store = getStore();
-    let allApproved = store.businesses.filter(b => b.status === 'approved');
+    let allApproved = store.businesses.filter(b => b.status === 'approved' && !b.is_demo);
     if (isSupabaseConfigured()) {
       const fromDb = await fetchSupabaseBusinesses('approved');
       allApproved = mergeBusinesses(fromDb, allApproved);
@@ -429,15 +429,24 @@ export class DirectoryRepository {
   static async getFeaturedBusinesses(limit: number = 6): Promise<Business[]> {
     const store = getStore();
     const featured = store.businesses
-      .filter(b => b.status === 'approved' && b.is_featured)
-      .slice(0, limit);
-    return featured.map(b => populateBusinessRelations(b, store));
+      .filter(b => b.status === 'approved' && b.is_featured && !b.is_demo);
+    // Fallback: no real business is currently marked featured (the old
+    // featured set was all demo data), so fill with the newest real
+    // approved listings instead of showing an empty homepage section.
+    const filled = [...featured];
+    if (filled.length < limit) {
+      const newest = store.businesses
+        .filter(b => b.status === 'approved' && !b.is_demo && !filled.some(f => f.id === b.id))
+        .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      filled.push(...newest.slice(0, limit - filled.length));
+    }
+    return filled.slice(0, limit).map(b => populateBusinessRelations(b, store));
   }
 
   static async getRelatedBusinesses(businessId: string, categoryId: string, limit: number = 3): Promise<Business[]> {
     const store = getStore();
     const related = store.businesses
-      .filter(b => b.id !== businessId && b.category_id === categoryId && b.status === 'approved')
+      .filter(b => b.id !== businessId && b.category_id === categoryId && b.status === 'approved' && !b.is_demo)
       .slice(0, limit);
     return related.map(b => populateBusinessRelations(b, store));
   }

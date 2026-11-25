@@ -112,6 +112,12 @@ export interface Business {
   status: 'pending' | 'approved' | 'rejected';
   is_featured: boolean;
   is_verified: boolean;
+  // True for the original seeded/demo listings. Demo listings are excluded
+  // from the homepage, search, category and city pages and from the sitemap.
+  // They stay reachable by direct URL until reviewed. Never invent data to
+  // un-flag one: only set false when the business and its contact details
+  // have been confirmed real.
+  is_demo?: boolean;
   rating: number;
   review_count: number;
   created_at: string;
