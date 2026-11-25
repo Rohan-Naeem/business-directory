@@ -41,42 +41,42 @@ export const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/directories/pakistan" className="hover:text-white transition-colors flex items-center gap-2">
+                <Link href="/pakistan" className="hover:text-white transition-colors flex items-center gap-2">
                   <span>🇵🇰</span> Pakistan Directory
                 </Link>
               </li>
               <li>
-                <Link href="/directories/pakistan/lahore" className="hover:text-white transition-colors pl-6 text-xs text-slate-500 hover:text-slate-300">
+                <Link href="/pakistan/lahore" className="hover:text-white transition-colors pl-6 text-xs text-slate-500 hover:text-slate-300">
                   • Lahore Businesses
                 </Link>
               </li>
               <li>
-                <Link href="/directories/pakistan/karachi" className="hover:text-white transition-colors pl-6 text-xs text-slate-500 hover:text-slate-300">
+                <Link href="/pakistan/karachi" className="hover:text-white transition-colors pl-6 text-xs text-slate-500 hover:text-slate-300">
                   • Karachi Businesses
                 </Link>
               </li>
               <li className="pt-1">
-                <Link href="/directories/usa" className="hover:text-white transition-colors flex items-center gap-2">
+                <Link href="/usa" className="hover:text-white transition-colors flex items-center gap-2">
                   <span>🇺🇸</span> United States Directory
                 </Link>
               </li>
               <li>
-                <Link href="/directories/usa/new-york-city" className="hover:text-white transition-colors pl-6 text-xs text-slate-500 hover:text-slate-300">
+                <Link href="/usa/new-york-city" className="hover:text-white transition-colors pl-6 text-xs text-slate-500 hover:text-slate-300">
                   • NYC Businesses
                 </Link>
               </li>
               <li className="pt-1">
-                <Link href="/directories/uk" className="hover:text-white transition-colors flex items-center gap-2">
+                <Link href="/uk" className="hover:text-white transition-colors flex items-center gap-2">
                   <span>🇬🇧</span> United Kingdom Directory
                 </Link>
               </li>
               <li>
-                <Link href="/directories/uk/london" className="hover:text-white transition-colors pl-6 text-xs text-slate-500 hover:text-slate-300">
+                <Link href="/uk/london" className="hover:text-white transition-colors pl-6 text-xs text-slate-500 hover:text-slate-300">
                   • London Businesses
                 </Link>
               </li>
               <li className="pt-1">
-                <Link href="/directories" className="text-xs text-[#10B981] font-semibold hover:underline">
+                <Link href="/#directories" className="text-xs text-[#10B981] font-semibold hover:underline">
                   Browse All Locations &rarr;
                 </Link>
               </li>

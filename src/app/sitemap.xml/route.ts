@@ -17,7 +17,6 @@ export async function GET() {
     { loc: `${baseUrl}`, priority: '1.0', changefreq: 'daily' },
     { loc: `${baseUrl}/categories`, priority: '0.8', changefreq: 'weekly' },
     { loc: `${baseUrl}/guides/software-companies-in-lahore`, priority: '0.8', changefreq: 'weekly' },
-    { loc: `${baseUrl}/directories`, priority: '0.9', changefreq: 'weekly' },
     { loc: `${baseUrl}/add-business`, priority: '0.7', changefreq: 'monthly' },
     { loc: `${baseUrl}/about`, priority: '0.5', changefreq: 'monthly' },
     { loc: `${baseUrl}/contact`, priority: '0.5', changefreq: 'monthly' },
@@ -28,7 +27,7 @@ export async function GET() {
 
   // Country URLs
   const countryUrls = countries.map(c => ({
-    loc: `${baseUrl}/directories/${c.slug}`,
+    loc: `${baseUrl}/${c.slug}`,
     priority: '0.8',
     changefreq: 'weekly',
   }));
@@ -38,7 +37,7 @@ export async function GET() {
     const country = countries.find(c => c.id === city.country_id);
     const countrySlug = country?.slug || 'pakistan';
     return {
-      loc: `${baseUrl}/directories/${countrySlug}/${city.slug}`,
+      loc: `${baseUrl}/${countrySlug}/${city.slug}`,
       priority: '0.7',
       changefreq: 'weekly',
     };

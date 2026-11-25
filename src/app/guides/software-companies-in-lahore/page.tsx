@@ -182,9 +182,9 @@ export default function SoftwareCompaniesInLahoreGuide() {
             Software Companies in Lahore
           </h1>
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-3xl">
-            Lahore is home to some of Pakistan&rsquo;s best-known software companies, including
-            Systems Limited, NetSol Technologies, Arbisoft, Techlogix, 10Pearls, Folio3, Tkxel,
-            VentureDive, CureMD and Confiz. They offer custom software development, AI, cloud,
+            Lahore is home to some of Pakistan&rsquo;s best-known software companies, known
+            locally as software houses, including Systems Limited, NetSol Technologies,
+            Arbisoft, Techlogix, 10Pearls, Folio3, Tkxel, VentureDive, CureMD and Confiz. They offer custom software development, AI, cloud,
             enterprise and healthcare software. This guide lists all ten with their official
             websites and contact details where listed.
           </p>
@@ -258,7 +258,7 @@ export default function SoftwareCompaniesInLahoreGuide() {
             </Link>{' '}
             or all{' '}
             <Link
-              href="/directories/pakistan/lahore"
+              href="/pakistan/lahore"
               className="font-semibold text-[#065F46] hover:underline"
             >
               businesses in Lahore

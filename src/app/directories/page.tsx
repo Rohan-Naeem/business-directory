@@ -80,7 +80,7 @@ export default async function DirectoriesOverviewPage() {
                       {popularCities.map((city) => (
                         <Link
                           key={city.id}
-                          href={`/directories/${country.slug}/${city.slug}`}
+                          href={`/${country.slug}/${city.slug}`}
                           className="text-xs px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-emerald-50 hover:text-[#065F46] text-slate-700 font-medium border border-slate-200/70 transition-colors"
                         >
                           {city.name}
@@ -101,7 +101,7 @@ export default async function DirectoriesOverviewPage() {
                 </div>
 
                 <Link
-                  href={`/directories/${country.slug}`}
+                  href={`/${country.slug}`}
                   className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#065F46] hover:bg-[#044E39] text-white text-xs font-bold transition-colors"
                 >
                   <span>Enter {country.name} Directory</span>

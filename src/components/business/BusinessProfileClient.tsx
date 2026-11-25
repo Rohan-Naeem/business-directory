@@ -379,7 +379,7 @@ export const BusinessProfileClient: React.FC<BusinessProfileClientProps> = ({
               {business.phone && (
                 <div className="pt-2 border-t border-slate-100">
                   <span className="font-bold text-slate-400 uppercase tracking-wider text-[10px] block">
-                    Phone
+                    Telephone number
                   </span>
                   <a href={`tel:${business.phone}`} className="text-[#065F46] font-bold hover:underline">
                     {business.phone}

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { Mail, Phone, MapPin, Send, CheckCircle2, Building2 } from 'lucide-react';
 
@@ -52,6 +53,20 @@ export default function ContactPage() {
               <div className="font-bold text-xs text-slate-900">Moderation Hours</div>
               <p className="text-xs text-slate-500">Monday - Friday (GMT & PKT)</p>
             </div>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-emerald-50/60 border border-emerald-100 space-y-2">
+            <div className="font-bold text-xs text-slate-900">Looking for a business?</div>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Browse the directory by country —{' '}
+              <Link href="/pakistan" className="text-[#065F46] font-bold hover:underline">Pakistan</Link>,{' '}
+              <Link href="/usa" className="text-[#065F46] font-bold hover:underline">USA</Link> and{' '}
+              <Link href="/uk" className="text-[#065F46] font-bold hover:underline">United Kingdom</Link>{' '}
+              — or explore all{' '}
+              <Link href="/categories" className="text-[#065F46] font-bold hover:underline">categories</Link>. See our guide to{' '}
+              <Link href="/guides/software-companies-in-lahore" className="text-[#065F46] font-bold hover:underline">Software Companies in Lahore</Link>, or{' '}
+              <Link href="/add-business" className="text-[#065F46] font-bold hover:underline">list your business free</Link>.
+            </p>
           </div>
 
           {submitted ? (

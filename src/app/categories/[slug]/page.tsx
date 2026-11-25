@@ -85,13 +85,20 @@ const CATEGORY_META_OVERRIDES: Record<string, { title: string; description: stri
       'Find shopping and retail businesses in Pakistan, USA and UK — malls, department stores, electronics, specialty boutiques. Browse by city, list yours free.',
   },
 
-  'home-professional-services': {
+  'home-services': {
     // Added 2026-11-23 morning run (last 2 categories). Title has no manual
     // suffix (see legal note).
     title: 'Home & Professional Services Pakistan, USA & UK',
     description:
       'Find home and professional services in Pakistan, USA and UK — HVAC repair, solar installation, plumbing, cleaning, facilities management. Browse by city.',
   },
+};
+
+// Visible intro override for categories with GSC queries the template intro
+// does not cover (checked 2026-11-19).
+const CATEGORY_INTRO_OVERRIDES: Record<string, string> = {
+  'legal-services':
+    'Find legal services companies in Pakistan, USA & UK — personal and business legal services, solicitors and law firms. Browse by city and list your business free.',
 };
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
@@ -133,7 +140,7 @@ export default async function CategoryDetailPage({ params }: CategoryPageProps) 
 
   const [subcategories, searchResult] = await Promise.all([
     DirectoryRepository.getSubcategories(category.id),
-    DirectoryRepository.searchBusinesses({ category: category.slug, limit: 12 }),
+    DirectoryRepository.searchBusinesses({ category: category.slug, limit: 1000 }),
   ]);
 
   return (
@@ -162,7 +169,8 @@ export default async function CategoryDetailPage({ params }: CategoryPageProps) 
                 {category.name}
               </h1>
               <p className="text-xs sm:text-sm text-slate-500 max-w-xl leading-relaxed">
-                {category.description} Find {category.name.toLowerCase()} businesses near you by city, and list your business free.
+                {CATEGORY_INTRO_OVERRIDES[category.slug] ??
+                  `${category.description} Find ${category.name.toLowerCase()} businesses near you by city, and list your business free.`}
               </p>
             </div>
           </div>

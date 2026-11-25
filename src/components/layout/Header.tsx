@@ -186,7 +186,7 @@ export const Header: React.FC = () => {
                   setDirectoriesOpen(!directoriesOpen);
                   setCategoriesOpen(false);
                 }}
-                className={`flex items-center gap-1 px-3 py-2 rounded-full transition-colors cursor-pointer ${directoriesOpen || pathname.startsWith('/directories') ? 'bg-[#065F46] text-white font-semibold' : 'hover:text-[#065F46] hover:bg-slate-50'}`}
+                className={`flex items-center gap-1 px-3 py-2 rounded-full transition-colors cursor-pointer ${directoriesOpen || countries.some((c) => pathname === `/${c.slug}` || pathname.startsWith(`/${c.slug}/`)) ? 'bg-[#065F46] text-white font-semibold' : 'hover:text-[#065F46] hover:bg-slate-50'}`}
                 aria-expanded={directoriesOpen}
               >
                 <Globe2 className="w-4 h-4" />
@@ -203,7 +203,7 @@ export const Header: React.FC = () => {
                   {countries.map((cnt) => (
                     <Link
                       key={cnt.slug}
-                      href={`/directories/${cnt.slug}`}
+                      href={`/${cnt.slug}`}
                       className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors"
                     >
                       {/* Circular flag image, like the example - not an emoji, so it shows on Windows too */}
@@ -435,7 +435,7 @@ export const Header: React.FC = () => {
             </Link>
 
             <Link
-              href="/directories"
+              href="/#directories"
               className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-semibold text-slate-800"
             >
               <Globe2 className="w-5 h-5 text-slate-400" />
@@ -447,7 +447,7 @@ export const Header: React.FC = () => {
               {countries.map((cnt) => (
                 <div key={cnt.slug} className="space-y-1">
                   <Link
-                    href={`/directories/${cnt.slug}`}
+                    href={`/${cnt.slug}`}
                     className="flex items-center gap-2 text-sm font-bold text-slate-900"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -459,7 +459,7 @@ export const Header: React.FC = () => {
                     {cnt.cities.slice(0, 3).map(city => (
                       <Link
                         key={city}
-                        href={`/directories/${cnt.slug}/${city.toLowerCase().replace(/\s+/g, '-')}`}
+                        href={`/${cnt.slug}/${city.toLowerCase().replace(/\s+/g, '-')}`}
                         className="text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium"
                       >
                         {city}

@@ -26,11 +26,11 @@ export const revalidate = 60; // ISR revalidation
 export const metadata: Metadata = {
   title: 'Global Bizz Hub | Free Business Directory for Pakistan, USA & UK',
   description:
-    'Find local businesses in Pakistan, USA and UK on Global Bizz Hub. Search by city and category, see contact details, and list your business free.',
+    'Global Bizz Hub — the global business directory and online directory for Pakistan, USA and UK. Find local businesses by city and category, compare listings, and list your business free.',
   openGraph: {
     title: 'Global Bizz Hub | Free Business Directory for Pakistan, USA & UK',
     description:
-      'Find local businesses in Pakistan, USA and UK on Global Bizz Hub. Search by city and category, see contact details, and list your business free.',
+      'The global business directory and online directory for Pakistan, USA and UK — find local businesses and list yours free.',
   },
 };
 
@@ -147,7 +147,7 @@ export default async function HomePage() {
 
           {/* Subtitle */}
           <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
-            Find vetted software houses, hospitals, law advocates, financial consultants, and commercial services with genuine reviews, hours, and direct contact details.
+            The global business directory and online directory for Pakistan, USA &amp; UK — find local software houses, hospitals, law advocates, financial consultants, and commercial services with direct contact details.
           </p>
 
           {/* Hero Search Box */}
@@ -170,7 +170,7 @@ export default async function HomePage() {
             </Link>
 
             <Link
-              href="/directories"
+              href="/#directories"
               className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-bold px-5 py-3 rounded-xl border border-slate-300 shadow-xs transition-all"
             >
               <Globe2 className="w-4 h-4 text-slate-500" />
@@ -308,14 +308,14 @@ export default async function HomePage() {
           {/* Top cities as headings, linking to real city directories */}
           <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
             {[
-              { name: 'Karachi', href: '/directories/pakistan/karachi' },
-              { name: 'Lahore', href: '/directories/pakistan/lahore' },
-              { name: 'Islamabad', href: '/directories/pakistan/islamabad' },
-              { name: 'Rawalpindi', href: '/directories/pakistan/rawalpindi' },
-              { name: 'Faisalabad', href: '/directories/pakistan/faisalabad' },
-              { name: 'Multan', href: '/directories/pakistan/multan' },
-              { name: 'London', href: '/directories/uk/london' },
-              { name: 'New York City', href: '/directories/usa/new-york-city' },
+              { name: 'Karachi', href: '/pakistan/karachi' },
+              { name: 'Lahore', href: '/pakistan/lahore' },
+              { name: 'Islamabad', href: '/pakistan/islamabad' },
+              { name: 'Rawalpindi', href: '/pakistan/rawalpindi' },
+              { name: 'Faisalabad', href: '/pakistan/faisalabad' },
+              { name: 'Multan', href: '/pakistan/multan' },
+              { name: 'London', href: '/uk/london' },
+              { name: 'New York City', href: '/usa/new-york-city' },
             ].map((city) => (
               <Link key={city.href} href={city.href} className="px-4 py-2 rounded-full border border-slate-200 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-200 transition-colors">
                 <h3 className="text-sm font-bold text-[#172B45]">{city.name}</h3>

@@ -98,8 +98,8 @@ export default async function BusinessProfilePage({ params }: BusinessPageProps)
         <Breadcrumbs
           items={[
             { label: 'Directories', href: '/directories' },
-            ...(business.country ? [{ label: business.country.name, href: `/directories/${business.country.slug}` }] : []),
-            ...(business.country && business.city ? [{ label: business.city.name, href: `/directories/${business.country.slug}/${business.city.slug}` }] : []),
+            ...(business.country ? [{ label: business.country.name, href: `/${business.country.slug}` }] : []),
+            ...(business.country && business.city ? [{ label: business.city.name, href: `/${business.country.slug}/${business.city.slug}` }] : []),
             { label: business.name },
           ]}
         />
@@ -125,14 +125,24 @@ export default async function BusinessProfilePage({ params }: BusinessPageProps)
                 </p>
               </div>
 
-              {business.category && (
-                <Link
-                  href={`/categories/${business.category.slug}`}
-                  className="text-xs font-bold text-[#065F46] hover:underline"
-                >
-                  View more in {business.category.name} &rarr;
-                </Link>
-              )}
+              <div className="flex flex-col items-end gap-1 shrink-0">
+                {business.category && (
+                  <Link
+                    href={`/categories/${business.category.slug}`}
+                    className="text-xs font-bold text-[#065F46] hover:underline"
+                  >
+                    View more in {business.category.name} &rarr;
+                  </Link>
+                )}
+                {business.city && business.country && (
+                  <Link
+                    href={`/${business.country.slug}/${business.city.slug}`}
+                    className="text-xs font-bold text-[#065F46] hover:underline"
+                  >
+                    View all businesses in {business.city.name} &rarr;
+                  </Link>
+                )}
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

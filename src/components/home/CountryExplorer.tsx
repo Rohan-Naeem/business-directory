@@ -21,7 +21,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({ countries, reg
   const popularCities = countryCities.filter(c => c.is_popular);
 
   return (
-    <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-6 sm:p-8">
+    <div id="directories" className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-6 sm:p-8">
       {/* Country Selector Tabs */}
       <div className="flex flex-wrap items-center gap-3 border-b border-slate-100 pb-6 mb-8">
         {countries.map((cnt) => {
@@ -81,7 +81,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({ countries, reg
 
           <div className="pt-6">
             <Link
-              href={`/directories/${activeCountry.slug}`}
+              href={`/${activeCountry.slug}`}
               className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#065F46] hover:bg-[#044E39] text-white font-bold text-xs shadow-xs transition-colors"
             >
               <span>Explore Complete {activeCountry.name} Directory</span>
@@ -99,7 +99,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({ countries, reg
                 Popular Cities in {activeCountry.name}
               </h3>
               <Link 
-                href={`/directories/${activeCountry.slug}`}
+                href={`/${activeCountry.slug}`}
                 className="text-xs font-semibold text-[#10B981] hover:underline"
               >
                 View all cities &rarr;
@@ -110,7 +110,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({ countries, reg
               {popularCities.map((city) => (
                 <Link
                   key={city.id}
-                  href={`/directories/${activeCountry.slug}/${city.slug}`}
+                  href={`/${activeCountry.slug}/${city.slug}`}
                   className="group p-3.5 rounded-xl border border-slate-200/80 hover:border-emerald-300 hover:bg-emerald-50/30 transition-all flex items-center justify-between"
                 >
                   <div>
@@ -135,7 +135,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({ countries, reg
                 {countryRegions.map((reg) => (
                   <Link
                     key={reg.id}
-                    href={`/directories/${activeCountry.slug}`}
+                    href={`/${activeCountry.slug}`}
                     className="text-xs px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
                   >
                     {reg.name}
