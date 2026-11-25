@@ -134,7 +134,7 @@ export default async function CityDirectoryPage({ params }: CityPageProps) {
                 <span className="inline-flex items-center gap-2"><CountryFlag country={country} className="h-6 w-6" /> {country.name} • Local Metropolitan Directory</span>
               </div>
               <h1 className="text-2xl sm:text-4xl font-extrabold text-[#172B45] tracking-tight mb-2">
-                {city.name} Business Directory
+                {city.name} Business Directory, {country.name}
               </h1>
               <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
                 Find local businesses in {city.name}, {country.name} — explore companies, manufacturers, shops, hospitals, restaurants and services located throughout the city, with addresses and contact details where listed.
