@@ -7,9 +7,17 @@ import {
   Business, 
   Review, 
   Report, 
+  DuplicateAttempt,
+  ModerationLog,
+  ClaimRequest,
   SearchQueryFilters, 
   SearchResult 
 } from '../types';
+import {
+  isStrongDuplicate,
+  countryKeyFromId,
+  type ComparableBusiness,
+} from '../validation/normalize';
 import { 
   INITIAL_COUNTRIES, 
   INITIAL_REGIONS, 
@@ -22,6 +30,7 @@ import { INITIAL_REVIEWS } from './reviews-data';
 import { TOP_BUSINESSES } from './top-businesses';
 import { INITIAL_REPORTS } from './reports-data';
 import { getSupabaseServerClient, isSupabaseConfigured } from '../supabase/server';
+import { isCityActive, isCountryActive } from '../config/active-places';
 
 // In-memory data store for local/fallback execution
 interface DataStore {
@@ -33,6 +42,9 @@ interface DataStore {
   businesses: Business[];
   reviews: Review[];
   reports: Report[];
+  duplicate_attempts: DuplicateAttempt[];
+  moderation_logs: ModerationLog[];
+  claims: ClaimRequest[];
 }
 
 const globalForStore = globalThis as unknown as { __directory_store?: DataStore };
@@ -48,6 +60,9 @@ function getStore(): DataStore {
       businesses: [...INITIAL_BUSINESSES, ...TOP_BUSINESSES],
       reviews: [...INITIAL_REVIEWS],
       reports: [...INITIAL_REPORTS],
+      duplicate_attempts: [],
+      moderation_logs: [],
+      claims: [],
     };
   }
   return globalForStore.__directory_store;
@@ -130,6 +145,8 @@ function mapSupabaseBusiness(row: any, lookups: any): Business {
     status: row.status,
     is_featured: !!row.is_featured,
     is_verified: !!row.is_verified,
+    moderation_reason: row.moderation_reason || null,
+    moderation_meta: row.moderation_meta || null,
     rating: Number(row.rating || 0),
     review_count: Number(row.review_count || 0),
     created_at: row.created_at,
@@ -168,7 +185,11 @@ async function resolveSupabaseLookupId(client: any, table: string, slug: string,
   return created.id;
 }
 
-async function persistBusinessToSupabase(data: any, slug: string): Promise<string | null> {
+async function persistBusinessToSupabase(
+  data: any,
+  slug: string,
+  options?: { status?: Business['status']; moderation_reason?: string | null; moderation_meta?: Record<string, unknown> | null },
+): Promise<string | null> {
   try {
     const client = getSupabaseServerClient();
     if (!client) return null;
@@ -198,16 +219,30 @@ async function persistBusinessToSupabase(data: any, slug: string): Promise<strin
     // would otherwise fail silently while the form still shows success.
     let finalSlug = slug;
     let created: any = null;
+    const baseRow = {
+      name: data.name, slug, description: data.description, short_description: data.short_description,
+      category_id: categoryId, subcategory_id: subcategoryId, country_id: countryId, region_id: regionId, city_id: cityId,
+      address: data.address, postal_code: data.postal_code || null, phone: data.phone, email: data.email,
+      website: data.website || null, whatsapp: data.whatsapp || null, logo_url: data.logo_url || null, cover_image_url: data.cover_image_url || null,
+      user_id: (data as any).user_id || null,
+      status: options?.status || 'pending',
+      moderation_reason: options?.moderation_reason || null,
+      moderation_meta: options?.moderation_meta || null,
+      is_featured: false, is_verified: false, rating: 0, review_count: 0,
+    };
     for (let attempt = 0; attempt < 5; attempt++) {
       const trySlug = attempt === 0 ? slug : `${slug}-${attempt + 1}`;
-      const { data: inserted, error } = await client.from('businesses').insert({
-        name: data.name, slug: trySlug, description: data.description, short_description: data.short_description,
-        category_id: categoryId, subcategory_id: subcategoryId, country_id: countryId, region_id: regionId, city_id: cityId,
-        address: data.address, postal_code: data.postal_code || null, phone: data.phone, email: data.email,
-        website: data.website || null, whatsapp: data.whatsapp || null, logo_url: data.logo_url || null, cover_image_url: data.cover_image_url || null,
-        user_id: (data as any).user_id || null,
-        status: 'pending', is_featured: false, is_verified: false, rating: 0, review_count: 0,
-      }).select('id').single();
+      let row: Record<string, any> = { ...baseRow, slug: trySlug };
+      let { data: inserted, error } = await client.from('businesses').insert(row).select('id').single();
+      // Migration 002 (moderation statuses/columns) may not have run yet in
+      // Supabase. Fall back to the legacy columns so the submission still
+      // lands in the database; the in-memory record keeps the true status.
+      if (error && (error.code === '42703' || error.code === '23514')) {
+        console.warn('Supabase moderation columns/status not yet migrated; saving as legacy pending row.');
+        const { moderation_reason: _mr, moderation_meta: _mm, ...legacyRow } = row;
+        legacyRow.status = 'pending';
+        ({ data: inserted, error } = await client.from('businesses').insert(legacyRow).select('id').single());
+      }
       if (!error && inserted?.id) { created = inserted; finalSlug = trySlug; break; }
       if (error?.code !== '23505') { console.error('Supabase business insert failed:', error?.message); return null; }
     }
@@ -241,8 +276,9 @@ export class DirectoryRepository {
   static async getCountries(): Promise<Country[]> {
     const store = getStore();
     return store.countries.filter(c => c.is_active).map(c => {
-      const count = store.businesses.filter(b => b.country_id === c.id && b.status === 'approved').length;
-      return { ...c, business_count: count };
+      const count = store.businesses.filter(b => b.country_id === c.id && b.status === 'approved' && !b.is_demo).length;
+      // Day 11: is_active from the active-places config (all 3 are active).
+      return { ...c, business_count: count, is_active: isCountryActive(c.slug) };
     });
   }
 
@@ -250,8 +286,9 @@ export class DirectoryRepository {
     const store = getStore();
     const country = store.countries.find(c => c.slug === slug.toLowerCase());
     if (!country) return null;
-    const count = store.businesses.filter(b => b.country_id === country.id && b.status === 'approved').length;
-    return { ...country, business_count: count };
+    const count = store.businesses.filter(b => b.country_id === country.id && b.status === 'approved' && !b.is_demo).length;
+    // Day 11: is_active from the active-places config.
+    return { ...country, business_count: count, is_active: isCountryActive(country.slug) };
   }
 
   // --- REGIONS ---
@@ -262,7 +299,7 @@ export class DirectoryRepository {
       regions = regions.filter(r => r.country_id === countryId);
     }
     return regions.map(r => {
-      const count = store.businesses.filter(b => b.region_id === r.id && b.status === 'approved').length;
+      const count = store.businesses.filter(b => b.region_id === r.id && b.status === 'approved' && !b.is_demo).length;
       return { ...r, business_count: count };
     });
   }
@@ -273,7 +310,7 @@ export class DirectoryRepository {
     const store = getStore();
     const region = store.regions.find(r => r.country_id === country.id && r.slug === regionSlug.toLowerCase());
     if (!region) return null;
-    const count = store.businesses.filter(b => b.region_id === region.id && b.status === 'approved').length;
+    const count = store.businesses.filter(b => b.region_id === region.id && b.status === 'approved' && !b.is_demo).length;
     return { ...region, business_count: count };
   }
 
@@ -291,8 +328,9 @@ export class DirectoryRepository {
       cities = cities.filter(c => c.is_popular);
     }
     return cities.map(city => {
-      const count = store.businesses.filter(b => b.city_id === city.id && b.status === 'approved').length;
-      return { ...city, business_count: count };
+      const count = store.businesses.filter(b => b.city_id === city.id && b.status === 'approved' && !b.is_demo).length;
+      // Day 11: a city is active at 20+ real listings (config).
+      return { ...city, business_count: count, is_active: isCityActive(city.slug, count) };
     });
   }
 
@@ -302,8 +340,9 @@ export class DirectoryRepository {
     const store = getStore();
     const city = store.cities.find(c => c.country_id === country.id && c.slug === citySlug.toLowerCase());
     if (!city) return null;
-    const count = store.businesses.filter(b => b.city_id === city.id && b.status === 'approved').length;
-    return { ...city, business_count: count };
+    const count = store.businesses.filter(b => b.city_id === city.id && b.status === 'approved' && !b.is_demo).length;
+    // Day 11: a city is active at 20+ real listings (config).
+    return { ...city, business_count: count, is_active: isCityActive(city.slug, count) };
   }
 
   // --- CATEGORIES ---
@@ -313,7 +352,7 @@ export class DirectoryRepository {
       .slice()
       .sort((a, b) => a.display_order - b.display_order)
       .map(cat => {
-        const count = store.businesses.filter(b => b.category_id === cat.id && b.status === 'approved').length;
+        const count = store.businesses.filter(b => b.category_id === cat.id && b.status === 'approved' && !b.is_demo).length;
         return { ...cat, business_count: count };
       });
   }
@@ -322,7 +361,7 @@ export class DirectoryRepository {
     const store = getStore();
     const cat = store.categories.find(c => c.slug === slug.toLowerCase());
     if (!cat) return null;
-    const count = store.businesses.filter(b => b.category_id === cat.id && b.status === 'approved').length;
+    const count = store.businesses.filter(b => b.category_id === cat.id && b.status === 'approved' && !b.is_demo).length;
     return { ...cat, business_count: count };
   }
 
@@ -333,9 +372,40 @@ export class DirectoryRepository {
       subs = subs.filter(s => s.category_id === categoryId);
     }
     return subs.map(sub => {
-      const count = store.businesses.filter(b => b.subcategory_id === sub.id && b.status === 'approved').length;
+      const count = store.businesses.filter(b => b.subcategory_id === sub.id && b.status === 'approved' && !b.is_demo).length;
       return { ...sub, business_count: count };
     });
+  }
+
+  // --- DIRECTORY STATS (Day 4: real data only — approved, non-demo) ---
+  // Counts are derived from searchBusinesses so they match the sitemap and
+  // city/category pages exactly (demo listings excluded, Supabase merged).
+  // populated = cities with >=1 listing; major = cities with >=20 listings.
+  static async getDirectoryStats(): Promise<{
+    totalListings: number;
+    activeCountries: number;
+    populatedCities: number;
+    coveredCategories: number;
+    majorCities: number;
+  }> {
+    const { businesses, total } = await this.searchBusinesses({ limit: 10000 });
+    const countryIds = new Set(businesses.map(b => b.country_id));
+    const categoryIds = new Set(businesses.map(b => b.category_id));
+    const cityCounts = new Map<string, number>();
+    for (const b of businesses) {
+      cityCounts.set(b.city_id, (cityCounts.get(b.city_id) || 0) + 1);
+    }
+    let majorCities = 0;
+    for (const count of cityCounts.values()) {
+      if (count >= 20) majorCities++;
+    }
+    return {
+      totalListings: total,
+      activeCountries: countryIds.size,
+      populatedCities: cityCounts.size,
+      coveredCategories: categoryIds.size,
+      majorCities,
+    };
   }
 
   // --- BUSINESSES SEARCH & RETRIEVAL ---
@@ -383,6 +453,14 @@ export class DirectoryRepository {
       }
     }
 
+    // 4b. Region Filter (by slug or ID) — Day 6: region pages list their businesses
+    if (filters.region && filters.region !== 'all') {
+      const region = store.regions.find(r => r.slug === filters.region || r.id === filters.region);
+      if (region) {
+        results = results.filter(b => b.region_id === region.id);
+      }
+    }
+
     // 5. Sorting
     const sort = filters.sort || 'featured';
     results = results.sort((a, b) => {
@@ -426,6 +504,19 @@ export class DirectoryRepository {
     return null;
   }
 
+  // Day 10: lookup by id (used by the claims API, which receives an id).
+  static async getBusinessById(id: string): Promise<Business | null> {
+    const store = getStore();
+    const business = store.businesses.find(b => b.id === id);
+    if (business) return populateBusinessRelations(business, store);
+    if (isSupabaseConfigured()) {
+      const fromDb = await fetchSupabaseBusinesses('all');
+      const found = fromDb.find(b => b.id === id);
+      if (found) return found;
+    }
+    return null;
+  }
+
   static async getFeaturedBusinesses(limit: number = 6): Promise<Business[]> {
     const store = getStore();
     const featured = store.businesses
@@ -452,7 +543,10 @@ export class DirectoryRepository {
   }
 
   // --- SUBMISSIONS & ADMIN OPERATIONS ---
-  static async createBusiness(data: Omit<Business, 'id' | 'created_at' | 'updated_at' | 'status' | 'rating' | 'review_count' | 'is_featured' | 'is_verified'>): Promise<Business> {
+  static async createBusiness(
+    data: Omit<Business, 'id' | 'created_at' | 'updated_at' | 'status' | 'rating' | 'review_count' | 'is_featured' | 'is_verified'>,
+    options?: { status?: Business['status']; moderation_reason?: string | null; moderation_meta?: Business['moderation_meta'] },
+  ): Promise<Business> {
     const store = getStore();
     const now = new Date().toISOString();
     
@@ -482,14 +576,40 @@ export class DirectoryRepository {
       ...data,
       id: `biz-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
       slug,
-      status: 'pending', // Always pending initially for admin moderation
+      status: options?.status || 'pending', // pending by default; validation may set pending_review / rejected
       is_featured: false,
       is_verified: false,
+      moderation_reason: options?.moderation_reason || null,
+      moderation_meta: options?.moderation_meta || null,
       rating: 0,
       review_count: 0,
       created_at: now,
       updated_at: now,
     };
+
+    // Race guard: re-check duplicates synchronously right before the insert,
+    // so two simultaneous identical submissions cannot both land. No await
+    // sits between this check and the unshift below.
+    const comparable: ComparableBusiness = {
+      name: data.name, email: data.email, phone: data.phone, address: data.address,
+      city_id: data.city_id, country_id: data.country_id,
+      country_slug: countryKeyFromId(data.country_id),
+    };
+    const raceHit = store.businesses.find((b) => {
+      if (b.is_demo || b.status === 'rejected') return false;
+      const other: ComparableBusiness = {
+        name: b.name, email: b.email, phone: b.phone, address: b.address,
+        city_id: b.city_id, country_id: b.country_id,
+        country_slug: countryKeyFromId(b.country_id),
+      };
+      return isStrongDuplicate(comparable, other);
+    });
+    if (raceHit) {
+      const err = new Error('This business may already be registered in our directory. Please check your information or contact our support team.') as Error & { code?: string; duplicateOf?: string };
+      err.code = 'DUPLICATE_BUSINESS';
+      err.duplicateOf = raceHit.slug;
+      throw err;
+    }
 
     store.businesses.unshift(newBusiness);
     // Persist to Supabase when configured, so /admin sees it on any instance.
@@ -499,7 +619,7 @@ export class DirectoryRepository {
     let savedToDatabase = false;
     if (isSupabaseConfigured()) {
       try {
-        const persistedId = await persistBusinessToSupabase(data, slug);
+        const persistedId = await persistBusinessToSupabase(data, slug, options);
         if (persistedId) {
           savedToDatabase = true;
           const finalSlug = (persistBusinessToSupabase as any)._lastSlug;
@@ -526,7 +646,7 @@ export class DirectoryRepository {
     return inMemory;
   }
 
-  static async updateBusinessStatus(id: string, status: 'approved' | 'rejected' | 'pending', slug?: string): Promise<boolean> {
+  static async updateBusinessStatus(id: string, status: Business['status'], slug?: string): Promise<boolean> {
     const store = getStore();
     const biz = store.businesses.find(b => b.id === id);
     if (biz) { biz.status = status; biz.updated_at = new Date().toISOString(); }
@@ -544,6 +664,153 @@ export class DirectoryRepository {
         const { data, error } = await client.from('businesses').update({ status }).eq('id', id).select('id').maybeSingle();
         if (error) { console.error('Supabase status update failed:', error.message); return false; }
         if (!data?.id) { console.error('Supabase status update failed: no row updated - check SUPABASE_SERVICE_ROLE_KEY, anon key cannot update pending rows due to RLS'); return false; }
+        return true;
+      }
+    }
+    return !!biz;
+  }
+
+  // --- MODERATION LOGS & DUPLICATE ATTEMPTS ---
+  // Stored in memory (per instance) and, when migration 002 has run,
+  // also in Supabase (durable). A failed Supabase insert never blocks the
+  // memory log: the admin on this instance still sees the decision.
+  static async logDuplicateAttempt(attempt: Omit<DuplicateAttempt, 'id' | 'created_at' | 'status'>): Promise<DuplicateAttempt> {
+    const store = getStore();
+    const entry: DuplicateAttempt = {
+      ...attempt,
+      id: `dup-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+      status: 'duplicate_blocked',
+      created_at: new Date().toISOString(),
+    };
+    store.duplicate_attempts.unshift(entry);
+    if (isSupabaseConfigured()) {
+      try {
+        const client = getSupabaseServerClient();
+        await client?.from('duplicate_attempts').insert({ ...entry });
+      } catch { /* table may not exist until migration 002 runs */ }
+    }
+    return entry;
+  }
+
+  static async getDuplicateAttempts(): Promise<DuplicateAttempt[]> {
+    const store = getStore();
+    if (isSupabaseConfigured()) {
+      try {
+        const client = getSupabaseServerClient();
+        const { data } = await client!.from('duplicate_attempts').select('*').order('created_at', { ascending: false }).limit(100);
+        if (data?.length) {
+          const seen = new Set(store.duplicate_attempts.map(a => a.id));
+          return [...(data as DuplicateAttempt[]), ...store.duplicate_attempts.filter(a => !seen.has(a.id))];
+        }
+      } catch { /* fall through to memory */ }
+    }
+    return [...store.duplicate_attempts];
+  }
+
+  static async logModerationDecision(entry: Omit<ModerationLog, 'id' | 'created_at'>): Promise<ModerationLog> {
+    const store = getStore();
+    const log: ModerationLog = {
+      ...entry,
+      id: `mod-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+      created_at: new Date().toISOString(),
+    };
+    store.moderation_logs.unshift(log);
+    if (isSupabaseConfigured()) {
+      try {
+        const client = getSupabaseServerClient();
+        await client?.from('moderation_logs').insert({ ...log });
+      } catch { /* table may not exist until migration 002 runs */ }
+    }
+    return log;
+  }
+
+  static async getModerationLogs(): Promise<ModerationLog[]> {
+    const store = getStore();
+    if (isSupabaseConfigured()) {
+      try {
+        const client = getSupabaseServerClient();
+        const { data } = await client!.from('moderation_logs').select('*').order('created_at', { ascending: false }).limit(100);
+        if (data?.length) {
+          const seen = new Set(store.moderation_logs.map(l => l.id));
+          return [...(data as ModerationLog[]), ...store.moderation_logs.filter(l => !seen.has(l.id))];
+        }
+      } catch { /* fall through to memory */ }
+    }
+    return [...store.moderation_logs];
+  }
+
+  // ---- Listing claims (Day 10) ----
+  // A business owner claims a listing; admin approves (sets is_verified)
+  // or rejects. Stored in memory + Supabase (migration 003); until the
+  // table exists, the Supabase insert is best-effort and ignored.
+  static async submitClaim(data: Omit<ClaimRequest, 'id' | 'status' | 'created_at' | 'reviewed_at' | 'reviewed_by'>): Promise<ClaimRequest> {
+    const store = getStore();
+    const entry: ClaimRequest = {
+      ...data,
+      id: `clm-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+      status: 'pending',
+      created_at: new Date().toISOString(),
+      reviewed_at: null,
+      reviewed_by: null,
+    };
+    store.claims.unshift(entry);
+    if (isSupabaseConfigured()) {
+      try {
+        const client = getSupabaseServerClient();
+        await client?.from('claims').insert({ ...entry });
+      } catch { /* table may not exist until migration 003 runs */ }
+    }
+    return entry;
+  }
+
+  static async getClaims(status?: ClaimRequest['status']): Promise<ClaimRequest[]> {
+    const store = getStore();
+    if (isSupabaseConfigured()) {
+      try {
+        const client = getSupabaseServerClient();
+        const { data } = await client!.from('claims').select('*').order('created_at', { ascending: false }).limit(100);
+        if (data?.length) {
+          const seen = new Set(store.claims.map(c => c.id));
+          const merged = [...(data as ClaimRequest[]), ...store.claims.filter(c => !seen.has(c.id))];
+          return status ? merged.filter(c => c.status === status) : merged;
+        }
+      } catch { /* fall through to memory */ }
+    }
+    const all = [...store.claims];
+    return status ? all.filter(c => c.status === status) : all;
+  }
+
+  static async updateClaimStatus(id: string, status: 'approved' | 'rejected'): Promise<ClaimRequest | null> {
+    const store = getStore();
+    const claim = store.claims.find(c => c.id === id);
+    if (claim) {
+      claim.status = status;
+      claim.reviewed_at = new Date().toISOString();
+      claim.reviewed_by = 'admin';
+      // Approving a claim verifies the listing (the Verified badge renders
+      // only when is_verified is true).
+      if (status === 'approved') {
+        await DirectoryRepository.setBusinessVerified(claim.business_id, true);
+      }
+    }
+    if (isSupabaseConfigured()) {
+      try {
+        const client = getSupabaseServerClient();
+        await client?.from('claims').update({ status, reviewed_at: new Date().toISOString(), reviewed_by: 'admin' }).eq('id', id);
+      } catch { /* table may not exist until migration 003 runs */ }
+    }
+    return claim || null;
+  }
+
+  static async setBusinessVerified(id: string, verified: boolean): Promise<boolean> {
+    const store = getStore();
+    const biz = store.businesses.find(b => b.id === id);
+    if (biz) { biz.is_verified = verified; biz.updated_at = new Date().toISOString(); }
+    if (isSupabaseConfigured() && isUuid(id)) {
+      const client = getSupabaseServerClient();
+      if (client) {
+        const { error } = await client.from('businesses').update({ is_verified: verified }).eq('id', id);
+        if (error) { console.error('Supabase verified update failed:', error.message); return false; }
         return true;
       }
     }

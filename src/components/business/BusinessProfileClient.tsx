@@ -17,12 +17,14 @@ import {
   ExternalLink,
   MessageCircle,
   Copy,
-  Check
+  Check,
+  BadgeCheck
 } from 'lucide-react';
 import { Business, Review } from '@/lib/types';
-import { checkBusinessOpenStatus, formatTime, formatDate } from '@/lib/utils';
+import { checkBusinessOpenStatus, formatTime, formatDate, getBusinessTimezone, getNowInTimezone } from '@/lib/utils';
 import { ReviewModal } from './ReviewModal';
 import { ReportModal } from './ReportModal';
+import { ClaimModal } from './ClaimModal';
 import { CategoryIcon } from '../ui/CategoryIcon';
 import CountryFlag from '../ui/CountryFlag';
 
@@ -38,9 +40,13 @@ export const BusinessProfileClient: React.FC<BusinessProfileClientProps> = ({
   const [reviews, setReviews] = useState<Review[]>(initialReviews);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+  const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
 
-  const openStatus = checkBusinessOpenStatus(business.hours);
+  // Open status uses the business's own timezone; no badge when no hours stored (Day 5)
+  const hasHours = (business.hours?.length ?? 0) > 0;
+  const openStatus = checkBusinessOpenStatus(business.hours, getBusinessTimezone(business));
+  const todayInBusinessTimezone = getNowInTimezone(getBusinessTimezone(business)).day;
 
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -106,6 +112,17 @@ export const BusinessProfileClient: React.FC<BusinessProfileClientProps> = ({
             >
               <Flag className="w-4 h-4" />
             </button>
+            {/* Day 10: claim this listing — hidden once the listing is verified */}
+            {!business.is_verified && (
+              <button
+                type="button"
+                onClick={() => setIsClaimModalOpen(true)}
+                className="p-2.5 rounded-full bg-black/40 hover:bg-black/60 text-white backdrop-blur-md transition-colors"
+                title="Claim this listing"
+              >
+                <BadgeCheck className="w-4 h-4" />
+              </button>
+            )}
           </div>
 
           {/* Category Pill */}
@@ -142,24 +159,32 @@ export const BusinessProfileClient: React.FC<BusinessProfileClientProps> = ({
                   </span>
                 </div>
 
-                {/* Rating */}
-                <div className="flex items-center gap-1 text-amber-500">
-                  <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                  <span className="font-bold text-slate-900 text-sm">
-                    {business.rating > 0 ? business.rating.toFixed(1) : 'New'}
-                  </span>
-                  <span className="text-slate-400">
-                    ({reviews.length} {reviews.length === 1 ? 'review' : 'reviews'})
-                  </span>
-                </div>
+                {/* Rating — stars only when real reviews exist */}
+                {reviews.length > 0 && business.rating > 0 ? (
+                  <div className="flex items-center gap-1 text-amber-500">
+                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    <span className="font-bold text-slate-900 text-sm">
+                      {business.rating.toFixed(1)}
+                    </span>
+                    <span className="text-slate-400">
+                      ({reviews.length} {reviews.length === 1 ? 'review' : 'reviews'})
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs text-slate-500">No reviews yet</span>
+                  </div>
+                )}
 
-                {/* Open Status */}
-                <div className="flex items-center gap-1.5">
-                  <Clock className="w-4 h-4 text-slate-400" />
-                  <span className={`font-bold ${openStatus.isOpen ? 'text-emerald-600' : 'text-slate-600'}`}>
-                    {openStatus.message}
-                  </span>
-                </div>
+                {/* Open Status — only when hours are stored */}
+                {hasHours && (
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="w-4 h-4 text-slate-400" />
+                    <span className={`font-bold ${openStatus.isOpen ? 'text-emerald-600' : 'text-slate-600'}`}>
+                      {openStatus.message}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -237,7 +262,7 @@ export const BusinessProfileClient: React.FC<BusinessProfileClientProps> = ({
                   Customer Reviews ({reviews.length})
                 </h2>
                 <p className="text-xs text-slate-500">
-                  Genuine verified ratings from clients and customers.
+                  Customer reviews appear here once they are submitted.
                 </p>
               </div>
 
@@ -322,7 +347,8 @@ export const BusinessProfileClient: React.FC<BusinessProfileClientProps> = ({
         {/* Right Column: Contact Details, Hours & Address */}
         <div className="space-y-6">
           
-          {/* Operating Hours Card */}
+          {/* Operating Hours Card — hidden when no hours are stored */}
+          {hasHours && (
           <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
             <h3 className="font-bold text-base text-[#172B45] flex items-center gap-2">
               <Clock className="w-4 h-4 text-[#10B981]" />
@@ -332,7 +358,7 @@ export const BusinessProfileClient: React.FC<BusinessProfileClientProps> = ({
             <div className="space-y-2 text-xs">
               {daysOfWeek.map((dayName, index) => {
                 const daySchedule = business.hours?.find(h => h.day_of_week === index);
-                const isToday = new Date().getDay() === index;
+                const isToday = todayInBusinessTimezone === index;
 
                 return (
                   <div
@@ -352,6 +378,7 @@ export const BusinessProfileClient: React.FC<BusinessProfileClientProps> = ({
               })}
             </div>
           </div>
+          )}
 
           {/* Contact & Location Details */}
           <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
@@ -421,10 +448,10 @@ export const BusinessProfileClient: React.FC<BusinessProfileClientProps> = ({
           <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200/70 text-xs text-slate-500 space-y-2">
             <div className="flex items-center gap-2 font-bold text-slate-800">
               <ShieldCheck className="w-4 h-4 text-[#10B981]" />
-              <span>Listing Integrity Guarantee</span>
+              <span>Listing Accuracy</span>
             </div>
             <p className="leading-relaxed">
-              Global Bizz Hub requires verified phone numbers and addresses for commercial publication. Notice an outdated field or relocated office?
+              Listings show the phone number and address the business provided. Notice an outdated field or relocated office?
             </p>
             <button
               type="button"
@@ -457,6 +484,13 @@ export const BusinessProfileClient: React.FC<BusinessProfileClientProps> = ({
         businessName={business.name}
         isOpen={isReportModalOpen}
         onClose={() => setIsReportModalOpen(false)}
+      />
+
+      <ClaimModal
+        businessId={business.id}
+        businessName={business.name}
+        isOpen={isClaimModalOpen}
+        onClose={() => setIsClaimModalOpen(false)}
       />
     </div>
   );

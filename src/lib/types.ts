@@ -30,6 +30,11 @@ export interface City {
   latitude?: number;
   longitude?: number;
   business_count?: number;
+  // Day 11: a city is active when it has enough real listings (see
+  // src/lib/config/active-places.ts). Inactive cities are hidden from
+  // navigation and the sitemap, and their pages are noindexed until
+  // they reach the threshold.
+  is_active?: boolean;
 }
 
 export interface Category {
@@ -89,6 +94,51 @@ export interface Report {
   created_at: string;
 }
 
+export interface DuplicateAttempt {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  city_id?: string;
+  country_id?: string;
+  matched_business_slug?: string;
+  matched_business_name?: string;
+  matched_fields?: string[];
+  status: 'duplicate_blocked';
+  created_at: string;
+}
+
+export interface ModerationLog {
+  id: string;
+  business_id?: string;
+  business_slug?: string;
+  business_name?: string;
+  action: 'auto_rejected' | 'flagged' | 'duplicate_blocked' | 'approved' | 'rejected' | 'status_changed';
+  reason: string;
+  details?: Record<string, unknown>;
+  actor: 'system' | 'admin';
+  created_at: string;
+}
+
+// Day 10: a business owner's request to claim (and verify) a listing.
+// Approving a claim sets the business's is_verified to true; the Verified
+// badge only ever renders when is_verified is true (BusinessCard,
+// BusinessProfileClient). Stored in memory + Supabase (migration 003).
+export interface ClaimRequest {
+  id: string;
+  business_id: string;
+  business_name: string;
+  claimant_name: string;
+  claimant_email: string;
+  claimant_phone?: string;
+  message?: string;
+  status: 'pending' | 'approved' | 'rejected';
+  created_at: string;
+  reviewed_at?: string | null;
+  reviewed_by?: string | null;
+}
+
 export interface Business {
   id: string;
   user_id?: string;
@@ -109,9 +159,21 @@ export interface Business {
   whatsapp?: string;
   logo_url?: string;
   cover_image_url?: string;
-  status: 'pending' | 'approved' | 'rejected';
+  status: 'pending' | 'pending_review' | 'approved' | 'rejected' | 'duplicate_blocked';
   is_featured: boolean;
   is_verified: boolean;
+  // Moderation (set by the submission validation system, 25 Nov 2026).
+  // moderation_reason is a human-readable reason for admin review;
+  // moderation_meta holds machine details (keywords, matched fields,
+  // duplicate_of slug). Both are NULL for ordinary listings.
+  moderation_reason?: string | null;
+  moderation_meta?: {
+    keywords?: string[];
+    matched_fields?: string[];
+    duplicate_of?: string;
+    duplicate_name?: string;
+    level?: string;
+  } | null;
   // True for the original seeded/demo listings. Demo listings are excluded
   // from the homepage, search, category and city pages and from the sitemap.
   // They stay reachable by direct URL until reviewed. Never invent data to
@@ -147,6 +209,7 @@ export interface SearchQueryFilters {
   category?: string; // slug or id
   country?: string; // slug or id
   city?: string; // slug or id
+  region?: string; // slug or id
   sort?: 'featured' | 'rating' | 'reviews' | 'newest';
   page?: number;
   limit?: number;

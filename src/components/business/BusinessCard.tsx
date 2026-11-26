@@ -11,7 +11,7 @@ import {
   ExternalLink 
 } from 'lucide-react';
 import { Business } from '@/lib/types';
-import { checkBusinessOpenStatus, truncateText } from '@/lib/utils';
+import { checkBusinessOpenStatus, getBusinessTimezone, truncateText } from '@/lib/utils';
 import { CategoryIcon } from '../ui/CategoryIcon';
 import CountryFlag from '../ui/CountryFlag';
 
@@ -21,7 +21,9 @@ interface BusinessCardProps {
 }
 
 export const BusinessCard: React.FC<BusinessCardProps> = ({ business, priorityImage = false }) => {
-  const openStatus = checkBusinessOpenStatus(business.hours);
+  // Badge uses the business's own timezone; no badge at all when no hours stored (Day 5)
+  const hasHours = (business.hours?.length ?? 0) > 0;
+  const openStatus = checkBusinessOpenStatus(business.hours, getBusinessTimezone(business));
 
   return (
     <article className="group bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all duration-200 flex flex-col overflow-hidden">
@@ -53,15 +55,17 @@ export const BusinessCard: React.FC<BusinessCardProps> = ({ business, priorityIm
             <div />
           )}
 
-          {/* Real-time open/closed indicator */}
-          <span className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-full shadow-xs backdrop-blur-md ${
-            openStatus.isOpen 
-              ? 'bg-emerald-500/90 text-white' 
-              : 'bg-slate-900/80 text-slate-200'
-          }`}>
-            <Clock className="w-3 h-3" />
-            {openStatus.isOpen ? 'Open Now' : 'Closed'}
-          </span>
+          {/* Real-time open/closed indicator — only when hours are stored */}
+          {hasHours && (
+            <span className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-full shadow-xs backdrop-blur-md ${
+              openStatus.isOpen 
+                ? 'bg-emerald-500/90 text-white' 
+                : 'bg-slate-900/80 text-slate-200'
+            }`}>
+              <Clock className="w-3 h-3" />
+              {openStatus.isOpen ? 'Open Now' : 'Closed'}
+            </span>
+          )}
         </div>
 
         {/* Category Pill Over Cover */}
@@ -91,18 +95,24 @@ export const BusinessCard: React.FC<BusinessCardProps> = ({ business, priorityIm
           )}
         </div>
 
-        {/* Rating and Reviews */}
+        {/* Rating and Reviews — stars only when real reviews exist */}
         <div className="flex items-center gap-2 mb-3">
-          <div className="flex items-center text-amber-500">
-            <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-            <span className="ml-1 text-xs font-bold text-slate-800">
-              {business.rating > 0 ? business.rating.toFixed(1) : 'New'}
-            </span>
-          </div>
-          <span className="text-slate-300">•</span>
-          <span className="text-xs text-slate-500">
-            {business.review_count > 0 ? `${business.review_count} reviews` : 'No reviews yet'}
-          </span>
+          {business.review_count > 0 && business.rating > 0 ? (
+            <>
+              <div className="flex items-center text-amber-500">
+                <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                <span className="ml-1 text-xs font-bold text-slate-800">
+                  {business.rating.toFixed(1)}
+                </span>
+              </div>
+              <span className="text-slate-300">•</span>
+              <span className="text-xs text-slate-500">
+                {business.review_count} {business.review_count === 1 ? 'review' : 'reviews'}
+              </span>
+            </>
+          ) : (
+            <span className="text-xs text-slate-500">No reviews yet</span>
+          )}
         </div>
 
         {/* Short Description */}
